@@ -9,36 +9,36 @@ using Microsoft.Extensions.Logging;
 namespace ApiProyect.Controllers
 {
     [ApiController]
-    public class EmpleadoController : ControllerBase 
+    public class UsuarioController : ControllerBase 
     {
 
         private readonly MEContext db = new MEContext();
-        private readonly ILogger<EmpleadoController> _logger;  
+        private readonly ILogger<UsuarioController> _logger;  
 
-        public EmpleadoController(ILogger<EmpleadoController> logger)
+        public UsuarioController(ILogger<UsuarioController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerEmpleado")]
+        [Route("[controller]/ObtenerUsuario")]
         public ActionResult<ResultAPI> Get()
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Empleados.ToList(); 
+            resultado.Return = db.Usuarios.ToList(); 
             return resultado;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerEmpleado/{id}")] 
+        [Route("[controller]/ObtenerUsuario/{id}")] 
         public ActionResult<ResultAPI> Get3(int id)
         {
             var resultado = new ResultAPI();
             try
             {
 
-                var emple = db.Empleados.Where(c => c.Legajo == id).FirstOrDefault();
+                var emple = db.Usuarios.Where(c => c.Legajo == id).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = emple;
 
@@ -48,7 +48,7 @@ namespace ApiProyect.Controllers
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Empleado no encontrado";
+                resultado.Error = "Usuario no encontrado";
 
                 return resultado;
             }
@@ -56,14 +56,14 @@ namespace ApiProyect.Controllers
 
 
         [HttpPost] 
-        [Route("[controller]/AltaEmpleado")]
-        public ActionResult<ResultAPI> AltaEmpleado([FromBody] comandoCrearEmpleado comando)
+        [Route("[controller]/AltaUsuario")]
+        public ActionResult<ResultAPI> AltaUsuario([FromBody] comandoCrearUsuario comando)
         {
             var resultado = new ResultAPI();
             if (comando.NombreCompleto.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese nombre del empleado";
+                resultado.Error = "ingrese nombre del Usuario";
                 return resultado;
             }
             if (comando.Documento.Equals(""))
@@ -84,35 +84,49 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese numero de telefono";
                 return resultado;
             }
-            if (comando.IdEstadoArticulo.Equals(""))
+            if (comando.IdTipoRol.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese id estado articulo";//esto esta mal, reemplazar con direccion string
+                resultado.Error = "ingrese tipo rol";
+                return resultado;
+            }
+            if (comando.Email.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese numero de telefono";
+                return resultado;
+            }
+            if (comando.Contraseña.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese id estado articulo";
                 return resultado;
             }
 
 
-            var emp = new Empleado();
+            var emp = new Usuario();
             emp.NombreCompleto = comando.NombreCompleto;
             emp.Documento = comando.Documento;
             emp.CodBarrio = comando.CodBarrio;
             emp.Telefono = comando.Telefono;
-            emp.IdEstadoArticulo = comando.IdEstadoArticulo;
+            emp.IdTipoRol = comando.IdTipoRol;
+            emp.Email = comando.Email;
+            emp.Contraseña = comando.Contraseña;
 
 
 
-            db.Empleados.Add(emp);
+            db.Usuarios.Add(emp);
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.Empleados.ToList();
+            resultado.Return = db.Usuarios.ToList();
 
             return resultado;
         }
 
         [HttpPut]
-        [Route("[controller]/UpdateEmpleado")]
-        public ActionResult<ResultAPI> UpdateEmpleado([FromBody] comandoUpdateEmpleado comando)
+        [Route("[controller]/UpdateUsuario")]
+        public ActionResult<ResultAPI> UpdateUsuario([FromBody] comandoUpdateUsuario comando)
         {
             var resultado = new ResultAPI();         
             if (comando.NombreCompleto.Equals(""))
@@ -139,28 +153,57 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese numero de telefono";
                 return resultado;
             }
-            if (comando.IdEstadoArticulo.Equals(""))
+            if (comando.IdTipoRol.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese id estado articulo";//esto esta mal, reemplazar con direccion string
+                resultado.Error = "ingrese tipo rol";
+                return resultado;
+            }
+            if (comando.Email.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese numero de telefono";
+                return resultado;
+            }
+            if (comando.Contraseña.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese id estado articulo";
                 return resultado;
             }
 
-            var emp = db.Empleados.Where(c => c.Legajo == comando.Legajo).FirstOrDefault();
+
+            var emp = db.Usuarios.Where(c => c.Legajo == comando.Legajo).FirstOrDefault();
             if (emp != null)
             {
             emp.NombreCompleto = comando.NombreCompleto;
             emp.Documento = comando.Documento;
             emp.CodBarrio = comando.CodBarrio;
             emp.Telefono = comando.Telefono;
-            emp.IdEstadoArticulo = comando.IdEstadoArticulo;
-            db.Empleados.Update(emp);
+            emp.IdTipoRol = comando.IdTipoRol;
+            emp.Email = comando.Email;
+            emp.Contraseña = comando.Contraseña;
+            db.Usuarios.Update(emp);
             db.SaveChanges();
             }
 
             resultado.Ok = true;
-            resultado.Return = db.Empleados.ToList();
+            resultado.Return = db.Usuarios.ToList();
 
+            return resultado;
+        }
+
+        [HttpDelete]
+        [Route("[controller]/EliminarUsuario/{id}")]
+        public ActionResult<ResultAPI> deleteById(int id)
+        {
+            var resultado = new ResultAPI();
+            var usuario = db.Usuarios.Where(c => c.Legajo == id).FirstOrDefault();
+            db.Usuarios.Remove(usuario);
+            db.SaveChanges();
+
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
             return resultado;
         }
 

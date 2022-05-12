@@ -18,7 +18,7 @@ namespace ApiProyect.Models
         public DateTime FechaEntrega { get; set; }
         public int IdEmpleado { get; set; }
 
-        public virtual Empleado IdEmpleadoNavigation { get; set; }
+        public virtual Usuario IdEmpleadoNavigation { get; set; }
         public virtual ICollection<DetalleNotaPedido> DetalleNotaPedidos { get; set; }
         public virtual ICollection<IngresoPedidoProveedor> IngresoPedidoProveedors { get; set; }
     }

@@ -3,14 +3,16 @@ using System;
 namespace ApiProyect.Comands
 {
 
-    public class comandoCrearEmpleado
+    public class comandoCrearUsuario
     {
      
         public string NombreCompleto { get; set; }
         public int Documento { get; set; }
         public int CodBarrio { get; set; }
         public long Telefono { get; set; }
-        public int IdEstadoArticulo { get; set; }
+        public int IdTipoRol { get; set; }
+        public string Email { get; set; }
+        public string Contraseña { get; set; }
 
     }
 

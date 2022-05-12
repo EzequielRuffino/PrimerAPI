@@ -15,7 +15,7 @@ namespace ApiProyect.Models
         public int IdCliente { get; set; }
         public string NombreCliente { get; set; }
         public int Documento { get; set; }
-        public int Direccion { get; set; }//no es int es string
+        public string Direccion { get; set; }//no es int es string
         public int CodBarrio { get; set; }
         public int Telefono { get; set; }
 

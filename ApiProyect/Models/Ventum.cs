@@ -21,7 +21,7 @@ namespace ApiProyect.Models
         public int IdFormaPago { get; set; }
 
         public virtual Cliente IdClienteNavigation { get; set; }
-        public virtual Empleado IdEmpleadoNavigation { get; set; }
+        public virtual Usuario IdEmpleadoNavigation { get; set; }
         public virtual FormaPago IdFormaPagoNavigation { get; set; }
         public virtual ICollection<DetalleVentum> DetalleVenta { get; set; }
     }

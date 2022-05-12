@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OxHBtmISO+r1RZqoMUA46VxOKJ6eQ9EtDaNNeYsjgg+6VAXkZ9tMt/yXiS0TVz2j8xbLUBSZQSOZx4XVUMxO+g==",
+  "dgSpecHash": "Ea3NULhOtL2BiWSv2UQKdphgNi2CTcZ/z4thfn3mwAm67QJN6rzaIcEwvF9H7+v0X4dTTI9dFGIa2OT7Z4/64A==",
   "success": true,
-  "projectFilePath": "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
+  "projectFilePath": "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Windows 10\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.cors\\2.2.0\\microsoft.aspnetcore.cors.2.2.0.nupkg.sha512",

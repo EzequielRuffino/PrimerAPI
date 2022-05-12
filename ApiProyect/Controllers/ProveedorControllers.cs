@@ -178,5 +178,19 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
+        [HttpDelete]
+        [Route("[controller]/EliminarProveedor/{id}")]
+        public ActionResult<ResultAPI> deleteById(int id)
+        {
+            var resultado = new ResultAPI();
+            var pro = db.Proveedors.Where(c => c.IdProveedor == id).FirstOrDefault();
+            db.Proveedors.Remove(pro);
+            db.SaveChanges();
+
+            resultado.Ok = true;
+            resultado.Return = db.Proveedors.ToList();
+            return resultado;
+        }
+
     }
 }

@@ -13,22 +13,22 @@ namespace ApiProyect.Controllers
 {
     [ApiController]
     
-    public class ClienteController : ControllerBase 
+    public class VentaController : ControllerBase 
     {
 
         private readonly MEContext db = new MEContext();
-        private readonly ILogger<ClienteController> _logger;
+        private readonly ILogger<VentaController> _logger;
 
-        public ClienteController(ILogger<ClienteController> logger)
+        public VentaController(ILogger<VentaController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerCliente")]
+        [Route("[controller]/ObtenerVenta")]
         public ActionResult<ResultAPI> Get()
         {
-            var resultado = new ResultAPI();
+            /*var resultado = new ResultAPI();
 
             
                 resultado.Ok = true;
@@ -44,24 +44,24 @@ namespace ApiProyect.Controllers
                 }).ToList();
                 resultado.Return = cli;
 
-                return resultado;
+                return resultado;*/
+            var resultado = new ResultAPI();
+            resultado.Ok = true;
+            resultado.Return = db.Venta.ToList(); 
+            return resultado;
             
 
 
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerCliente/{id}")] 
+        [Route("[controller]/ObtenerVenta/{id}")] 
         public ActionResult<ResultAPI> Get3(int id)
         {
-            var resultado = new ResultAPI();
+            /*var resultado = new ResultAPI();
             try
             {
-
-                /*var cli = db.Clientes.Where(c => c.IdCliente == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = cli;*/
-                                resultado.Ok = true;
                 var cli   = (from c in db.Clientes
                 join b in db.Barrios on c.CodBarrio equals b.CodBarrio
                 where c.IdCliente == id
@@ -84,153 +84,164 @@ namespace ApiProyect.Controllers
                 resultado.Error = "Cliente no encontrado";
 
                 return resultado;
-            }
-        }
-
-       /* [HttpGet] aca iria si a realizado o no devoluciones, ver si por cantidad o por si
-        [Route("[controller]/ObtenerDevoluciones")]
-        public ActionResult<ResultAPI> getDevoluciones()
-        {
+            }*/
             var resultado = new ResultAPI();
             try
             {
+
+                var v = db.Venta.Where(c => c.IdVenta == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = db.Devoluciones.ToList();
+                resultado.Return = v;
 
                 return resultado;
             }
+
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Error al encontrar devoluciones";
+                resultado.Error = "Venta no encontrada";
 
                 return resultado;
             }
-        }*/
+        }
 
         [HttpPost] 
-        [Route("[controller]/AltaCliente")]
-        public ActionResult<ResultAPI> AltaCliente([FromBody] comandoCrearCliente comando)
+        [Route("[controller]/AltaVenta")]
+        public ActionResult<ResultAPI> AltaVenta([FromBody] comandoCrearFactura comando)
         {
             var resultado = new ResultAPI();
-            if (comando.NombreCliente.Equals(""))
+            if (comando.NroFactura.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese nombre del cliente";
+                resultado.Error = "Ingrese numero Venta";
                 return resultado;
             }
-            if (comando.Documento.Equals(""))
+            if (comando.TipoFactura.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese documento";
+                resultado.Error = "Ingrese tipo factura";
                 return resultado;
             }
-            if (comando.Direccion.Equals(""))//esta mal no es int es string
+            if (comando.FechaVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese direccion";
+                resultado.Error = "ingrese fecha de venta";
                 return resultado;
             }
-            if (comando.CodBarrio.Equals(""))
+            if (comando.IdCliente.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese codigo del barrio";
+                resultado.Error = "Ingrese cliente";
                 return resultado;
             }
-            if (comando.Telefono.Equals(""))
+            if (comando.IdEmpleado.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese numero de telefono";
+                resultado.Error = "Ingrese empleado";
+                return resultado;
+            }
+            if (comando.IdFormaPago.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese forma de pago";
                 return resultado;
             }
 
 
-            var cli = new Cliente();
-            cli.NombreCliente = comando.NombreCliente;
-            cli.Documento = comando.Documento;
-            cli.Direccion = comando.Direccion;
-            cli.CodBarrio = comando.CodBarrio;
-            cli.Telefono = comando.Telefono;
+
+            var v = new Ventum();
+            v.NroFactura = comando.NroFactura;
+            v.TipoFactura= comando.TipoFactura;
+            v.FechaVenta= comando.FechaVenta;
+            v.IdCliente = comando.IdCliente;
+            v.IdEmpleado= comando.IdEmpleado;
+            v.IdFormaPago= comando.IdFormaPago;
 
 
 
-            db.Clientes.Add(cli);
+            db.Venta.Add(v);
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.Clientes.ToList();
+            resultado.Return = db.Venta.ToList();
 
             return resultado;
         }
 
         [HttpPut]
-        [Route("[controller]/UpdateCliente")]
-        public ActionResult<ResultAPI> UpdateCliente([FromBody] comandoUpdateCliente comando)
+        [Route("[controller]/UpdateVenta")]
+        public ActionResult<ResultAPI> UpdateVenta([FromBody] comandoUpdateFactura comando)
         {
             var resultado = new ResultAPI();         
-           if (comando.NombreCliente.Equals(""))
+            if (comando.NroFactura.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese nombre del cliente";
+                resultado.Error = "Ingrese numero venta";
                 return resultado;
             }
-            if (comando.Documento.Equals(""))
+            if (comando.TipoFactura.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese documento";
+                resultado.Error = "Ingrese tipo factura";
                 return resultado;
             }
-            if (comando.Direccion.Equals(""))
+            if (comando.FechaVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese direccion";
+                resultado.Error = "ingrese fecha de venta";
                 return resultado;
             }
-            if (comando.CodBarrio.Equals(""))
+            if (comando.IdCliente.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese codigo del barrio";
+                resultado.Error = "Ingrese cliente";
                 return resultado;
             }
-            if (comando.Telefono.Equals(""))
+            if (comando.IdEmpleado.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese numero de telefono";
+                resultado.Error = "Ingrese empleado";
+                return resultado;
+            }
+            if (comando.IdFormaPago.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese forma de pago";
                 return resultado;
             }
 
-            var cli = db.Clientes.Where(c => c.IdCliente == comando.IdCliente).FirstOrDefault();
-            if (cli != null)
+            var v = db.Venta.Where(c => c.IdVenta== comando.IdVenta).FirstOrDefault();
+            if (v != null)
             {
-                cli.NombreCliente = comando.NombreCliente;
-                cli.Documento = comando.Documento;
-                cli.Direccion = comando.Direccion;
-                cli.CodBarrio = comando.CodBarrio;
-                cli.Telefono = comando.Telefono;
-                db.Clientes.Update(cli);
+                v.NroFactura = comando.NroFactura;
+                v.TipoFactura= comando.TipoFactura;
+                v.FechaVenta= comando.FechaVenta;
+                v.IdCliente = comando.IdCliente;
+                v.IdEmpleado= comando.IdEmpleado;
+                v.IdFormaPago= comando.IdFormaPago;
+                db.Venta.Update(v);
                 db.SaveChanges();
             }
 
             resultado.Ok = true;
-            resultado.Return = db.Clientes.ToList();
+            resultado.Return = db.Venta.ToList();
 
             return resultado;
         }
 
         [HttpDelete]
-        [Route("[controller]/EliminarCliente{id}")]
+        [Route("[controller]/EliminarVenta{id}")]
         public ActionResult<ResultAPI> deleteById(int id)
         {
             var resultado = new ResultAPI();
-            var cli= db.Clientes.Where(c => c.IdCliente == id).FirstOrDefault();
-            db.Clientes.Remove(cli);
+            var v= db.Venta.Where(c => c.IdVenta == id).FirstOrDefault();
+            db.Venta.Remove(v);
             db.SaveChanges();
 
             resultado.Ok = true;
-            resultado.Return = db.Clientes.ToList();
+            resultado.Return = db.Venta.ToList();
             return resultado;
         }
-
 
     }
 }

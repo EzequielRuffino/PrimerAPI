@@ -23,7 +23,7 @@ namespace ApiProyect.Models
         public virtual DbSet<DetalleIngresoPedido> DetalleIngresoPedidos { get; set; }
         public virtual DbSet<DetalleNotaPedido> DetalleNotaPedidos { get; set; }
         public virtual DbSet<DetalleVentum> DetalleVenta { get; set; }
-        public virtual DbSet<Empleado> Empleados { get; set; }
+        public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<EstadoArticulo> EstadoArticulos { get; set; }
         public virtual DbSet<FormaPago> FormaPagos { get; set; }
         public virtual DbSet<IngresoPedidoProveedor> IngresoPedidoProveedors { get; set; }
@@ -32,6 +32,7 @@ namespace ApiProyect.Models
         public virtual DbSet<Proveedor> Proveedors { get; set; }
         public virtual DbSet<TalleArticulo> TalleArticulos { get; set; }
         public virtual DbSet<TipoArticulo> TipoArticulos { get; set; }
+         public virtual DbSet<TipoRol> TipoRols { get; set; }
         public virtual DbSet<Ventum> Venta { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -119,6 +120,21 @@ namespace ApiProyect.Models
                     .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("nombre");
+            });
+
+            modelBuilder.Entity<TipoRol>(entity =>
+            {
+                entity.HasKey(e => e.IdTipoRol)
+                    .HasName("tipo_rol_pkey");
+
+                entity.ToTable("tipo_rol");
+
+                entity.Property(e => e.IdTipoRol).HasColumnName("id_tipo_rol");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("descripcion");
             });
 
             modelBuilder.Entity<Cliente>(entity =>
@@ -237,12 +253,12 @@ namespace ApiProyect.Models
                     .HasConstraintName("fk_id_venta");
             });
 
-            modelBuilder.Entity<Empleado>(entity =>
+            modelBuilder.Entity<Usuario>(entity =>
             {
                 entity.HasKey(e => e.Legajo)
                     .HasName("empleado_pkey");
 
-                entity.ToTable("empleado");
+                entity.ToTable("usuario");
 
                 entity.Property(e => e.Legajo).HasColumnName("legajo");
 
@@ -250,7 +266,11 @@ namespace ApiProyect.Models
 
                 entity.Property(e => e.Documento).HasColumnName("documento");
 
-                entity.Property(e => e.IdEstadoArticulo).HasColumnName("id_estado_articulo");
+                entity.Property(e => e.IdTipoRol).HasColumnName("id_tipo_rol");
+
+                entity.Property(e => e.Email).HasColumnName("email");
+
+                entity.Property(e => e.Contraseña).HasColumnName("contraseña");
 
                 entity.Property(e => e.NombreCompleto)
                     .IsRequired()
@@ -260,16 +280,16 @@ namespace ApiProyect.Models
                 entity.Property(e => e.Telefono).HasColumnName("telefono");
 
                 entity.HasOne(d => d.CodBarrioNavigation)
-                    .WithMany(p => p.Empleados)
+                    .WithMany(p => p.Usuarios)
                     .HasForeignKey(d => d.CodBarrio)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_cod_barrio");
 
-                entity.HasOne(d => d.IdEstadoArticuloNavigation)
-                    .WithMany(p => p.Empleados)
-                    .HasForeignKey(d => d.IdEstadoArticulo)
+                entity.HasOne(d => d.IdTipoRolNavigation)
+                    .WithMany(p => p.Usuarios)
+                    .HasForeignKey(d => d.IdTipoRol)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_id_estado_articulo");
+                    .HasConstraintName("fk_id_tipo_rol");
             });
 
             modelBuilder.Entity<EstadoArticulo>(entity =>

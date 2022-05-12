@@ -17,8 +17,8 @@
       });
 
       // Login
-      var rol = document.getElementById('rol');
-      var idRol = rol.selectedIndex + 1;
+     var rol = document.getElementById('rol');
+     var idRol = rol.selectedIndex + 1;
 
       if ($("#contraseña").val() == 'Admin123456' && $("#email").val() == 'administrador@gmail.com' && idRol == 1) {
           window.location.replace("./menu.html");
@@ -29,4 +29,25 @@
       } else {
           swal("Error de Validacion", "Porfavor ingrese email, rol y contraseña correctos", "error");
       }
+
+     /* $ConnectionStrings=pg_connect 
+       ("User ID=M&E; Password=123456; Server=localhost; Database=M&E; Integrated Security=true; Pooling=true");
+    
+      session_star();
+      $usuario=$_POST['email'];
+      $clave=$_POST['contraseña'];
+      $rol=$_POST['rol'];
+
+      $query="select * from usuario where email='$usuario' and contraseña ='$clave' and id_tipo_rol= '$rol'";
+
+      $consulta=pg_query($ConnectionStrings, $query);
+      $cantidad=pg_num_rows($consulta);
+      
+      if($cantidad>0){
+          $_SESSION['nombre_usuario']=$usuario;
+          window.location.replace("./menu.html");
+      }else{
+        swal("Error de Validacion", "Porfavor ingrese email, rol y contraseña correctos", "error");
+      }*/
+
   }

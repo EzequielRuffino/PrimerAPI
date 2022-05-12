@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\ApiProyect.csproj": {}
+    "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj": {}
   },
   "projects": {
-    "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\ApiProyect.csproj": {
+    "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
+        "projectUniqueName": "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
         "projectName": "ApiProyect",
-        "projectPath": "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
+        "projectPath": "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
         "packagesPath": "C:\\Users\\Windows 10\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\Windows 10\\Desktop\\PrimerAPI\\ApiProyect\\obj\\",
+        "outputPath": "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Windows 10\\AppData\\Roaming\\NuGet\\NuGet.Config"

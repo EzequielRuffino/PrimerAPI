@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace ApiProyect.Models
 {
-    public partial class Empleado
+    public partial class Usuario
     {
-        public Empleado()
+        public Usuario()
         {
             IngresoPedidoProveedors = new HashSet<IngresoPedidoProveedor>();
             NotaPedidos = new HashSet<NotaPedido>();
@@ -19,10 +19,12 @@ namespace ApiProyect.Models
         public int Documento { get; set; }
         public int CodBarrio { get; set; }
         public long Telefono { get; set; }
-        public int IdEstadoArticulo { get; set; }//ver si hace falta
+        public int IdTipoRol { get; set; }
+        public string Email { get; set; }
+        public string Contraseña { get; set; }
 
         public virtual Barrio CodBarrioNavigation { get; set; }
-        public virtual EstadoArticulo IdEstadoArticuloNavigation { get; set; }
+        public virtual TipoRol IdTipoRolNavigation { get; set; }
         public virtual ICollection<IngresoPedidoProveedor> IngresoPedidoProveedors { get; set; }
         public virtual ICollection<NotaPedido> NotaPedidos { get; set; }
         public virtual ICollection<Ventum> Venta { get; set; }
