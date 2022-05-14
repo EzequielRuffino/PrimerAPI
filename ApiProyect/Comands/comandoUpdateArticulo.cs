@@ -13,5 +13,7 @@ namespace ApiProyect.Comands
         public int Cantidad { get; set; }
         public DateTime? FechaModificicacion { get; set; }
         public int IdEstadoArticulo { get; set; }
+        public int Flag { get; set; }
+
     }
 }

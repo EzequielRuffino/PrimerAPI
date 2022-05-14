@@ -22,6 +22,7 @@ namespace ApiProyect.Models
         public int IdTipoRol { get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
+        public int Flag { get; set; }
 
         public virtual Barrio CodBarrioNavigation { get; set; }
         public virtual TipoRol IdTipoRolNavigation { get; set; }

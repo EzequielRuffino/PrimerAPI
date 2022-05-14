@@ -24,6 +24,8 @@ namespace ApiProyect.Models
         public int Cantidad { get; set; }
         public DateTime? FechaModificicacion { get; set; }
         public int IdEstadoArticulo { get; set; }
+        public int Flag { get; set; }
+
 
         public virtual EstadoArticulo IdEstadoArticuloNavigation { get; set; }
         public virtual Marca IdMarcaNavigation { get; set; }

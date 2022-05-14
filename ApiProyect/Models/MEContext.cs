@@ -80,6 +80,8 @@ namespace ApiProyect.Models
                     .HasMaxLength(50)
                     .HasColumnName("nombre_articulo");
 
+                entity.Property(e => e.Flag).HasColumnName("flag");    
+
                 entity.Property(e => e.PrecioVenta).HasColumnName("precio_venta");
 
                 entity.HasOne(d => d.IdEstadoArticuloNavigation)
@@ -158,6 +160,8 @@ namespace ApiProyect.Models
                     .HasColumnName("nombre_cliente");
 
                 entity.Property(e => e.Telefono).HasColumnName("telefono");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.HasOne(d => d.CodBarrioNavigation)
                     .WithMany(p => p.Clientes)
@@ -271,6 +275,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.Email).HasColumnName("email");
 
                 entity.Property(e => e.Contraseña).HasColumnName("contraseña");
+                
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.NombreCompleto)
                     .IsRequired()
@@ -428,6 +434,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.Documento).HasColumnName("documento");
 
                 entity.Property(e => e.IdEstadoArticulo).HasColumnName("id_estado_articulo");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.RazonSocial)
                     .IsRequired()

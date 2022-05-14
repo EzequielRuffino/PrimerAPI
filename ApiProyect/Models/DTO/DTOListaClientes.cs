@@ -15,6 +15,7 @@ namespace ApiProyect.Models.DTO
         public string Direccion { get; set; }//no es int es string
         public string nombreBarrio { get; set; }
         public int Telefono { get; set; }
+        public int Flag { get; set; }
 
 
         public class x{

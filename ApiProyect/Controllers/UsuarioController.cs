@@ -26,7 +26,7 @@ namespace ApiProyect.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Usuarios.ToList(); 
+            resultado.Return = db.Usuarios.Where(c => c.Flag == 1).ToList(); 
             return resultado;
         }
 
@@ -102,8 +102,18 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese id estado articulo";
                 return resultado;
             }
-
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
             var emp = new Usuario();
             emp.NombreCompleto = comando.NombreCompleto;
             emp.Documento = comando.Documento;
@@ -112,6 +122,8 @@ namespace ApiProyect.Controllers
             emp.IdTipoRol = comando.IdTipoRol;
             emp.Email = comando.Email;
             emp.Contraseña = comando.Contraseña;
+            emp.Flag=comando.Flag;
+
 
 
 
@@ -171,7 +183,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese id estado articulo";
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
             var emp = db.Usuarios.Where(c => c.Legajo == comando.Legajo).FirstOrDefault();
             if (emp != null)
@@ -183,6 +200,7 @@ namespace ApiProyect.Controllers
             emp.IdTipoRol = comando.IdTipoRol;
             emp.Email = comando.Email;
             emp.Contraseña = comando.Contraseña;
+            emp.Flag = comando.Flag;
             db.Usuarios.Update(emp);
             db.SaveChanges();
             }
@@ -193,17 +211,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarUsuario/{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagUsuarios/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var usuario = db.Usuarios.Where(c => c.Legajo == id).FirstOrDefault();
-            db.Usuarios.Remove(usuario);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var usu= db.Usuarios.Where(c => c.Legajo == id).FirstOrDefault();
+
+            if (usu != null)
+            {
+                usu.Flag = comando.Flag;
+                db.Usuarios.Update(usu);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.Usuarios.ToList();
+
             return resultado;
         }
 

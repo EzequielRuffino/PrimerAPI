@@ -15,6 +15,7 @@ namespace ApiProyect.Comands
         public int IdTipoRol{ get; set; }
         public string Email { get; set; }
         public string Contraseña { get; set; }
+        public int Flag { get; set; }
 
     }
 

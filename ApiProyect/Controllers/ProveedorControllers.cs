@@ -26,7 +26,7 @@ namespace ApiProyect.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Proveedors.ToList(); 
+            resultado.Return = db.Proveedors.Where(c => c.Flag == 1).ToList(); 
             return resultado;
         }
 
@@ -96,7 +96,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese estado de articulo siendo 1 disponible, 2 no disponible y 3 proximamente";//esto esta mal, reemplazar con direccion string
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
             var pro = new Proveedor();
             pro.RazonSocial = comando.RazonSocial;
@@ -105,6 +110,7 @@ namespace ApiProyect.Controllers
             pro.CodBarrio = comando.CodBarrio;
             pro.Telefono = comando.Telefono;
             pro.IdEstadoArticulo = comando.IdEstadoArticulo;
+            pro.Flag=comando.Flag;
 
 
 
@@ -158,6 +164,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese estado de articulo siendo 1 disponible, 2 no disponible y 3 proximamente";//esto esta mal, reemplazar con direccion string
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
             var pro = db.Proveedors.Where(c => c.IdProveedor == comando.IdProveedor).FirstOrDefault();
             if (pro != null)
@@ -168,6 +180,7 @@ namespace ApiProyect.Controllers
             pro.CodBarrio = comando.CodBarrio;
             pro.Telefono = comando.Telefono;
             pro.IdEstadoArticulo = comando.IdEstadoArticulo;
+            pro.Flag=comando.Flag;
             db.Proveedors.Update(pro);
             db.SaveChanges();
             }
@@ -178,17 +191,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarProveedor/{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagProveedor/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var pro = db.Proveedors.Where(c => c.IdProveedor == id).FirstOrDefault();
-            db.Proveedors.Remove(pro);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var pro= db.Proveedors.Where(c => c.IdProveedor == id).FirstOrDefault();
+
+            if (pro != null)
+            {
+                pro.Flag = comando.Flag;
+                db.Proveedors.Update(pro);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.Proveedors.ToList();
+
             return resultado;
         }
 

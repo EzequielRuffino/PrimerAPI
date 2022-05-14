@@ -34,13 +34,15 @@ namespace ApiProyect.Controllers
                 resultado.Ok = true;
                 var cli   = (from c in db.Clientes
                 join b in db.Barrios on c.CodBarrio equals b.CodBarrio
+                where c.Flag == 1
                 select new DTOListaClientes
                 {
                     NombreCliente = c.NombreCliente,
                     Documento = c.Documento,
                     Direccion = c.Direccion,
                     nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
+                    Telefono = c.Telefono,
+                    Flag = c.Flag
                 }).ToList();
                 resultado.Return = cli;
 
@@ -64,14 +66,15 @@ namespace ApiProyect.Controllers
                                 resultado.Ok = true;
                 var cli   = (from c in db.Clientes
                 join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where c.IdCliente == id
+                where (c.IdCliente == id && c.Flag==1)
                 select new DTOListaClientes
                 {
                     NombreCliente = c.NombreCliente,
                     Documento = c.Documento,
                     Direccion = c.Direccion,
                     nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
+                    Telefono = c.Telefono,
+                    Flag = c.Flag
                 }).FirstOrDefault();
                 resultado.Return = cli;
 
@@ -143,6 +146,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese numero de telefono";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
 
             var cli = new Cliente();
@@ -151,6 +160,7 @@ namespace ApiProyect.Controllers
             cli.Direccion = comando.Direccion;
             cli.CodBarrio = comando.CodBarrio;
             cli.Telefono = comando.Telefono;
+            cli.Flag=comando.Flag;
 
 
 
@@ -198,6 +208,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese numero de telefono";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
             var cli = db.Clientes.Where(c => c.IdCliente == comando.IdCliente).FirstOrDefault();
             if (cli != null)
@@ -207,6 +223,7 @@ namespace ApiProyect.Controllers
                 cli.Direccion = comando.Direccion;
                 cli.CodBarrio = comando.CodBarrio;
                 cli.Telefono = comando.Telefono;
+                cli.Flag = comando.Flag;
                 db.Clientes.Update(cli);
                 db.SaveChanges();
             }
@@ -216,18 +233,30 @@ namespace ApiProyect.Controllers
 
             return resultado;
         }
-
-        [HttpDelete]
-        [Route("[controller]/EliminarCliente{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagCliente/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var cli= db.Clientes.Where(c => c.IdCliente == id).FirstOrDefault();
-            db.Clientes.Remove(cli);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var cli= db.Clientes.Where(c => c.IdCliente == id).FirstOrDefault();
+
+            if (cli != null)
+            {
+                cli.Flag = comando.Flag;
+                db.Clientes.Update(cli);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.Clientes.ToList();
+
             return resultado;
         }
 

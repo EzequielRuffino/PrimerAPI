@@ -27,7 +27,7 @@ namespace ApiProyect.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Articulos.ToList(); 
+            resultado.Return = db.Articulos.Where(c => c.Flag == 1).ToList(); 
             return resultado;
         }
 
@@ -115,6 +115,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese estado del articulo";
                 return resultado;
             }
+             if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
             
 
             var art = new Articulo();
@@ -127,6 +133,8 @@ namespace ApiProyect.Controllers
             art.Cantidad = comando.Cantidad;
             art.FechaModificicacion = comando.FechaModificicacion;
             art.IdEstadoArticulo = comando.IdEstadoArticulo;
+            art.Flag = comando.Flag;
+
 
 
 
@@ -198,6 +206,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese estado del articulo";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
 
             var art = db.Articulos.Where(c => c.IdArticulo == comando.IdArticulo).FirstOrDefault();
             if (art != null)
@@ -211,6 +225,8 @@ namespace ApiProyect.Controllers
             art.Cantidad = comando.Cantidad;
             art.FechaModificicacion = comando.FechaModificicacion;
             art.IdEstadoArticulo = comando.IdEstadoArticulo;   
+            art.Flag = comando.Flag;
+
             db.Articulos.Update(art);
             db.SaveChanges();
             }
@@ -221,17 +237,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarArticulo/{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT/UPDATE O CON EL COMANDO FLAG
+        [Route("[controller]/ActualizarFlagArticulo/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoUpdateArticulo comando, int id)
         {
             var resultado = new ResultAPI();
-            var art= db.Articulos.Where(c => c.IdArticulo == id).FirstOrDefault();
-            db.Articulos.Remove(art);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese flag";
+                return resultado;
+            }
+
+            var art= db.Articulos.Where(c => c.IdArticulo == id).FirstOrDefault();
+
+            if (art != null)
+            {
+                art.Flag = comando.Flag;
+                db.Articulos.Update(art);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.Articulos.ToList();
+
             return resultado;
         }
 

@@ -18,6 +18,8 @@ namespace ApiProyect.Models
         public string Direccion { get; set; }//no es int es string
         public int CodBarrio { get; set; }
         public int Telefono { get; set; }
+        public int Flag { get; set; }
+
 
         public virtual Barrio CodBarrioNavigation { get; set; }
         public virtual ICollection<Ventum> Venta { get; set; }

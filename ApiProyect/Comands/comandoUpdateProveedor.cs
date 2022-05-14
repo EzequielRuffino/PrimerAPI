@@ -13,6 +13,7 @@ namespace ApiProyect.Comands
         public int? CodBarrio { get; set; }
         public int Telefono { get; set; }
         public int IdEstadoArticulo { get; set; }
+        public int Flag { get; set; }
 
     }
 

@@ -13,19 +13,19 @@ namespace ApiProyect.Controllers
 {
     [ApiController]
     
-    public class NotaPedidoController : ControllerBase 
+    public class DetalleVentaController : ControllerBase 
     {
 
         private readonly MEContext db = new MEContext();
-        private readonly ILogger<NotaPedidoController> _logger;
+        private readonly ILogger<DetalleVentaController> _logger;
 
-        public NotaPedidoController(ILogger<NotaPedidoController> logger)
+        public DetalleVentaController(ILogger<DetalleVentaController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerOrdenCompra")]
+        [Route("[controller]/ObtenerDetalleVenta")]
         public ActionResult<ResultAPI> Get()
         {
             /*var resultado = new ResultAPI();
@@ -47,13 +47,15 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.NotaPedidos.ToList(); 
+            resultado.Return = db.DetalleVenta.ToList(); 
             return resultado;
+            
+
 
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerOrdenCompra/{id}")] 
+        [Route("[controller]/ObtenerDetalleVenta/{id}")] 
         public ActionResult<ResultAPI> Get3(int id)
         {
             /*var resultado = new ResultAPI();
@@ -83,11 +85,11 @@ namespace ApiProyect.Controllers
 
                 return resultado;
             }*/
-                        var resultado = new ResultAPI();
+            var resultado = new ResultAPI();
             try
             {
 
-                var art = db.NotaPedidos.Where(c => c.IdOrdenCompra == id).FirstOrDefault();
+                var art = db.DetalleVenta.Where(c => c.IdDetalle == id).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = art;
 
@@ -97,106 +99,120 @@ namespace ApiProyect.Controllers
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Orden de compra no encontrada";
+                resultado.Error = "Detalle de venta no encontrada";
 
                 return resultado;
             }
         }
 
         [HttpPost] 
-        [Route("[controller]/AltaOrdenCompra")]
-        public ActionResult<ResultAPI> AltaPedido([FromBody] comandoCrearNotaPedido comando)
+        [Route("[controller]/AltaDetalleVenta")]
+        public ActionResult<ResultAPI> AltaDetalleVenta([FromBody] ComandoCrearDetalleVenta comando)
         {
             var resultado = new ResultAPI();
-            if (comando.FechaEmision.Equals(""))
+            if (comando.IdVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Fecha Emision de la orden";
+                resultado.Error = "Ingrese numero de venta";
                 return resultado;
             }
-            if (comando.FechaEntrega.Equals(""))
+            if (comando.IdArticulo.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Fecha de entrega de la orden";
+                resultado.Error = "Ingrese articulo";
                 return resultado;
             }
-            if (comando.IdEmpleado.Equals(""))
+            if (comando.Cantidad.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese Empleado";
+                resultado.Error = "Ingrese cantidad";
+                return resultado;
+            }
+            if (comando.PrecioUnitario.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese precio unitario";
                 return resultado;
             }
 
 
 
-            var nt = new NotaPedido();
-            nt.FechaEmision = comando.FechaEmision;
-            nt.FechaEntrega = comando.FechaEntrega;
-            nt.IdEmpleado = comando.IdEmpleado;
+            var nt = new DetalleVentum();
+            nt.IdVenta = comando.IdVenta;
+            nt.IdArticulo = comando.IdArticulo;
+            nt.Cantidad = comando.Cantidad;
+            nt.PrecioUnitario = comando.PrecioUnitario;
 
 
 
 
-            db.NotaPedidos.Add(nt);
+            db.DetalleVenta.Add(nt);
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.NotaPedidos.ToList();
+            resultado.Return = db.DetalleVenta.ToList();
 
             return resultado;
         }
 
         [HttpPut]
-        [Route("[controller]/UpdateOrdenCompra")]
-        public ActionResult<ResultAPI> UpdatePedido([FromBody] comandoUpdateNotaPedido comando)
+        [Route("[controller]/UpdateDetalleVenta")]
+        public ActionResult<ResultAPI> UpdateDetalleVenta([FromBody] ComandoUpdateDetalleVenta comando)
         {
-            var resultado = new ResultAPI();         
-            if (comando.FechaEmision.Equals(""))
+            var resultado = new ResultAPI();
+            if (comando.IdVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Fecha Emision de la orden";
+                resultado.Error = "Ingrese numero de venta";
                 return resultado;
             }
-            if (comando.FechaEntrega.Equals(""))
+            if (comando.IdArticulo.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Fecha de entrega de la orden";
+                resultado.Error = "Ingrese articulo";
                 return resultado;
             }
-            if (comando.IdEmpleado.Equals(""))
+            if (comando.Cantidad.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese Empleado";
+                resultado.Error = "Ingrese cantidad";
+                return resultado;
+            }
+            if (comando.PrecioUnitario.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese precio unitario";
                 return resultado;
             }
 
-            var nt = db.NotaPedidos.Where(c => c.IdOrdenCompra == comando.IdOrdenCompra).FirstOrDefault();
+            var nt = db.DetalleVenta.Where(c => c.IdDetalle == comando.IdDetalle).FirstOrDefault();
             if (nt != null)
             {
-                nt.FechaEmision = comando.FechaEmision;
-                nt.FechaEntrega = comando.FechaEntrega;
-                nt.IdEmpleado = comando.IdEmpleado;
-                db.NotaPedidos.Update(nt);
+                nt.IdVenta = comando.IdVenta;
+                nt.IdArticulo = comando.IdArticulo;
+                nt.Cantidad = comando.Cantidad;
+                nt.PrecioUnitario = comando.PrecioUnitario;
+                db.DetalleVenta.Update(nt);
                 db.SaveChanges();
             }
 
             resultado.Ok = true;
-            resultado.Return = db.NotaPedidos.ToList();
+            resultado.Return = db.DetalleVenta.ToList();
 
             return resultado;
         }
 
         [HttpDelete]
-        [Route("[controller]/EliminarOrdenCompra{id}")]
+        [Route("[controller]/EliminarDetalleVenta{id}")]
         public ActionResult<ResultAPI> deleteById(int id)
         {
             var resultado = new ResultAPI();
-            var nt= db.NotaPedidos.Where(c => c.IdOrdenCompra == id).FirstOrDefault();
-            db.NotaPedidos.Remove(nt);
+            var nt= db.DetalleVenta.Where(c => c.IdDetalle == id).FirstOrDefault();
+            db.DetalleVenta.Remove(nt);
             db.SaveChanges();
 
             resultado.Ok = true;
-            resultado.Return = db.NotaPedidos.ToList();
+            resultado.Return = db.DetalleVenta.ToList();
             return resultado;
         }
 
