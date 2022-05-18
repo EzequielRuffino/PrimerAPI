@@ -47,7 +47,7 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.IngresoPedidoProveedors.ToList(); 
+            resultado.Return = db.IngresoPedidoProveedors.Where(c => c.Flag == 1).ToList(); 
             return resultado;
             
 
@@ -89,7 +89,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var ip = db.IngresoPedidoProveedors.Where(c => c.IdIngresoPedido == id).FirstOrDefault();
+                var ip = db.IngresoPedidoProveedors.Where(c => c.IdIngresoPedido == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = ip;
 
@@ -122,10 +122,10 @@ namespace ApiProyect.Controllers
                 resultado.Error = "Ingrese identificador del empleado";
                 return resultado;
             }
-            if (comando.NroFacturaPedido.Equals(""))
+            if (comando.NroRemitoPedido.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese Numero de factura";
+                resultado.Error = "ingrese Numero de remito";
                 return resultado;
             }
             if (comando.TipoFactura.Equals(""))
@@ -146,15 +146,21 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Numero de Orden de compra";
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
             var ip = new IngresoPedidoProveedor();
             ip.IdProveedor = comando.IdProveedor;
             ip.IdEmpleado = comando.IdEmpleado;
-            ip.NroFacturaPedido = comando.NroFacturaPedido;
+            ip.NroRemitoPedido = comando.NroRemitoPedido;
             ip.TipoFactura = comando.TipoFactura;
             ip.Fecha = comando.Fecha;
             ip.NroOrdenCompra = comando.NroOrdenCompra;
+            ip.Flag = comando.Flag;
 
 
 
@@ -185,7 +191,7 @@ namespace ApiProyect.Controllers
                 resultado.Error = "Ingrese identificador del empleado";
                 return resultado;
             }
-            if (comando.NroFacturaPedido.Equals(""))
+            if (comando.NroRemitoPedido.Equals(""))
             {
                 resultado.Ok = false;
                 resultado.Error = "ingrese Numero de factura";
@@ -209,16 +215,23 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Numero de Orden de compra";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
             var ip = db.IngresoPedidoProveedors.Where(c => c.IdIngresoPedido == comando.IdIngresoPedido).FirstOrDefault();
             if (ip != null)
             {
             ip.IdProveedor = comando.IdProveedor;
             ip.IdEmpleado = comando.IdEmpleado;
-            ip.NroFacturaPedido = comando.NroFacturaPedido;
+            ip.NroRemitoPedido = comando.NroRemitoPedido;
             ip.TipoFactura = comando.TipoFactura;
             ip.Fecha = comando.Fecha;
             ip.NroOrdenCompra = comando.NroOrdenCompra;
+            ip.Flag = comando.Flag;
 
                 db.IngresoPedidoProveedors.Update(ip);
                 db.SaveChanges();
@@ -230,17 +243,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarIngresoPedido{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagIngresoPedido/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var ip= db.IngresoPedidoProveedors.Where(c => c.IdIngresoPedido == id).FirstOrDefault();
-            db.IngresoPedidoProveedors.Remove(ip);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var cli= db.IngresoPedidoProveedors.Where(c => c.IdIngresoPedido == id).FirstOrDefault();
+
+            if (cli != null)
+            {
+                cli.Flag = comando.Flag;
+                db.IngresoPedidoProveedors.Update(cli);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.IngresoPedidoProveedors.ToList();
+
             return resultado;
         }
 

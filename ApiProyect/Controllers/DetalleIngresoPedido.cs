@@ -47,7 +47,7 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.DetalleIngresoPedidos.ToList(); 
+            resultado.Return = db.DetalleIngresoPedidos.Where(c => c.Flag == 1).ToList(); 
             return resultado;
             
 
@@ -89,7 +89,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var art = db.DetalleIngresoPedidos.Where(c => c.IdDetalleIngresoPedido == id).FirstOrDefault();
+                var art = db.DetalleIngresoPedidos.Where(c => c.IdDetalleIngresoPedido == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = art;
 
@@ -134,6 +134,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "Ingrese articulo";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
 
 
@@ -142,6 +148,7 @@ namespace ApiProyect.Controllers
             nt.Cantidad = comando.Cantidad;
             nt.Precio = comando.Precio;
             nt.IdArticulo = comando.IdArticulo;
+            nt.Flag=comando.Flag;
 
 
 
@@ -184,6 +191,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "Ingrese articulo";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
             var nt = db.DetalleIngresoPedidos.Where(c => c.IdDetalleIngresoPedido == comando.IdDetalleIngresoPedido).FirstOrDefault();
             if (nt != null)
@@ -192,6 +205,7 @@ namespace ApiProyect.Controllers
                 nt.Cantidad = comando.Cantidad;
                 nt.Precio = comando.Precio;
                 nt.IdArticulo = comando.IdArticulo;
+                nt.Flag = comando.Flag;
                 db.DetalleIngresoPedidos.Update(nt);
                 db.SaveChanges();
             }
@@ -202,17 +216,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarDetalleIngreso{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagDetalleIngresoPedidon/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var nt= db.DetalleIngresoPedidos.Where(c => c.IdDetalleIngresoPedido == id).FirstOrDefault();
-            db.DetalleIngresoPedidos.Remove(nt);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var cli= db.DetalleIngresoPedidos.Where(c => c.IdIngresoPedido == id).FirstOrDefault();
+
+            if (cli != null)
+            {
+                cli.Flag = comando.Flag;
+                db.DetalleIngresoPedidos.Update(cli);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.DetalleIngresoPedidos.ToList();
+
             return resultado;
         }
 

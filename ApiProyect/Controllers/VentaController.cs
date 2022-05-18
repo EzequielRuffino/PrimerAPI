@@ -47,7 +47,7 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Venta.ToList(); 
+            resultado.Return = db.Venta.Where(c => c.Flag == 1).ToList(); 
             return resultado;
             
 
@@ -89,7 +89,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var v = db.Venta.Where(c => c.IdVenta == id).FirstOrDefault();
+                var v = db.Venta.Where(c => c.IdVenta == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = v;
 
@@ -146,7 +146,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese forma de pago";
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
 
             var v = new Ventum();
@@ -156,6 +161,7 @@ namespace ApiProyect.Controllers
             v.IdCliente = comando.IdCliente;
             v.IdEmpleado= comando.IdEmpleado;
             v.IdFormaPago= comando.IdFormaPago;
+            v.Flag = comando.Flag;
 
 
 
@@ -209,7 +215,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese forma de pago";
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
             var v = db.Venta.Where(c => c.IdVenta== comando.IdVenta).FirstOrDefault();
             if (v != null)
             {
@@ -219,6 +230,7 @@ namespace ApiProyect.Controllers
                 v.IdCliente = comando.IdCliente;
                 v.IdEmpleado= comando.IdEmpleado;
                 v.IdFormaPago= comando.IdFormaPago;
+                v.Flag = comando.Flag;
                 db.Venta.Update(v);
                 db.SaveChanges();
             }
@@ -229,17 +241,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarVenta{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagVenta/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var v= db.Venta.Where(c => c.IdVenta == id).FirstOrDefault();
-            db.Venta.Remove(v);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var cli= db.Venta.Where(c => c.IdVenta == id).FirstOrDefault();
+
+            if (cli != null)
+            {
+                cli.Flag = comando.Flag;
+                db.Venta.Update(cli);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.Venta.ToList();
+
             return resultado;
         }
 

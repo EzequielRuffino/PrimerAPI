@@ -38,7 +38,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var emple = db.Usuarios.Where(c => c.Legajo == id).FirstOrDefault();
+                var emple = db.Usuarios.Where(c => c.Legajo == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = emple;
 
@@ -108,12 +108,7 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese flag";
                 return resultado;
             }
-            if (comando.Flag.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese flag";
-                return resultado;
-            }
+
             var emp = new Usuario();
             emp.NombreCompleto = comando.NombreCompleto;
             emp.Documento = comando.Documento;

@@ -13,19 +13,19 @@ namespace ApiProyect.Controllers
 {
     [ApiController]
     
-    public class DetalleNotaPedidoController : ControllerBase 
+    public class DevolucionController : ControllerBase 
     {
 
         private readonly MEContext db = new MEContext();
-        private readonly ILogger<DetalleNotaPedidoController> _logger;
+        private readonly ILogger<DevolucionController> _logger;
 
-        public DetalleNotaPedidoController(ILogger<DetalleNotaPedidoController> logger)
+        public DevolucionController(ILogger<DevolucionController> logger)
         {
             _logger = logger;
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerDetalleOrdenCompra")]
+        [Route("[controller]/ObtenerDevolucion")]
         public ActionResult<ResultAPI> Get()
         {
             /*var resultado = new ResultAPI();
@@ -47,7 +47,7 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.DetalleNotaPedidos.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Devolucion.Where(c => c.Flag == 1).ToList(); 
             return resultado;
             
 
@@ -55,7 +55,7 @@ namespace ApiProyect.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerDetalleOrdenCompra/{id}")] 
+        [Route("[controller]/ObtenerDevolucion/{id}")] 
         public ActionResult<ResultAPI> Get3(int id)
         {
             /*var resultado = new ResultAPI();
@@ -89,9 +89,9 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var art = db.DetalleNotaPedidos.Where(c => c.NroDetalleOrdenCompra == id && c.Flag == 1).FirstOrDefault();
+                var v = db.Devolucion.Where(c => c.IdDevolucion == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = art;
+                resultado.Return = v;
 
                 return resultado;
             }
@@ -99,33 +99,39 @@ namespace ApiProyect.Controllers
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Detalle de orden de compra no encontrada";
+                resultado.Error = "Devolucion no encontrada";
 
                 return resultado;
             }
         }
 
         [HttpPost] 
-        [Route("[controller]/AltaDetalleOrdenCompra")]
-        public ActionResult<ResultAPI> AltaDetallePedido([FromBody] comandoCrearDetalleNotaPedido comando)
+        [Route("[controller]/AltaDevolucion")]
+        public ActionResult<ResultAPI> AltaVenta([FromBody] comandoCrearDevolucion comando)
         {
             var resultado = new ResultAPI();
-            if (comando.NroOrdenCompra.Equals(""))
+            if (comando.NroDevolucion.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese numero de la orden de compra";
+                resultado.Error = "Ingrese numero devolucion";
                 return resultado;
             }
-            if (comando.Cantidad.Equals(""))
+            if (comando.FechaDevolucion.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese cantidad";
+                resultado.Error = "Ingrese fecha devolucion";
                 return resultado;
             }
-            if (comando.IdArticulo.Equals(""))
+            if (comando.IdVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Articulo";
+                resultado.Error = "ingrese numero venta";
+                return resultado;
+            }
+            if (comando.IdEmpleado.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese empleado";
                 return resultado;
             }
             if (comando.Flag.Equals(""))
@@ -136,45 +142,53 @@ namespace ApiProyect.Controllers
             }
 
 
-            var nt = new DetalleNotaPedido();
-            nt.NroOrdenCompra = comando.NroOrdenCompra;
-            nt.Cantidad = comando.Cantidad;
-            nt.IdArticulo = comando.IdArticulo;
-            nt.Flag = comando.Flag;
+
+
+            var d = new Devolucion();
+            d.NroDevolucion = comando.NroDevolucion;
+            d.FechaDevolucion= comando.FechaDevolucion;
+            d.IdVenta= comando.IdVenta;
+            d.IdEmpleado= comando.IdEmpleado;
+            d.Flag= comando.Flag;
 
 
 
-
-            db.DetalleNotaPedidos.Add(nt);
+            db.Devolucion.Add(d);
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.DetalleNotaPedidos.ToList();
+            resultado.Return = db.Devolucion.ToList();
 
             return resultado;
         }
 
         [HttpPut]
-        [Route("[controller]/UpdateDetalleOrdenCompra")]
-        public ActionResult<ResultAPI> UpdateDetallePedido([FromBody] comandoUpdateDetalleNotaPedido comando)
+        [Route("[controller]/UpdateDevolucion")]
+        public ActionResult<ResultAPI> UpdateVenta([FromBody] comandoUpdateDevolucion comando)
         {
-            var resultado = new ResultAPI();
-            if (comando.NroOrdenCompra.Equals(""))
+            var resultado = new ResultAPI();         
+            if (comando.NroDevolucion.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese numero de la orden de compra";
+                resultado.Error = "Ingrese numero devolucion";
                 return resultado;
             }
-            if (comando.Cantidad.Equals(""))
+            if (comando.FechaDevolucion.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese cantidad";
+                resultado.Error = "Ingrese fecha devolucion";
                 return resultado;
             }
-            if (comando.IdArticulo.Equals(""))
+            if (comando.IdVenta.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese Articulo";
+                resultado.Error = "ingrese numero venta";
+                return resultado;
+            }
+            if (comando.IdEmpleado.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese empleado";
                 return resultado;
             }
             if (comando.Flag.Equals(""))
@@ -184,25 +198,27 @@ namespace ApiProyect.Controllers
                 return resultado;
             }
 
-            var nt = db.DetalleNotaPedidos.Where(c => c.NroDetalleOrdenCompra == comando.NroDetalleOrdenCompra).FirstOrDefault();
-            if (nt != null)
+            var d = db.Devolucion.Where(c => c.IdDevolucion== comando.IdDevolucion).FirstOrDefault();
+            if (d != null)
             {
-                nt.NroOrdenCompra = comando.NroOrdenCompra;
-                nt.Cantidad = comando.Cantidad;
-                nt.IdArticulo = comando.IdArticulo;
-                nt.Flag = comando.Flag;
-                db.DetalleNotaPedidos.Update(nt);
-                db.SaveChanges();
+            d.NroDevolucion = comando.NroDevolucion;
+            d.FechaDevolucion= comando.FechaDevolucion;
+            d.IdVenta= comando.IdVenta;
+            d.IdEmpleado= comando.IdEmpleado;
+            d.Flag= comando.Flag;
+            db.Devolucion.Update(d);
+            db.SaveChanges();
             }
 
             resultado.Ok = true;
-            resultado.Return = db.DetalleNotaPedidos.ToList();
+            resultado.Return = db.Devolucion.ToList();
 
             return resultado;
         }
 
+
         [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
-        [Route("[controller]/ActualizarFlagDetalleNotaPedido/{id}")]
+        [Route("[controller]/ActualizarFlagDevolucion/{id}")]
         public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
@@ -214,16 +230,16 @@ namespace ApiProyect.Controllers
                 return resultado;
             }
 
-            var cli= db.DetalleNotaPedidos.Where(c => c.NroDetalleOrdenCompra == id).FirstOrDefault();
+            var cli= db.Devolucion.Where(c => c.IdDevolucion == id).FirstOrDefault();
 
             if (cli != null)
             {
                 cli.Flag = comando.Flag;
-                db.DetalleNotaPedidos.Update(cli);
+                db.Devolucion.Update(cli);
                 db.SaveChanges();
             }
             resultado.Ok = true;
-            resultado.Return = db.DetalleNotaPedidos.ToList();
+            resultado.Return = db.Devolucion.ToList();
 
             return resultado;
         }

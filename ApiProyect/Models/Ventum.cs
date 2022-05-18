@@ -9,6 +9,7 @@ namespace ApiProyect.Models
     {
         public Ventum()
         {
+            Devolucions = new HashSet<Devolucion>();
             DetalleVenta = new HashSet<DetalleVentum>();
         }
 
@@ -19,10 +20,14 @@ namespace ApiProyect.Models
         public int IdCliente { get; set; }
         public int IdEmpleado { get; set; }
         public int IdFormaPago { get; set; }
+        public int Flag { get; set; }
+
 
         public virtual Cliente IdClienteNavigation { get; set; }
         public virtual Usuario IdEmpleadoNavigation { get; set; }
         public virtual FormaPago IdFormaPagoNavigation { get; set; }
         public virtual ICollection<DetalleVentum> DetalleVenta { get; set; }
+       public virtual ICollection<Devolucion> Devolucions { get; set; }
+
     }
 }

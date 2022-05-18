@@ -9,6 +9,7 @@ namespace ApiProyect.Models
     {
         public Articulo()
         {
+            DetalleDevolucion = new HashSet<DetalleDevolucion>();
             DetalleIngresoPedidos = new HashSet<DetalleIngresoPedido>();
             DetalleNotaPedidos = new HashSet<DetalleNotaPedido>();
             DetalleVenta = new HashSet<DetalleVentum>();
@@ -34,5 +35,7 @@ namespace ApiProyect.Models
         public virtual ICollection<DetalleIngresoPedido> DetalleIngresoPedidos { get; set; }
         public virtual ICollection<DetalleNotaPedido> DetalleNotaPedidos { get; set; }
         public virtual ICollection<DetalleVentum> DetalleVenta { get; set; }
+        public virtual ICollection<DetalleDevolucion> DetalleDevolucion { get; set; }
+
     }
 }

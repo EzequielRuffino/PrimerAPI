@@ -47,7 +47,7 @@ namespace ApiProyect.Controllers
                 return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.NotaPedidos.ToList(); 
+            resultado.Return = db.NotaPedidos.Where(c => c.Flag == 1).ToList(); 
             return resultado;
 
         }
@@ -87,7 +87,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var art = db.NotaPedidos.Where(c => c.IdOrdenCompra == id).FirstOrDefault();
+                var art = db.NotaPedidos.Where(c => c.IdOrdenCompra == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = art;
 
@@ -126,14 +126,19 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Empleado";
                 return resultado;
             }
-
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
 
             var nt = new NotaPedido();
             nt.FechaEmision = comando.FechaEmision;
             nt.FechaEntrega = comando.FechaEntrega;
             nt.IdEmpleado = comando.IdEmpleado;
-
+            nt.Flag = comando.Flag;
 
 
 
@@ -169,6 +174,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Empleado";
                 return resultado;
             }
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese estado";
+                return resultado;
+            }
 
             var nt = db.NotaPedidos.Where(c => c.IdOrdenCompra == comando.IdOrdenCompra).FirstOrDefault();
             if (nt != null)
@@ -176,6 +187,7 @@ namespace ApiProyect.Controllers
                 nt.FechaEmision = comando.FechaEmision;
                 nt.FechaEntrega = comando.FechaEntrega;
                 nt.IdEmpleado = comando.IdEmpleado;
+                nt.Flag = comando.Flag;
                 db.NotaPedidos.Update(nt);
                 db.SaveChanges();
             }
@@ -186,17 +198,30 @@ namespace ApiProyect.Controllers
             return resultado;
         }
 
-        [HttpDelete]
-        [Route("[controller]/EliminarOrdenCompra{id}")]
-        public ActionResult<ResultAPI> deleteById(int id)
+        [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
+        [Route("[controller]/ActualizarFlagNotaPedido/{id}")]
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
-            var nt= db.NotaPedidos.Where(c => c.IdOrdenCompra == id).FirstOrDefault();
-            db.NotaPedidos.Remove(nt);
-            db.SaveChanges();
 
+            if (comando.Flag.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "Ingrese flag";
+                return resultado;
+            }
+
+            var cli= db.NotaPedidos.Where(c => c.IdOrdenCompra == id).FirstOrDefault();
+
+            if (cli != null)
+            {
+                cli.Flag = comando.Flag;
+                db.NotaPedidos.Update(cli);
+                db.SaveChanges();
+            }
             resultado.Ok = true;
             resultado.Return = db.NotaPedidos.ToList();
+
             return resultado;
         }
 

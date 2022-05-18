@@ -11,6 +11,8 @@ namespace ApiProyect.Models
         public int Cantidad { get; set; }
         public double Precio { get; set; }
         public int IdArticulo { get; set; }
+                public int Flag { get; set; }
+
 
 
     }

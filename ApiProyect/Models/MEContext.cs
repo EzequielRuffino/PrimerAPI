@@ -20,6 +20,8 @@ namespace ApiProyect.Models
         public virtual DbSet<Articulo> Articulos { get; set; }
         public virtual DbSet<Barrio> Barrios { get; set; }
         public virtual DbSet<Cliente> Clientes { get; set; }
+         public virtual DbSet<Devolucion> Devolucion { get; set; }
+        public virtual DbSet<DetalleDevolucion> DetalleDevolucion { get; set; }
         public virtual DbSet<DetalleIngresoPedido> DetalleIngresoPedidos { get; set; }
         public virtual DbSet<DetalleNotaPedido> DetalleNotaPedidos { get; set; }
         public virtual DbSet<DetalleVentum> DetalleVenta { get; set; }
@@ -28,6 +30,7 @@ namespace ApiProyect.Models
         public virtual DbSet<FormaPago> FormaPagos { get; set; }
         public virtual DbSet<IngresoPedidoProveedor> IngresoPedidoProveedors { get; set; }
         public virtual DbSet<Marca> Marcas { get; set; }
+        public virtual DbSet<MotivoDevolucion> MotivoDevolucions { get; set; }
         public virtual DbSet<NotaPedido> NotaPedidos { get; set; }
         public virtual DbSet<Proveedor> Proveedors { get; set; }
         public virtual DbSet<TalleArticulo> TalleArticulos { get; set; }
@@ -168,7 +171,80 @@ namespace ApiProyect.Models
                     .HasForeignKey(d => d.CodBarrio)
                     .HasConstraintName("fk_cod_barrio");
             });
+//TABLA AGHREGADA
+            modelBuilder.Entity<Devolucion>(entity =>
+            {
+                entity.HasKey(e => e.IdDevolucion)
+                    .HasName("devolucion_pkey");
 
+                entity.ToTable("devolucion");
+
+                entity.Property(e => e.IdDevolucion).HasColumnName("id_devolucion");
+
+                entity.Property(e => e.NroDevolucion).HasColumnName("nro_devolucion");
+
+                entity.Property(e => e.FechaDevolucion)
+                    .HasColumnType("date")
+                    .HasColumnName("fecha_devolucion");
+
+                entity.Property(e => e.IdVenta).HasColumnName("id_venta");
+
+                entity.Property(e => e.IdEmpleado).HasColumnName("id_empleado");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
+
+                entity.HasOne(d => d.IdVentaNavigation)
+                    .WithMany(p => p.Devolucions)
+                    .HasForeignKey(d => d.IdVenta)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_id_venta");
+
+                entity.HasOne(d => d.IdEmpleadoNavigation)
+                    .WithMany(p => p.Devolucions)
+                    .HasForeignKey(d => d.IdEmpleado)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_id_empleado");
+            });
+//ACA TERMINA
+//TABLA AGREGADA
+            modelBuilder.Entity<DetalleDevolucion>(entity =>
+            {
+                entity.HasKey(e => e.IdDetalleDevolucion)
+                    .HasName("detalle_devolucion_pkey");
+
+                entity.ToTable("detalle_devolucion");
+
+                entity.Property(e => e.IdDetalleDevolucion).HasColumnName("id_detalle_devolucion");
+
+                entity.Property(e => e.IdDevolucion).HasColumnName("id_devolucion");
+
+                entity.Property(e => e.IdArticulo).HasColumnName("id_articulo");
+
+                entity.Property(e => e.IdMotivo).HasColumnName("id_motivo_devolucion");
+
+                entity.Property(e => e.Cantidad).HasColumnName("cantidad");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
+
+                entity.HasOne(d => d.IdDevolucionNavigation)
+                    .WithMany(p => p.DetalleDevolucion)
+                    .HasForeignKey(d => d.IdDevolucion)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_id_devolucion");
+
+                entity.HasOne(d => d.IdMotivoNavigation)
+                    .WithMany(p => p.DetalleDevolucion)
+                    .HasForeignKey(d => d.IdMotivo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_id_motivo");
+
+                entity.HasOne(d => d.IdArticuloNavigation)
+                    .WithMany(p => p.DetalleDevolucion)
+                    .HasForeignKey(d => d.IdArticulo)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk_id_articulo");
+            });
+//ACA TERMINA
             modelBuilder.Entity<DetalleIngresoPedido>(entity =>
             {
                 entity.HasKey(e => e.IdDetalleIngresoPedido)
@@ -181,6 +257,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
                 entity.Property(e => e.IdArticulo).HasColumnName("id_articulo");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.IdIngresoPedido).HasColumnName("id_ingreso_pedido");
 
@@ -211,6 +289,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.Cantidad).HasColumnName("cantidad");
 
                 entity.Property(e => e.IdArticulo).HasColumnName("id_articulo");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.NroOrdenCompra).HasColumnName("nro_orden_compra");
 
@@ -243,6 +323,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.IdVenta).HasColumnName("id_venta");
 
                 entity.Property(e => e.PrecioUnitario).HasColumnName("precio_unitario");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.HasOne(d => d.IdArticuloNavigation)
                     .WithMany(p => p.DetalleVenta)
@@ -345,9 +427,11 @@ namespace ApiProyect.Models
 
                 entity.Property(e => e.IdProveedor).HasColumnName("id_proveedor");
 
-                entity.Property(e => e.NroFacturaPedido).HasColumnName("nro_factura_pedido");
+                entity.Property(e => e.NroRemitoPedido).HasColumnName("nro_remito_pedido");
 
                 entity.Property(e => e.NroOrdenCompra).HasColumnName("nro_orden_compra");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.TipoFactura)
                     .IsRequired()
@@ -391,7 +475,22 @@ namespace ApiProyect.Models
                     .HasMaxLength(50)
                     .HasColumnName("nombre_marca");
             });
+//TABLA AGREGADA
+            modelBuilder.Entity<MotivoDevolucion>(entity =>
+            {
+                entity.HasKey(e => e.IdMotivo)
+                    .HasName("motivo_devolucion_pkey");
 
+                entity.ToTable("motivo_devolucion");
+
+                entity.Property(e => e.IdMotivo).HasColumnName("id_motivo");
+
+                entity.Property(e => e.Descripcion)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .HasColumnName("descripcion");
+            });
+//ACA TERMINA
             modelBuilder.Entity<NotaPedido>(entity =>
             {
                 entity.HasKey(e => e.IdOrdenCompra)
@@ -416,6 +515,9 @@ namespace ApiProyect.Models
                     .HasForeignKey(d => d.IdEmpleado)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_id_empleado");
+
+                 entity.Property(e => e.Flag).HasColumnName("flag");   
+
             });
 
             modelBuilder.Entity<Proveedor>(entity =>
@@ -512,6 +614,8 @@ namespace ApiProyect.Models
                 entity.Property(e => e.IdEmpleado).HasColumnName("id_empleado");
 
                 entity.Property(e => e.IdFormaPago).HasColumnName("id_forma_pago");
+
+                entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.NroFactura).HasColumnName("nro_factura");
 

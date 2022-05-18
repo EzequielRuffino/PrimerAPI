@@ -38,7 +38,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var pro = db.Proveedors.Where(c => c.IdProveedor == id).FirstOrDefault();
+                var pro = db.Proveedors.Where(c => c.IdProveedor == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = pro;
 

@@ -5,16 +5,14 @@ using System.Collections.Generic;
 
 namespace ApiProyect.Models
 {
-    public partial class ComandoCrearDetalleVenta
+    public partial class comandoCrearDetalleDevolucion
     {
 
-        public int IdVenta { get; set; }
+        public int IdDevolucion { get;set; }
         public int IdArticulo { get; set; }
+        public int IdMotivo { get; set; }
         public int Cantidad { get; set; }
-        public int PrecioUnitario { get; set; }
-                public int Flag { get; set; }
-
-
+        public int Flag { get; set; }
 
     }
 }

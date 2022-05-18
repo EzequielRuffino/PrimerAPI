@@ -39,7 +39,7 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var art = db.Articulos.Where(c => c.IdArticulo == id).FirstOrDefault();
+                var art = db.Articulos.Where(c => c.IdArticulo == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = art;
 
@@ -239,7 +239,7 @@ namespace ApiProyect.Controllers
 
         [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT/UPDATE O CON EL COMANDO FLAG
         [Route("[controller]/ActualizarFlagArticulo/{id}")]
-        public ActionResult<ResultAPI> UpdateById(comandoUpdateArticulo comando, int id)
+        public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();
 

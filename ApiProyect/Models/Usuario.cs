@@ -9,6 +9,7 @@ namespace ApiProyect.Models
     {
         public Usuario()
         {
+            Devolucions = new HashSet<Devolucion>();
             IngresoPedidoProveedors = new HashSet<IngresoPedidoProveedor>();
             NotaPedidos = new HashSet<NotaPedido>();
             Venta = new HashSet<Ventum>();
@@ -26,6 +27,7 @@ namespace ApiProyect.Models
 
         public virtual Barrio CodBarrioNavigation { get; set; }
         public virtual TipoRol IdTipoRolNavigation { get; set; }
+        public virtual ICollection<Devolucion> Devolucions { get; set; }
         public virtual ICollection<IngresoPedidoProveedor> IngresoPedidoProveedors { get; set; }
         public virtual ICollection<NotaPedido> NotaPedidos { get; set; }
         public virtual ICollection<Ventum> Venta { get; set; }

@@ -12,6 +12,8 @@ namespace ApiProyect.Models
         public int IdArticulo { get; set; }
         public int Cantidad { get; set; }
         public int PrecioUnitario { get; set; }
+                public int Flag { get; set; }
+
 
         public virtual Articulo IdArticuloNavigation { get; set; }
         public virtual Ventum IdVentaNavigation { get; set; }

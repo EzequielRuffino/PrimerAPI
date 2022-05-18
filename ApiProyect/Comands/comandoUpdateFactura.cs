@@ -15,6 +15,8 @@ namespace ApiProyect.Models
         public int IdCliente { get; set; }
         public int IdEmpleado { get; set; }
         public int IdFormaPago { get; set; }
+                public int Flag { get; set; }
+
 
     }
 }
