@@ -105,17 +105,17 @@
     </section>
     <!-- HEAD -->
     <section class="container" style="text-align: center; margin-top: 2%;">
-        <h1 class="display-3">Clientes</h1>
+        <h1 class="display-3">Articulos</h1>
     </section>
     <!-- BODY -->
     <section class="container body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Clientes</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Articulos</a>
             </li>
 
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Cliente</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Articulos</a>
             </li>
 
           </ul>
@@ -132,13 +132,17 @@
                       <table class="table table-responsive-md" id="TablaRemitos">
                         <thead class="thead-dark">
                           
-                            <!--<th data-field="id">IdCliente</th>-->
-                            <th data-field="Cliente">Cliente</th>
-                            <th data-field="Documento">Documento</th>
-                            <th data-field="Direccion">Direccion</th>
-                            <th data-field="Barrio">Barrio</th>
-                            <th data-field="Teléfono">Teléfono</th>
-                            <th data-field="Flag">Estado</th>
+                            <!--<th data-field="id" scope="col">IdCliente</th>-->
+                            <th data-field="articulo"  scope="col">Nombre Ariculo</th>
+                            <th data-field="descripcion" scope="col">Descripcion</th>
+                            <th data-field="tipo articulo" scope="col">Codigo tipo Articulos</th>
+                            <th data-field="precio venta" scope="col">Precio venta</th>
+                            <th data-field="talle" scope="col">Codigo talle</th>
+                            <th data-field="marca" scope="col">Codigo marca</th>
+                            <th data-field="cantidad" scope="col">Cantidad</th>
+                            <th data-field="fecha" scope="col">Fecha Modificacion</th>
+                            <th data-field="estado" scope="col">Estado articulo</th>
+                            <th data-field="Flag" scope="col">Estado</th>
                             <th>Acciones</th>
                            <!-- <th data-field="color" scope="col">Casado</th>-->
                         
@@ -195,12 +199,12 @@
 
     <!-- Modificar -->
 
-   <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog" role="document">
        <div class="modal-content">
            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Modificar Cliente</h5>
+               <h5 class="modal-title" id="exampleModalLabel">Modificar Articulo</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
@@ -218,59 +222,87 @@
                            </div>
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Documneto </label>
-                                   <input type="number" class="form-control" id="txtDocumento"
-                                       placeholder="Ingrese Documento">
+                                   <label> Descripcion </label>
+                                   <input type="number" class="form-control" id="txtDescripcion"
+                                       placeholder="Ingrese descripcion">
                                </div>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Direccion </label>
-                                   <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese direccion">
+                                   <label> Tipo Articulo </label>
+                                   <input type="text" class="form-control" id="txtTipo" placeholder="Ingrese tipo">
                                </div>
                            </div>
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Barrio </label>
-                                   <input type="number" class="form-control" id="txtBarrio"
-                                       placeholder="Ingrese barrio">
+                                   <label> Precio </label>
+                                   <input type="number" class="form-control" id="txtPrecio"
+                                       placeholder="Ingrese Precio">
                                </div>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Telefono </label>
-                                   <input type="number" class="form-control" id="txtTelefono" placeholder="Ingrese telefono">
+                                   <label> Talle </label>
+                                   <input type="number" class="form-control" id="txtTalle" placeholder="Ingrese talle">
                                </div>                              
                            </div>
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                             <div class="form-group">
-                                <label> Estado</label>
-                                <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
+                                <label> Marca</label>
+                                <input type="number" class="form-control" id="txtMarca" placeholder="Ingrese marca">
                             </div>                              
                         </div>
                        </div>
+                       <div class="row">
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label> Cantidad </label>
+                                <input type="number" class="form-control" id="txtCantidad" placeholder="Ingrese cantidad">
+                            </div>                              
+                        </div>
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                         <div class="form-group">
+                             <label> Fecha </label>
+                             <input type="number" class="form-control" id="txtFecha" placeholder="Ingrese fecha">
+                         </div>                              
+                     </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label> Estado Articulo </label>
+                                <input type="number" class="form-control" id="txtEstadoArticulo" placeholder="Ingrese estado articulo">
+                            </div>                              
+                        </div>
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                         <div class="form-group">
+                             <label> Estado</label>
+                             <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
+                         </div>                              
+                     </div>
+                    </div>
                </div>
                <div class="modal-footer">
                    <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
                        class="btn btn-success">ACEPTAR</button> -->
                    <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar" class="btn btn-success">Aceptar</button>
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                </div>
            </div>
        </div>
    </div>
 </div>
 
-<!-- arreglar modal modificar-->
-<div class="modal fade" id="alta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- arreglar modal alta-->
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Alta Cliente</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Alta Articulo</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -354,7 +386,7 @@
 
     $(document).ready(function () {
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente",
+            url: "https://localhost:5001/Articulo/ObtenerArticulo",
             type: "GET",
             success: function (result) {
                 if (result.ok) {
@@ -365,54 +397,55 @@
                 }
             },
             error: function (error) {
-                swal("Problemas al conseguir datos de las personas");
+                swal("Problemas al conseguir datos de los articulos");
             },
         })
     })
 
     function cargarTabla(datos) {
-        //$("#cuerpoTabla").html("");
-
-
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-           // html += "<td>" + datos[i].idCliente + "</td>";
-            html += "<td>" + datos[i].nombreCliente + "</td>";
-            html += "<td>" + datos[i].documento + "</td>";
-            html += "<td>" + datos[i].direccion + "</td>";
-            html += "<td>" + datos[i].nombreBarrio + "</td>";
-            html += "<td>" + datos[i].telefono + "</td>";
+           // html += "<td>" + datos[i].IdCliente + "</td>";
+            html += "<td>" + datos[i].nombreArticulo + "</td>";
+            html += "<td>" + datos[i].descripcion + "</td>";
+            html += "<td>" + datos[i].idTipoArticulo + "</td>";
+            html += "<td>" + datos[i].precioVenta + "</td>";
+            html += "<td>" + datos[i].idTalle + "</td>";
+            html += "<td>" + datos[i].idMarca + "</td>";
+            html += "<td>" + datos[i].cantidad + "</td>";
+            html += "<td>" + datos[i].fechaModificicacion+ "</td>";
+            html += "<td>" + datos[i].idEstadoArticulo + "</td>";
             html += "<td>" + datos[i].flag + "</td>";
             html += "<td>"+ 
-                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#modificar'  class='btn btn-primary pl-4 pr-4' value=` (" + datos[i].idCliente + ") `>"+
+                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#update'  class='btn btn-primary pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;"+
-                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` (" + datos[i].id + ") `>"+
+                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
                 "<i class='bi bi-file-text'></i></button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
     }
 
-   $("#btnUpdate").click(function () {
-       // console.log("holis");
-        let id = $("#btnUpdate").val();
-        //console.log(id);
+  /* $("#btnUpdateAceptar").click(function () {
+        console.log("holis");
+        //let id = $("#update").val();
+       // console.log(id);
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente/" + id,
+            url: "https://localhost:5001/Cliente/ObtenerCliente/",
             type: "GET",
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify(id),
+            //data: JSON.stringify(id),
             success: function (result) {
                 if (result.ok) {
-                    
+                    swal("Datos traidos con exito");
                     $("#txtNombre").val(result.return.nombreCliente);
                     $("#txtDocumento").val(result.return.documento);
                     $("#txtDireccion").val(result.return.direccion);
-                    $("#txtBarrio").val(result.return.codBarrio);
+                    $("#txtBarrio").val(result.return.nombreBarrio);
                     $("#txtTelefono").val(result.return.telefono);
                     $("#txtFlag").val(result.return.flag);
-                    swal("Datos traidos con exito");
+
 
                 } else {
                     swal(result.error);
@@ -422,10 +455,10 @@
                 swal("Problemas en el servidor");
             },
         })
-    });
+    });*/
 
    //----------------------------------------------------------------------------------------------------------------
-   /*$("#btnAgregar").click(function () {
+   $("btnAgregar").click(function () {
         let nombreCliente = $("#txtNombre").val();
         let documento = $("#txtDocumento").val();
         let direccion = $("#txtDireccion").val();

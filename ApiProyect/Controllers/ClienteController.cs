@@ -31,7 +31,7 @@ namespace ApiProyect.Controllers
             var resultado = new ResultAPI();
 
             
-                resultado.Ok = true;
+               resultado.Ok = true;
                 var cli   = (from c in db.Clientes
                 join b in db.Barrios on c.CodBarrio equals b.CodBarrio
                 where c.Flag == 1
@@ -48,7 +48,9 @@ namespace ApiProyect.Controllers
 
                 return resultado;
             
-
+           /* resultado.Ok = true;
+            resultado.Return = db.Clientes.Where(c => c.Flag == 1).ToList(); 
+            return resultado;*/
 
         }
 

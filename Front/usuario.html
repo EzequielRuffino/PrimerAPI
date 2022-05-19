@@ -105,17 +105,17 @@
     </section>
     <!-- HEAD -->
     <section class="container" style="text-align: center; margin-top: 2%;">
-        <h1 class="display-3">Clientes</h1>
+        <h1 class="display-3">Usuarios</h1>
     </section>
     <!-- BODY -->
     <section class="container body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Clientes</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Usuarios</a>
             </li>
 
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Cliente</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Articulos</a>
             </li>
 
           </ul>
@@ -132,13 +132,15 @@
                       <table class="table table-responsive-md" id="TablaRemitos">
                         <thead class="thead-dark">
                           
-                            <!--<th data-field="id">IdCliente</th>-->
-                            <th data-field="Cliente">Cliente</th>
-                            <th data-field="Documento">Documento</th>
-                            <th data-field="Direccion">Direccion</th>
-                            <th data-field="Barrio">Barrio</th>
-                            <th data-field="Teléfono">Teléfono</th>
-                            <th data-field="Flag">Estado</th>
+                            <!--<th data-field="id" scope="col">IdCliente</th>-->
+                            <th data-field="usuario"  scope="col">Usuario</th>
+                            <th data-field="documento" scope="col">Documento</th>
+                            <th data-field="cod Barrio" scope="col">Barrio</th>
+                            <th data-field="telefono" scope="col">Telefono</th>
+                            <th data-field="cod rol" scope="col">Rol</th>
+                            <th data-field="Email" scope="col">Email</th>
+                            <th data-field="contraseña" scope="col">Contraseña</th>
+                            <th data-field="flag" scope="col">Estado</th>
                             <th>Acciones</th>
                            <!-- <th data-field="color" scope="col">Casado</th>-->
                         
@@ -195,12 +197,12 @@
 
     <!-- Modificar -->
 
-   <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+   <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
    aria-hidden="true">
    <div class="modal-dialog" role="document">
        <div class="modal-content">
            <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Modificar Cliente</h5>
+               <h5 class="modal-title" id="exampleModalLabel">Modificar Usuario</h5>
                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                    <span aria-hidden="true">&times;</span>
                </button>
@@ -218,59 +220,73 @@
                            </div>
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Documneto </label>
+                                   <label> Documento </label>
                                    <input type="number" class="form-control" id="txtDocumento"
-                                       placeholder="Ingrese Documento">
+                                       placeholder="Ingrese documento">
                                </div>
                            </div>
                        </div>
                        <div class="row">
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
-                                   <label> Direccion </label>
-                                   <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese direccion">
+                                   <label> Codifo barrio </label>
+                                   <input type="text" class="form-control" id="txtBarrio" placeholder="Ingrese barrio">
                                </div>
                            </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Barrio </label>
-                                   <input type="number" class="form-control" id="txtBarrio"
-                                       placeholder="Ingrese barrio">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                <div class="form-group">
                                    <label> Telefono </label>
-                                   <input type="number" class="form-control" id="txtTelefono" placeholder="Ingrese telefono">
+                                   <input type="number" class="form-control" id="txtTelefono"
+                                       placeholder="Ingrese telefono">
+                               </div>
+                           </div>
+                       </div>
+                       <div class="row">
+                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                               <div class="form-group">
+                                   <label> Rol </label>
+                                   <input type="number" class="form-control" id="txtRol" placeholder="Ingrese rol">
                                </div>                              
                            </div>
                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                             <div class="form-group">
-                                <label> Estado</label>
-                                <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
+                                <label> Email </label>
+                                <input type="number" class="form-control" id="txtEmail" placeholder="Ingrese email">
                             </div>                              
                         </div>
                        </div>
+                       <div class="row">
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                            <div class="form-group">
+                                <label> Contraseña </label>
+                                <input type="number" class="form-control" id="txtContraseña" placeholder="Ingrese contraseña">
+                            </div>                              
+                        </div>
+                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                         <div class="form-group">
+                             <label> Estado </label>
+                             <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
+                         </div>                              
+                     </div>
+                    </div>
                </div>
                <div class="modal-footer">
                    <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
                        class="btn btn-success">ACEPTAR</button> -->
                    <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar" class="btn btn-success">Aceptar</button>
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                </div>
            </div>
        </div>
    </div>
 </div>
 
-<!-- arreglar modal modificar-->
-<div class="modal fade" id="alta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<!-- arreglar modal alta, NO LLEVARIA UN ALTA DENTRO DE LA APP, SERIA EL REGISTRARSE-->
+<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Alta Cliente</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Alta Articulo</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
               </button>
@@ -354,7 +370,7 @@
 
     $(document).ready(function () {
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente",
+            url: "https://localhost:5001/Usuario/ObtenerUsuario",
             type: "GET",
             success: function (result) {
                 if (result.ok) {
@@ -365,54 +381,53 @@
                 }
             },
             error: function (error) {
-                swal("Problemas al conseguir datos de las personas");
+                swal("Problemas al conseguir datos de los articulos");
             },
         })
     })
 
     function cargarTabla(datos) {
-        //$("#cuerpoTabla").html("");
-
-
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-           // html += "<td>" + datos[i].idCliente + "</td>";
-            html += "<td>" + datos[i].nombreCliente + "</td>";
+           // html += "<td>" + datos[i].IdCliente + "</td>";
+            html += "<td>" + datos[i].nombreCompleto + "</td>";
             html += "<td>" + datos[i].documento + "</td>";
-            html += "<td>" + datos[i].direccion + "</td>";
-            html += "<td>" + datos[i].nombreBarrio + "</td>";
+            html += "<td>" + datos[i].codBarrio + "</td>";
             html += "<td>" + datos[i].telefono + "</td>";
+            html += "<td>" + datos[i].idTipoRol + "</td>";
+            html += "<td>" + datos[i].email + "</td>";
+            html += "<td>" + datos[i].contraseña + "</td>";
             html += "<td>" + datos[i].flag + "</td>";
             html += "<td>"+ 
-                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#modificar'  class='btn btn-primary pl-4 pr-4' value=` (" + datos[i].idCliente + ") `>"+
+                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#update'  class='btn btn-primary pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;"+
-                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` (" + datos[i].id + ") `>"+
+                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
                 "<i class='bi bi-file-text'></i></button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
     }
 
-   $("#btnUpdate").click(function () {
-       // console.log("holis");
-        let id = $("#btnUpdate").val();
-        //console.log(id);
+  /* $("#btnUpdateAceptar").click(function () {
+        console.log("holis");
+        //let id = $("#update").val();
+       // console.log(id);
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente/" + id,
+            url: "https://localhost:5001/Cliente/ObtenerCliente/",
             type: "GET",
             dataType: 'JSON',
             contentType: 'application/json',
-            data: JSON.stringify(id),
+            //data: JSON.stringify(id),
             success: function (result) {
                 if (result.ok) {
-                    
+                    swal("Datos traidos con exito");
                     $("#txtNombre").val(result.return.nombreCliente);
                     $("#txtDocumento").val(result.return.documento);
                     $("#txtDireccion").val(result.return.direccion);
-                    $("#txtBarrio").val(result.return.codBarrio);
+                    $("#txtBarrio").val(result.return.nombreBarrio);
                     $("#txtTelefono").val(result.return.telefono);
                     $("#txtFlag").val(result.return.flag);
-                    swal("Datos traidos con exito");
+
 
                 } else {
                     swal(result.error);
@@ -422,10 +437,10 @@
                 swal("Problemas en el servidor");
             },
         })
-    });
+    });*/
 
    //----------------------------------------------------------------------------------------------------------------
-   /*$("#btnAgregar").click(function () {
+   $("btnAgregar").click(function () {
         let nombreCliente = $("#txtNombre").val();
         let documento = $("#txtDocumento").val();
         let direccion = $("#txtDireccion").val();
