@@ -88,3 +88,7 @@ C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\obj\Debug\netcoreapp3.
 C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\obj\Debug\netcoreapp3.1\ApiProyect.dll
 C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\obj\Debug\netcoreapp3.1\ApiProyect.pdb
 C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\obj\Debug\netcoreapp3.1\ApiProyect.genruntimeconfig.cache
+C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\Windows 10\Documents\GitHub\PrimerAPI\ApiProyect\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

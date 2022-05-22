@@ -43,6 +43,7 @@ namespace ApiProyect
             }));
 
             services.AddRouting(r => r.SuppressCheckForUnhandledSecurityMetadata=true);
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
 
         }
 
@@ -72,7 +73,7 @@ namespace ApiProyect
             });
 
 
-            app.UseHttpsRedirection();
+           // app.UseHttpsRedirection();
 
             app.UseRouting();
 

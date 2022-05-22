@@ -1,12 +1,14 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+        integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
@@ -22,63 +24,70 @@
             font-family: 'Fira Sans', sans-serif;
         }
 
-        .btn{
+        .btn {
             background-color: #a30a0a;
             color: white;
             font-size: medium;
         }
 
-        .btn:hover{
+        .btn:hover {
             color: white;
             border: 3px dashed #ffee32;
         }
 
-        h1{
+        h1 {
             font-family: 'Luckiest Guy', cursive;
         }
 
-        .presentation, .tab-content{
+        .presentation,
+        .tab-content {
             background-color: white;
             border-radius: 5px 5px 0 0;
         }
 
-        a{
-          color: black;
+        a {
+            color: black;
         }
 
-        a:hover{
-          color: rgb(82, 79, 79);
+        a:hover {
+            color: rgb(82, 79, 79);
         }
 
         @media screen {
-          #printSection {
-              display: none;
-          }
+            #printSection {
+                display: none;
+            }
         }
 
         @media print {
-          body * {
-            visibility:hidden;
-          }
-          #printSection, #printSection * {
-            visibility:visible;
-          }
-          #modal * {
-            visibility:visible;
-          }
-          #printSection {
-            position:absolute;
-            left:0;
-            top:0;
-          }
+            body * {
+                visibility: hidden;
+            }
+
+            #printSection,
+            #printSection * {
+                visibility: visible;
+            }
+
+            #modal * {
+                visibility: visible;
+            }
+
+            #printSection {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
         }
-        .id{
-          float: right;
-          gap: 15px;
+
+        .id {
+            float: right;
+            gap: 15px;
         }
     </style>
-  </head>
-  <body onload="OnLoad()" id="body">
+</head>
+
+<body onload="OnLoad()" id="body">
     <!-- Navbar -->
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -86,22 +95,23 @@
                 <img src="./Imagenes/M&E.ico" alt="" style="height: 50px;">
                 <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
             </div>
-            
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-              <span class="navbar-toggler-icon"></span>
-            </button> 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-              <ul class="navbar-nav mr-auto"></ul>
-              <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
 
-                <a class="btn btn-success my-2 my-sm-0" href="menu.html">Volver</a>
-                <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">
-                    Salir
-                    <i class="bi bi-box-arrow-right"></i>
-                </a>
-              </form>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
+
+                    <a class="btn btn-success my-2 my-sm-0" href="menu.html">Volver</a>
+                    <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">
+                        Salir
+                        <i class="bi bi-box-arrow-right"></i>
+                    </a>
+                </form>
             </div>
-          </nav>
+        </nav>
     </section>
     <!-- HEAD -->
     <section class="container" style="text-align: center; margin-top: 2%;">
@@ -111,231 +121,228 @@
     <section class="container body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Clientes</a>
+                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+                    aria-selected="true">Listado de Clientes</a>
             </li>
 
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Cliente</a>
+                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                    aria-controls="profile" aria-selected="false">Registrar Nuevo Cliente</a>
             </li>
 
-          </ul>
-          <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
+        </ul>
+        <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container" style="padding: 3%;">
-                  <div  style="text-align:left">
-                    <label for="">Buscar por ID°</label>
-                            <select name="id" id="cboId" class="form-control">
-                            </select>
-                    <button class="btn" type="submit" onclick="buscar()">Buscar</button>
-                  </div>
-                    <table class="table table-responsive-sm">
-                      <table class="table table-responsive-md" id="TablaRemitos">
-                        <thead class="thead-dark">
-                          
-                            <!--<th data-field="id">IdCliente</th>-->
-                            <th data-field="Cliente">Cliente</th>
-                            <th data-field="Documento">Documento</th>
-                            <th data-field="Direccion">Direccion</th>
-                            <th data-field="Barrio">Barrio</th>
-                            <th data-field="Teléfono">Teléfono</th>
-                            <th data-field="Flag">Estado</th>
-                            <th>Acciones</th>
-                           <!-- <th data-field="color" scope="col">Casado</th>-->
-                        
-                    </thead>
-                    <tbody id="cuerpoTabla">
-                    </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <!-- Cargar Cliente -->
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container" style="padding: 3%;">
-                  <form class="needs-validation" novalidate id="carga">
-                    <div class="form-row">
-                      <div class="col-md-6 mb-3">
-                        <label for="fecha">Fecha de Remito</label>
-                        <input type="date" class="form-control" id="fecha" required>
-                        <div class="invalid-feedback">
-                          Ingrese una fecha de compra
-                        </div>
-                      </div>
-
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-8 mb-3">
-                        <label for="cliente">Cliente</label>
-                        <select class="custom-select" id="cliente" required>
-                          <option selected disabled value="">Seleccionar...</option>
+                    <div style="text-align:left">
+                        <label for="">Buscar por ID°</label>
+                        <select name="id" id="cboId" class="form-control">
                         </select>
-                        <div class="invalid-feedback">
-                          Seleccione un cliente
-                        </div>
-                      </div>
+                        <button class="btn" type="submit" onclick="buscar()">Buscar</button>
                     </div>
-                    <div class="form-row">
-                      <div class="col-md-6 mb-6">
-                        <label for="producto">Detalle</label> <br>
-                        <button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop">
-                          Ingresar artículos con su cantidad...
-                        </button>
-                        <div class="invalid-feedback">
-                          Ingrese detalle
-                        </div>
-                      </div>
-                    </div><br>
-                    <button class="btn" type="button" onclick="go()" id="btnI">Ingresar</button>
-                  </form>
+                    <table class="table table-responsive-sm">
+                        <table class="table table-responsive-md" id="TablaRemitos">
+                            <thead class="thead-dark">
+
+                                <th data-field="id">IdCliente</th>
+                                <th data-field="Cliente">Cliente</th>
+                                <th data-field="Documento">Documento</th>
+                                <th data-field="Direccion">Direccion</th>
+                                <th data-field="Barrio">Barrio</th>
+                                <th data-field="Teléfono">Teléfono</th>
+                                <th data-field="Flag">Estado</th>
+                                <th>Acciones</th>
+                                <!-- <th data-field="color" scope="col">Casado</th>-->
+
+                            </thead>
+                            <tbody id="cuerpoTabla">
+                            </tbody>
+                        </table>
+                        <h1 id="txtA">a</h1>
                 </div>
             </div>
-          </div>
-        </section>
-
-
-    <!-- Modificar -->
-
-   <div class="modal fade" id="modificar" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
-   <div class="modal-dialog" role="document">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Modificar Cliente</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-           </div>
-           <div class="modal-body">
-               <div class="container d-flex justify-content-center mt-5">
-                   <form>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Nombre </label>
-                                   <input type="text" class="form-control" id="txtNombre"
-                                       placeholder="Ingrese nombre completo">
-                               </div>
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Documneto </label>
-                                   <input type="number" class="form-control" id="txtDocumento"
-                                       placeholder="Ingrese Documento">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Direccion </label>
-                                   <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese direccion">
-                               </div>
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Barrio </label>
-                                   <input type="number" class="form-control" id="txtBarrio"
-                                       placeholder="Ingrese barrio">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Telefono </label>
-                                   <input type="number" class="form-control" id="txtTelefono" placeholder="Ingrese telefono">
-                               </div>                              
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label> Estado</label>
-                                <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
-                            </div>                              
+<!-- Cargar Cliente -->
+    <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                 <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">ALTA CLIENTE</h5>
+                 </div>
+                 <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <form>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Cliente </label>
+                                        <input type="text" class="form-control" id="txtNombre"
+                                            placeholder="Ingrese cliente">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Documento </label>
+                                        <input type="number" class="form-control" id="txtDocumento"
+                                            placeholder="Ingrese Documento">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Direccion </label>
+                                        <input type="text" class="form-control" id="txtDireccion"
+                                            placeholder="Ingrese Direccion">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Barrio </label>
+                                        <select name="barrios" id="cboBarrios">
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Telefono </label>
+                                        <input type="number" class="form-control" id="txtTelefono"
+                                            placeholder="Ingrese telefono">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Estado </label>
+                                        <input type="number" class="form-control" id="txtFlag"
+                                            placeholder="Ingrese Estado">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                       </div>
-               </div>
-               <div class="modal-footer">
-                   <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
-                       class="btn btn-success">ACEPTAR</button> -->
-                   <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar" class="btn btn-success">Aceptar</button>
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-               </div>
-           </div>
-       </div>
-   </div>
-</div>
+                        <div class="modal-footer">
 
-<!-- arreglar modal modificar-->
-<div class="modal fade" id="alta" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Alta Cliente</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <div class="container d-flex justify-content-center mt-5">
-                  <form>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Nombre </label>
-                                  <input type="text" class="form-control" id="txtNombre" name="txtNombre"
-                                      placeholder="Ingrese nombre">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Documento </label>
-                                  <input type="text" class="form-control" id="txtDocumento"
-                                      placeholder="Ingrese Documento">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Direccion </label>
-                                  <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese Direccion">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Barrio </label>
-                                  <input type="number" class="form-control" id="txtBarrio"
-                                      placeholder="Ingrese Barrio">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                              <div class="form-group">
-                                  <label> Telefono </label>
-                                  <input type="number" class="form-control" id="txtTelefono"
-                                      placeholder="Ingrese telefono">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                              <div class="form-group">
-                                  <label> Estado </label>
-                                  <input type="number" class="form-control" id="txtFlag"
-                                      placeholder="Ingrese Estado">
-                              </div>
-                          </div>
-                      </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" id="btnAgregar" name="btnAgregar"
-                      class="btn btn-success">Agregar</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+                            <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                            <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </form>    
+            </div>
+        </div>
+     </div>
 
+</section>
+
+    <!-- UPDATE CLIENTE-->
+    <div class="modal fade" id="update" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">MODIFICAR CLIENTE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container d-flex justify-content-center mt-5">
+                        <section>
+                            <form>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" id="txtId">
+
+                                            <label> Nombre </label>
+                                            <input type="text" class="form-control" id="txtNombreM"
+                                                placeholder="Ingrese nombre">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Documento </label>
+                                            <input type="text" class="form-control" id="txtDocumentoM"
+                                                placeholder="Ingrese Documento">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Direccion </label>
+                                            <input type="text" class="form-control" id="txtDireccionM"
+                                                placeholder="Ingrese Direccion">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Barrio </label>
+                                            <select name="barrio" id="cboBarriosM">
+                                            </select>
+                                           <!-- <input type="text" class="form-control" id="txtBarrio"
+                                            placeholder="Ingrese Direccion">-->
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Telefono </label>
+                                            <input type="number" class="form-control" id="txtTelefonoM"
+                                                placeholder="Ingrese telefono">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Estado </label>
+                                            <input type="number" class="form-control" id="txtFlagM"
+                                                placeholder="Ingrese Estado">
+                                        </div>
+                                    </div>
+                                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" type="button" id="btnModificar">Aceptar</button>
+                        <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--BAJA CLIENTE-->
+    <div class="modal fade" id="baja" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">BAJA CLIENTE</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">                          
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Id</label>
+                                            <input type="number" class="form-control" id="txtIdD"
+                                            placeholder="Ingrese Id">
+                                            <label> Estado </label>
+                                            <input type="number" class="form-control" id="txtFlagD"
+                                                placeholder="Ingrese Estado">
+                                        </div>
+                                    </div>                         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" type="button" id="btnDelete">Aceptar</button>
+                        <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
 
@@ -349,8 +356,10 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-  </body>
-  <script type="text/javascript">
+</body>
+<script>
+
+    let Clientes = [];
 
     $(document).ready(function () {
         $.ajax({
@@ -359,7 +368,7 @@
             success: function (result) {
                 if (result.ok) {
                     console.log(result)
-                    cargarTabla(result.return);                    
+                    cargarTabla(result.return);
                 } else {
                     alert(result.error)
                 }
@@ -376,82 +385,92 @@
 
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-           // html += "<td>" + datos[i].idCliente + "</td>";
+            html += "<td>" + datos[i].idCliente + "</td>";
             html += "<td>" + datos[i].nombreCliente + "</td>";
             html += "<td>" + datos[i].documento + "</td>";
             html += "<td>" + datos[i].direccion + "</td>";
-            html += "<td>" + datos[i].nombreBarrio + "</td>";
+            html += "<td>" + datos[i].codBarrioNavigation.nombre + "</td>";
             html += "<td>" + datos[i].telefono + "</td>";
-            html += "<td>" + datos[i].flag + "</td>";
-            html += "<td>"+ 
-                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#modificar'  class='btn btn-primary pl-4 pr-4' value=` (" + datos[i].idCliente + ") `>"+
-                "<i class='bi bi-pencil-fill'></i></button> &nbsp;"+
-                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` (" + datos[i].id + ") `>"+
+            //html += "<td>" + datos[i].flag  + "</td>";
+            if (datos[i].flag == 0) {
+                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+            }
+            else if (datos[i].flag == 1) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+            Clientes.push(datos[i]);
+            html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idCliente + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
+                "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idCliente + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
                 "<i class='bi bi-file-text'></i></button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
+        $('#txtA').html(datos[0].nombreCliente);
+
     }
 
-   $("#btnUpdate").click(function () {
-       // console.log("holis");
-        let id = $("#btnUpdate").val();
-        //console.log(id);
+
+    // GET bARRIO ALTA
+    $(document).ready(function () {
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente/" + id,
+            url: "https://localhost:5001/Cliente/ObtenerBarrios",
             type: "GET",
-            dataType: 'JSON',
-            contentType: 'application/json',
-            data: JSON.stringify(id),
             success: function (result) {
                 if (result.ok) {
-                    
-                    $("#txtNombre").val(result.return.nombreCliente);
-                    $("#txtDocumento").val(result.return.documento);
-                    $("#txtDireccion").val(result.return.direccion);
-                    $("#txtBarrio").val(result.return.codBarrio);
-                    $("#txtTelefono").val(result.return.telefono);
-                    $("#txtFlag").val(result.return.flag);
-                    swal("Datos traidos con exito");
-
+                    barrios = result.return;
+                    cargarCombo(barrios);
                 } else {
                     swal(result.error);
                 }
             },
             error: function (error) {
-                swal("Problemas en el servidor");
+                swal("Problemas al conseguir datos de barrios");
             },
         })
-    });
 
-   //----------------------------------------------------------------------------------------------------------------
-   /*$("#btnAgregar").click(function () {
-        let nombreCliente = $("#txtNombre").val();
-        let documento = $("#txtDocumento").val();
-        let direccion = $("#txtDireccion").val();
-        let nombreBarrio= $("#txtBarrio").val();
-        let telefono = $("#txtTelefono").val();
-        let flag = $("#txtFlag").val();
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboBarrios").append(html);
+            select = document.getElementById("cboBarrios");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i];
+                option.text = datos[i].nombre;
+                select.add(option);
+            }
+        }
+
+    })
+
+ 
 
 
-        if (nombreCliente === "" || documento === "" || direccion === "" || nombreBarrio === "" || telefono === "" || flag ==="") {
+    $("#btnAgregar").click(function () {
+        let nombre = $("#txtNombre").val();
+        let dni = $("#txtDocumento").val();//documento
+        let direccion = $("#txtDireccion").val();//direccion
+        let barrio = $("#cboBarrios").val();//barrio
+        let telefono = $("#txtTelefono").val();//telefono
+        let flag = $("#txtFlag").val();//flag
+
+        if (nombre === "" || dni === "" || direccion === "" || barrio === "" || telefono === "" || flag === "") {
             swal("Ingrese los datos requeridos");
         } else {
-            // console.log(result.error)
-            swal("salio muy mal");
-            altaCliente(nombreCliente, documento, direccion, nombreBarrio, telefono, flag);
+            altaCliente(nombre, dni, direccion, barrio, telefono, flag);
         }
     });
 
-    function altaCliente(nombreCliente, documento, direccion, nombreBarrio, telefono, flag) {
+    function altaCliente(nombre, dni, direccion, barrio, telefono, flag) {
         comando = {
-            "nombre_cliente": nombreCliente,
-            "documento": parseInt(documento),
+            "nombreCliente": nombre,
+            "documento": parseInt(dni),
             "direccion": direccion,
-            "cod_barrio": parseInt(nombreBarrio),
+            "codBarrio": 1,
             "telefono": parseInt(telefono),
-            "flag": parseInt(flag)
-
+            "flag": parseInt(flag),
         };
         $.ajax({
             url: "https://localhost:5001/Cliente/AltaCliente",
@@ -462,8 +481,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Alta exitosa!");
-                    //reload pagina
-                    setTimeout(function () { location.replace("http://127.0.0.1:5501/Front/clientes.html"); }, 3000);
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
                 } else {
                     swal(result.error);
                 }
@@ -473,48 +491,94 @@
             },
         })
     }
+       // GET bARRIO MODIFICAR
+       $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Cliente/ObtenerBarrios",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    barrio = result.return;
+                    cargarComboDos(barrio);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de barrios");
+            },
+        })
 
-   /* function modificar(id) {
-        let idClien = id;
-        let nombreCliente = "";
-        // let fecha = "";
-        // let idE = 0;
-
-        for (let i = 0; i < Clientes.length; i++) {
-            if (Clientes[i].idCliente == id) {
-                nombreCliente = Clientes[i].nombreCliente;
-                // fecha = Alumnos[i].fechaCompra;
-                // idE = Alumnos[i].estado.idEstado;
+        // carga combo
+        function cargarComboDos(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboBarriosM").append(html);
+            select = document.getElementById("cboBarriosM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i];
+                option.text = datos[i].nombre;
+                select.add(option);
             }
         }
 
-        $("#nombre").val(nombreCliente);
-        // $("#fechaM").val(fecha);
-        // $("#estadoM").val(idE);
+    })
+
+    //llenar modal y pasar campos para modificar
+    function modificar(id) {
+        let idCliente = id;
+        let nom = "";
+        let dni = 0;
+        let dir = "";
+        let barri = 0;
+        let telef = 0;
+        let bandera = 0;
+
+        for (let i = 0; i < Clientes.length; i++) {
+            if (Clientes[i].idCliente == id) {
+                nom = Clientes[i].nombreCliente;
+                dni = Clientes[i].documento;
+                dir = Clientes[i].direccion;
+                barri = Clientes[i].codBarrio;
+                telef = Clientes[i].telefono;
+                bandera = Clientes[i].flag;
+            }
+        }
+
+        $("#txtId").val(idCliente);
+        $("#txtNombreM").val(nom);
+        $("#txtDocumentoM").val(dni);
+        $("#txtDireccionM").val(dir);
+        $("#cboBarriosM").val(barri);
+        $("#txtTelefonoM").val(telef);
+        $("#txtFlagM").val(bandera);
 
         $("#btnModificar").click(function () {
-            // let fecha = $("#fechaM").val();
-            // var hoy = new Date();
-            // let hora = hoy.getHours() + ':' + hoy.getMinutes();
-            var nombreCliente = document.getElementById('nombre_cliente');
-            // var idCliente = cliente.selectedIndex;
-            // var estado = document.getElementById('estadoM');
-            // var idEstado = estado.selectedIndex;
+            let idCliente = $("#txtId").val();
+            let nombre = $("#txtNombreM").val();
+            let dni = $("#txtDocumentoM").val();
+            let dire = $("#txtDireccionM").val();
+            let barrio = $("#cboBarriosM").val();
+            let telefo = $("#txtTelefonoM").val();
+            let bandera = $("#txtFlagM").val();
 
-            ModificarCliente(idClien, nombreCliente);
+            if (nombre === "" || dni === "" || dire === "" || barrio === "" || telefo === "" || bandera === "") {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarCliente(idCliente, nombre, dni, dire, barrio, telefo, bandera);
         })
-    }*/
-
-  /*  function ModificarCliente(id_cliente,nombreCliente, documento, direccion, nombreBarrio, telefono, flag) {
+    }
+    //modificar cliente
+    function modificarCliente(idCliente, nombre, dni, dire, barrio, telefo, bandera) {
         comando = {
-            "id_cliente":id_cliente,
-            "nombre_cliente": nombreCliente,
-            "documento": documento,
-            "direccion": direccion,
-            "cod_barrio": nombreBarrio,
-            "telefono": telefono,
-            "flag": flag
-
+            "idCliente": parseInt(idCliente),
+            "nombreCliente": nombre,
+            "documento": parseInt(dni),
+            "direccion": dire,
+            "codBarrio": parseInt(barrio),
+            "telefono": parseInt(telefo),
+            "flag": parseInt(bandera),
         }
 
         $.ajax({
@@ -525,8 +589,9 @@
             type: "PUT",
             success: function (result) {
                 if (result.ok) {
-                    location.reload();
-                    swal("Alumno modificado exitosamente");
+                    swal("Cliente modificado exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
+
                 }
                 else swal(result.error);
             },
@@ -534,23 +599,64 @@
                 swal("Error" + error);
             }
         });
-    }*/
+    }
+//NO FUNCA-----------------------------------------------------------------------------------------------------------------------------------------
+function eliminar(id) {
+        let idCliente = id;
+        let bandera = 0;
+
+        for (let i = 0; i < Clientes.length; i++) {
+            if (Clientes[i].idCliente == id) {
+                bandera = Clientes[i].flag;
+            }
+        }
+
+        $("#txtIdD").val(idCliente);
+        $("#txtFlagD").val(bandera);
+
+
+    $("#btnDelete").click(function () {
+        let idCliente = $("#txtIdD").val();
+        let bandera = $("#txtFlagD").val();
+
+        if (idCliente ==="" || bandera === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            eliminarCliente(idCliente, bandera);
+        }
+    })
+}
+
+
+    function eliminarCliente(idCliente, bandera) {
+        comando = {
+            "idCliente": parseInt(idCliente),
+            "flag": parseInt(bandera),
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/Cliente/ActualizarFlagCliente/" + idCliente,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    swal("Cliente modificado exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
+
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
 
 
 
 
+</script>
 
-
-
-
-
-
-
-
-
-
-
-
-  </script>
-  
 </html>

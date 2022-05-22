@@ -7,6 +7,7 @@ using ApiProyect.Results;
 using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 
 namespace ApiProyect.Controllers
@@ -31,10 +32,11 @@ namespace ApiProyect.Controllers
             var resultado = new ResultAPI();
 
             
-               resultado.Ok = true;
+               /*resultado.Ok = true;
                 var cli   = (from c in db.Clientes
                 join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where c.Flag == 1
+                //where c.Flag == 1
+                
                 select new DTOListaClientes
                 {
                     NombreCliente = c.NombreCliente,
@@ -43,15 +45,43 @@ namespace ApiProyect.Controllers
                     nombreBarrio = b.Nombre,
                     Telefono = c.Telefono,
                     Flag = c.Flag
-                }).ToList();
+                }).OrderBy(c=> c.NombreCliente)
+                .ToList();
                 resultado.Return = cli;
 
-                return resultado;
+                return resultado;*/
             
            /* resultado.Ok = true;
-            resultado.Return = db.Clientes.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Clientes.OrderBy(c=> c.IdCliente)
+            .ToList(); 
             return resultado;*/
 
+            resultado.Ok = true;
+            resultado.Return = db.Clientes.Include(c => c.CodBarrioNavigation)
+                                         .OrderBy(c => c.IdCliente)
+                                         .ToList(); 
+            return resultado;
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerBarrios")]
+        public ActionResult<ResultAPI> getBarrios()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.Barrios.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar barrios";
+
+                return resultado;
+            }
         }
 
         [HttpGet]
@@ -261,6 +291,7 @@ namespace ApiProyect.Controllers
 
             return resultado;
         }
+
 
 
     }

@@ -148,49 +148,80 @@
                 </div>
             </div>
 
-            <!-- Cargar Proveedor -->
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container" style="padding: 3%;">
-                  <form class="needs-validation" novalidate id="carga">
-                    <div class="form-row">
-                      <div class="col-md-6 mb-3">
-                        <label for="fecha">Fecha de Remito</label>
-                        <input type="date" class="form-control" id="fecha" required>
-                        <div class="invalid-feedback">
-                          Ingrese una fecha de compra
-                        </div>
+ <!-- Cargar Proveedor-->
+ <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+  <div class="container" style="padding: 3%;">
+    <form class="needs-validation" novalidate id="carga">
+      <div class="modal-body">
+          <div class="container d-flex justify-content-center mt-5">
+              <form>
+                  <div class="row">
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Nombre </label>
+                              <input type="text" class="form-control" id="txtRazon" 
+                                  placeholder="Ingrese nombre">
+                          </div>
                       </div>
-
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Documento </label>
+                              <input type="text" class="form-control" id="txtDocumento"
+                                  placeholder="Ingrese Documento">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Direccion </label>
+                              <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese Direccion">
+                          </div>
+                      </div>
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Barrio </label>
+                              <input type="text" class="form-control" id="txtBarrio"
+                                  placeholder="Ingrese Barrio">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Telefono </label>
+                              <input type="text" class="form-control" id="txtTelefono"
+                                  placeholder="Ingrese telefono">
+                          </div>
+                      </div>
+                      <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                          <div class="form-group">
+                              <label> Estado Articulo</label>
+                              <input type="text" class="form-control" id="txtEstado"
+                                  placeholder="Ingrese Estado">
+                          </div>
+                      </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                        <div class="form-group">
+                            <label> Estado </label>
+                            <input type="text" class="form-control" id="txtFlag"
+                                placeholder="Ingrese bandera">
+                        </div>
                     </div>
-                    <div class="form-row">
-                      <div class="col-md-8 mb-3">
-                        <label for="cliente">Proveedor</label>
-                        <select class="custom-select" id="cliente" required>
-                          <option selected disabled value="">Seleccionar...</option>
-                        </select>
-                        <div class="invalid-feedback">
-                          Seleccione un Proveedor
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-6 mb-6">
-                        <label for="producto">Detalle</label> <br>
-                        <button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop">
-                          Ingresar artículos con su cantidad...
-                        </button>
-                        <div class="invalid-feedback">
-                          Ingrese detalle
-                        </div>
-                      </div>
-                    </div><br>
-                    <button class="btn" type="button" onclick="go()" id="btnI">Ingresar</button>
-                  </form>
-                </div>
-            </div>
+                  </div>
           </div>
-        </section>
-
+          <div class="modal-footer">
+              <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+</section>
 
     <!-- Modificar -->
     <section>
@@ -299,6 +330,57 @@
             html += "<td>" + datos[i].idEstadoArticulo + "</td>";
             $("#cuerpoTabla").append(html);
         }
+    }
+
+    $("#btnAgregar").click(function () {
+        let nombre = $("#txtRazon").val();
+        let dni = $("#txtDocumento").val();
+        let dire = $("#txtDireccion").val();
+        let barrio= $("#txtBarrio").val();
+        let telefo = $("#txtTelefono").val();
+        let estado = $("#txtEstado").val();
+        let bandera = $("#txtFlag").val();
+
+
+        if (nombre === "" ||dni === "" || dire === "" || barrio === ""  || telefo === "" || estado=== "" || bandera ==="") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            swal("salio muy mal");
+            altaProveedor(nombre, dni, dire, barrio, telefo, estado, bandera);
+        }
+    });
+
+    function altaProveedor(nombre, dni, dire, barrio, telefo, estado, bandera) {
+        comando = {
+            //"id_proveedor": 0,
+            "razon_social": nombre,
+            "documento": parseInt(dni),
+            "direccion": dire,
+            "cod_barrio": parseInt(barrio),
+            "telefono": parseInt(telefo),
+            "estado": parseInt(estado),
+            "flag": parseInt(bandera),
+
+        };
+
+        $.ajax({
+            url: "https://localhost:5001/Proveedor/AltaProveedor",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    //setTimeout(function () { location.replace("http://127.0.0.1:5501/Front/clientes.html"); }, 3000);
+                } else 
+                    swal(result.error);
+                
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            }
+        });
     }
    
   </script>

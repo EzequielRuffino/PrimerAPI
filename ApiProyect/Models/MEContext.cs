@@ -151,16 +151,16 @@ namespace ApiProyect.Models
 
                 entity.Property(e => e.IdCliente).HasColumnName("id_cliente");
 
-                entity.Property(e => e.CodBarrio).HasColumnName("cod_barrio");
-
-                entity.Property(e => e.Direccion).HasColumnName("direccion");
+                entity.Property(e => e.NombreCliente)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("nombre_cliente");
 
                 entity.Property(e => e.Documento).HasColumnName("documento");
 
-                entity.Property(e => e.NombreCliente)
-                    .IsRequired()
-                    .HasMaxLength(50)
-                    .HasColumnName("nombre_cliente");
+                entity.Property(e => e.Direccion).HasColumnName("direccion");
+
+                entity.Property(e => e.CodBarrio).HasColumnName("cod_barrio");
 
                 entity.Property(e => e.Telefono).HasColumnName("telefono");
 

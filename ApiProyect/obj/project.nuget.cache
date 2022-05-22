@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Ea3NULhOtL2BiWSv2UQKdphgNi2CTcZ/z4thfn3mwAm67QJN6rzaIcEwvF9H7+v0X4dTTI9dFGIa2OT7Z4/64A==",
+  "dgSpecHash": "xucsgmJdn204/2SsAC4vWULA4h7FKCr9+ndsCPs2uDQcP9l7kszz9D0bUZBhKheRPJ8L/aiVUH8wySUrsPzWFw==",
   "success": true,
   "projectFilePath": "C:\\Users\\Windows 10\\Documents\\GitHub\\PrimerAPI\\ApiProyect\\ApiProyect.csproj",
   "expectedPackageFiles": [
@@ -9,6 +9,8 @@
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.http.abstractions\\2.2.0\\microsoft.aspnetcore.http.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.http.extensions\\2.2.0\\microsoft.aspnetcore.http.extensions.2.2.0.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.http.features\\2.2.0\\microsoft.aspnetcore.http.features.2.2.0.nupkg.sha512",
+    "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.24\\microsoft.aspnetcore.jsonpatch.3.1.24.nupkg.sha512",
+    "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\3.1.24\\microsoft.aspnetcore.mvc.newtonsoftjson.3.1.24.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.6\\microsoft.entityframeworkcore.5.0.6.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.6\\microsoft.entityframeworkcore.abstractions.5.0.6.nupkg.sha512",
@@ -28,6 +30,8 @@
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.net.http.headers\\2.2.0\\microsoft.net.http.headers.2.2.0.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\Windows 10\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Windows 10\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\npgsql\\5.0.5\\npgsql.5.0.5.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\npgsql.entityframeworkcore.postgresql\\5.0.6\\npgsql.entityframeworkcore.postgresql.5.0.6.nupkg.sha512",
     "C:\\Users\\Windows 10\\.nuget\\packages\\swashbuckle.aspnetcore\\6.3.0\\swashbuckle.aspnetcore.6.3.0.nupkg.sha512",
