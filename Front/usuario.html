@@ -139,7 +139,9 @@
                             <th>Acciones</th>
                         
                     </thead>
-                    <tbody id="cuerpoTabla">
+                    <tbody id="cuerpoTabla">                 
+                    <tbody id="cuerpoTablaID"></tbody>
+
                     </tbody>
                     </table>
                     <!--<h1 id="txtA">a</h1>-->
@@ -223,7 +225,7 @@
                                         <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                             <div class="form-group">
                                                 <label> Estado </label>
-                                                <input type="number" class="form-control" id="txtFlagM">
+                                                <input type="number" class="form-control" id="txtFlagM" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -541,8 +543,99 @@ let Usuarios = [];
         });
     }
 
+//OPCION BUSCAR
+
+$(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Usuario/ObtenerUsuario/",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    usuario = result.return;
+                    cargarComboId(usuario);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de usuario");
+            },
+        })
+
+        // carga combo
+        function cargarComboId(datos) {
+            var html = "<option value=''> SELECCIONE ID </option>";
+            $("#cboId").append(html);
+            select = document.getElementById("cboId");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].legajo;
+                option.text = datos[i].legajo;
+                select.add(option);
+            }
+        }
+
+    })
+
+    function buscar(){
+        let id = Number($("#cboId").val());
 
 
+        if (id == 0){
+            $("#cuerpoTabla").show();
+            $("#cuerpoTablaID").hide();
+
+        } else if (id != 0){
+            $.ajax({
+                url: "https://localhost:5001/Usuario/ObtenerUsuario/" + id,
+                //dataType:'json',
+                //contentType: 'application/json',
+                //data: JSON.stringify(comando),
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $("#cuerpoTablaID").empty();
+                        $("#cuerpoTablaID").show()
+
+                        let html = "<tr id='lista'>";
+                
+                        //html += "<td>"+result.return.idCliente +"</td>";
+                        html += "<td>" + result.return.nombreCompleto + "</td>";
+                        html += "<td>" + result.return.documento + "</td>";
+                        html += "<td>" + result.return.codBarrioNavigation.nombre + "</td>";
+                        html += "<td>" + result.return.telefono + "</td>";
+                        html += "<td>" + result.return.idTipoRolNavigation.descripcion + "</td>";
+                        html += "<td>" + result.return.email + "</td>";
+                        html += "<td>" + result.return.contraseña + "</td>";
+                        if (result.return.flag == 0) {
+                            html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+                        }
+                        else if (result.return.flag == 1) {
+                            html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+                        } 
+                
+
+                        html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + result.return.legajo + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                        "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
+                        "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + result.return.legajo + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
+                        "<i class='bi bi-trash-fill'></i></button> " + "</td>";
+
+                        html += "</tr>"
+
+                        $("#cuerpoTabla").hide();
+                            
+                        $("#cuerpoTablaID").append(html);
+
+                        swal("Datos traidos con exito");
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                    swal("Problemas en el servidor");
+                },
+            })
+    }};
 
 
 

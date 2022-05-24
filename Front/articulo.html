@@ -148,6 +148,7 @@
                         
                     </thead>
                     <tbody id="cuerpoTabla">
+                    <tbody id="cuerpoTablaID"></tbody>
                     </tbody>
                     </table>
                 </div>
@@ -365,7 +366,7 @@
                                     <div class="form-group">
                                         <label> Estado </label>
                                         <input type="number" class="form-control" id="txtFlagM"
-                                            placeholder="Ingrese Estado">
+                                            placeholder="Ingrese Estado" disabled>
                                     </div>
                                 </div>
                             </div>
@@ -961,6 +962,110 @@
             }
         });
     }
+
+//OPCION BUSCAR
+
+$(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerArticulo/",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    articulo = result.return;
+                    cargarComboId(articulo);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de articulo");
+            },
+        })
+
+        // carga combo
+        function cargarComboId(datos) {
+            var html = "<option value=''> SELECCIONE ID </option>";
+            $("#cboId").append(html);
+            select = document.getElementById("cboId");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idArticulo;
+                option.text = datos[i].idArticulo;
+                select.add(option);
+            }
+        }
+
+    })
+    
+    function buscar(){
+        let id = Number($("#cboId").val());
+
+
+        if (id == 0){
+            $("#cuerpoTabla").show();
+            $("#cuerpoTablaID").hide();
+
+        } else if (id != 0){
+            $.ajax({
+                url: "https://localhost:5001/Articulo/ObtenerArticulo/" + id,
+                //dataType:'json',
+                //contentType: 'application/json',
+                //data: JSON.stringify(comando),
+                type: "GET",
+                success: function (result) {
+                    if (result.ok) {
+                        $("#cuerpoTablaID").empty();
+                        $("#cuerpoTablaID").show()
+
+                        let html = "<tr id='lista'>";
+                
+                            html += "<td>" + result.return.nombreArticulo + "</td>";
+                            html += "<td>" + result.return.descripcion + "</td>";
+                            html += "<td>" + result.return.idTipoArticuloNavigation.nombreTipoArticulo + "</td>";
+                            html += "<td>" + result.return.precioVenta + "</td>";
+                            html += "<td>" + result.return.idTalleNavigation.nombreTalle + "</td>";
+                            html += "<td>" + result.return.idMarcaNavigation.nombreMarca + "</td>";
+                            html += "<td>" + result.return.cantidad + "</td>";
+                            html += "<td>" + roundDate(result.return.fechaModificicacion) + "</td>";
+                            html += "<td>" + result.return.idEstadoArticuloNavigation.descripcion + "</td>";
+                            //html += "<td>" + datos[i].flag + "</td>";
+                            if (result.return.flag == 0) {
+                                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+                            }
+                            else if (result.return.flag == 1) {
+                                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+                            } 
+                
+
+                        html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + result.return.idArticulo + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                        "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
+                        "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + result.return.idArticulo + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
+                        "<i class='bi bi-trash-fill'></i></button> " + "</td>";
+
+                        html += "</tr>"
+
+                        $("#cuerpoTabla").hide();
+                            
+                        $("#cuerpoTablaID").append(html);
+
+                        swal("Datos traidos con exito");
+                    } else {
+                        swal(result.error);
+                    }
+                },
+                error: function (error) {
+                    swal("Problemas en el servidor");
+                },
+            })
+    }};
+
+
+
+
+
+
+
+
 
   </script>
   

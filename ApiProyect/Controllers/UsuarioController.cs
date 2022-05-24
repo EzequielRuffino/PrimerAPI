@@ -31,6 +31,7 @@ namespace ApiProyect.Controllers
            // resultado.Return = db.Usuarios.Where(c => c.Flag == 1).ToList(); 
             resultado.Return = db.Usuarios.Include(c => c.CodBarrioNavigation)
                                             .Include(c => c.IdTipoRolNavigation)
+                                            .OrderBy(c => c.Legajo)
                                             .ToList(); 
             return resultado;
         }
@@ -43,7 +44,9 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var emple = db.Usuarios.Where(c => c.Legajo == id && c.Flag == 1).FirstOrDefault();
+                var emple = db.Usuarios.Include(c => c.CodBarrioNavigation)
+                                        .Include(c => c.IdTipoRolNavigation)
+                                        .Where(c => c.Legajo == id).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = emple;
 

@@ -49,7 +49,12 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var art = db.Articulos.Where(c => c.IdArticulo == id && c.Flag == 1).FirstOrDefault();
+                var art = db.Articulos.Include(c => c.IdEstadoArticuloNavigation)
+                                            .Include(c => c.IdTalleNavigation)
+                                            .Include(c => c.IdMarcaNavigation)
+                                            .Include(c => c.IdTipoArticuloNavigation)
+                                            .Where(c => c.IdArticulo == id)
+                                            .FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = art;
 
