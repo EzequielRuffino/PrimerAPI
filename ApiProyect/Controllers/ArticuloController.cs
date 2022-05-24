@@ -5,6 +5,8 @@ using ApiProyect.Models;
 using ApiProyect.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ApiProyect.Controllers
 {
@@ -26,8 +28,16 @@ namespace ApiProyect.Controllers
         public ActionResult<ResultAPI> Get()
         {
             var resultado = new ResultAPI();
-            resultado.Ok = true;
+           /* resultado.Ok = true;
             resultado.Return = db.Articulos.Where(c => c.Flag == 1).ToList(); 
+            return resultado;*/
+            resultado.Ok = true;
+            resultado.Return = db.Articulos.Include(c => c.IdEstadoArticuloNavigation)
+                                            .Include(c => c.IdTalleNavigation)
+                                            .Include(c => c.IdMarcaNavigation)
+                                            .Include(c => c.IdTipoArticuloNavigation)
+                                            .OrderBy(c => c.IdArticulo)
+                                            .ToList(); 
             return resultado;
         }
 
@@ -55,9 +65,94 @@ namespace ApiProyect.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("[controller]/ObtenerTipoArticulo")]
+        public ActionResult<ResultAPI> getTipoArticulo()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.TipoArticulos.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar tipo articulos";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerTalle")]
+        public ActionResult<ResultAPI> getTalle()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.TalleArticulos.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar talles";
+
+                return resultado;
+            }
+        }
+
+                
+                
+        [HttpGet]
+        [Route("[controller]/ObtenerMarca")]
+        public ActionResult<ResultAPI> getMarca()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.Marcas.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar marcas";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerEstadoArticulo")]
+        public ActionResult<ResultAPI> getEstadoArticulo()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.EstadoArticulos.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar estado articulo";
+
+                return resultado;
+            }
+        }
 
         [HttpPost] 
-        [Route("[controller]/AltaCliente")]
+        [Route("[controller]/AltaArticulo")]
         public ActionResult<ResultAPI> AltaArticulo([FromBody] comandoCrearArticulo comando)
         {
             var resultado = new ResultAPI();

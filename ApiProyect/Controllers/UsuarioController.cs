@@ -5,6 +5,8 @@ using ApiProyect.Models;
 using ApiProyect.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ApiProyect.Controllers
 {
@@ -26,7 +28,10 @@ namespace ApiProyect.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Usuarios.Where(c => c.Flag == 1).ToList(); 
+           // resultado.Return = db.Usuarios.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Usuarios.Include(c => c.CodBarrioNavigation)
+                                            .Include(c => c.IdTipoRolNavigation)
+                                            .ToList(); 
             return resultado;
         }
 
@@ -54,6 +59,47 @@ namespace ApiProyect.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("[controller]/ObtenerBarrios")]
+        public ActionResult<ResultAPI> getBarrios()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.Barrios.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar barrios";
+
+                return resultado;
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerRol")]
+        public ActionResult<ResultAPI> getRol()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.TipoRols.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar roles";
+
+                return resultado;
+            }
+        }
 
         [HttpPost] 
         [Route("[controller]/AltaUsuario")]
@@ -207,7 +253,7 @@ namespace ApiProyect.Controllers
         }
 
         [HttpPut]//PREGUNTAR SI DIRECTAMENTE SE PUEDE HACER EN EL PRIMER PUT O CREO COMANDO PARA LA FLAG
-        [Route("[controller]/ActualizarFlagUsuarios/{id}")]
+        [Route("[controller]/ActualizarFlagUsuario/{id}")]
         public ActionResult<ResultAPI> UpdateById(comandoFlag comando, int id)
         {
             var resultado = new ResultAPI();

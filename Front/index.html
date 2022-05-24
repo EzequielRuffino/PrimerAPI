@@ -32,6 +32,8 @@
                     <hr class="my-4">
                     <p>Para acceder a las utilidades del programa primero inicie sesión.</p>
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">Iniciar Sesion</button>
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#profile">Registrarse</button>
+
                 </div>
             </div>
         </div>
@@ -78,14 +80,10 @@
                                 </div>
                                 <br>
                             </div>
-                            <div class="form-group">
+                            <div>
                                 <label for="rol"><i class="bi bi-person-fill"></i> Rol</label>
-                                <select class="form-control" id="rol" required>
-                  <option value="1">Administrador del Sistema</option>
-                  <option value="2">Gerente</option>
-                  <option value="3">Empleado</option>
-
-                </select>
+                                <select class="form-control" id="cboRol" required>
+                                </select>
                             </div>
                             <br>
                             <div class="botones">
@@ -98,6 +96,88 @@
                 </div>
             </div>
         </div>
+
+
+        <!-- Registrar -->
+    <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+             <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">REGISTRO USUARIO</h5>
+             </div>
+             <div class="modal-body">
+                <div class="container d-flex justify-content-center mt-5">
+                    <form>
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Nombre Completo </label>
+                                    <input type="text" class="form-control" id="txtNombre"
+                                        placeholder="Ingrese Nombre Completo">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Documento </label>
+                                    <input type="number" class="form-control" id="txtDocumento"
+                                        placeholder="Ingrese Documento">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Barrio </label>
+                                    <select  name="barrios" class="form-control mb-3" id="cboBarrio">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Telefono </label>
+                                    <input type="text" class="form-control" id="txtTelefono"
+                                        placeholder="Ingrese Telefono">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Rol </label>
+                                    <select  name="rol" class="form-control mb-3" id="cboRol">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Email</label>
+                                    <input type="email" class="form-control" id="txtEmail"
+                                        placeholder="Ingrese Email">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Contraseña </label>
+                                    <input type="password" class="form-control" id="txtPass"
+                                        placeholder="Ingrese Contraseña">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                        <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </form>    
+        </div>
+    </div>
+ </div>
     </section>
 
     <script src="JS/app.js"></script>
@@ -113,4 +193,124 @@
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="JS/particulas.js"></script>
 </body>
+<script>
+
+       // GET BARRIO
+       $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Usuario/ObtenerBarrios",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    barrio = result.return;
+                    cargarComboDos(barrio);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir barrios");
+            },
+        })
+
+        // carga combo
+        function cargarComboDos(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboBarrio").append(html);
+            select = document.getElementById("cboBarrio");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].codBarrio;
+                option.text = datos[i].nombre;
+                select.add(option);
+            }
+        }
+
+    })
+
+       // GET TIPO ROL
+       $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Usuario/ObtenerRol",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    rol = result.return;
+                    cargarComboDos(rol);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir roles");
+            },
+        })
+
+        // carga combo
+        function cargarComboDos(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboRol").append(html);
+            select = document.getElementById("cboRol");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTipoRol;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    })
+
+    //alta usuario
+    $("#btnAgregar").click(function () {
+        let nombre = $("#txtNombre").val();
+        let dni = $("#txtDocumento").val();//documento
+        let barrio = $("#cboBarrio").val();//direccion
+        let telefono = $("#txtTelefono").val();//barrio
+        let rol = $("#cboRol").val();//telefono
+        let email = $("#txtEmail").val();//flag
+        let pass = $("#txtPass").val();//flag
+
+
+        if (nombre === "" || dni === "" || barrio === "" || telefono === "" || rol === "" || email=== "" || pass === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            altaUsuario(nombre, dni, barrio, telefono, rol, email, pass);
+        }
+    });
+
+    function altaUsuario(nombre, dni, barrio, telefono, rol, email, pass) {
+        comando = {
+            "nombreCompleto": nombre,
+            "documento": parseInt(dni),
+            "codBarrio": 1,
+            "telefono": parseInt(telefono),
+            "idTipoRol": 1,
+            "email": email,
+            "contraseña": pass,
+        };
+        $.ajax({
+            url: "https://localhost:5001/Usuario/AltaUsuario",
+            type: "POST",
+            dataType: 'JSON',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            success: function (result) {
+                if (result.ok) {
+                    swal("Alta exitosa!");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/usuario.html"); }, 3000);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas en el servidor");
+            },
+        })
+    }
+
+
+
+</script>
+
 </html>

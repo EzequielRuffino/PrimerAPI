@@ -115,7 +115,7 @@
             </li>
 
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Articulos</a>
+              <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Registrar Nuevo Articulo</a>
             </li>
 
           </ul>
@@ -133,14 +133,14 @@
                         <thead class="thead-dark">
                           
                             <!--<th data-field="id" scope="col">IdCliente</th>-->
-                            <th data-field="articulo"  scope="col">Nombre Ariculo</th>
+                            <th data-field="articulo"  scope="col">Ariculo</th>
                             <th data-field="descripcion" scope="col">Descripcion</th>
-                            <th data-field="tipo articulo" scope="col">Codigo tipo Articulos</th>
+                            <th data-field="tipo articulo" scope="col">Tipo Articulos</th>
                             <th data-field="precio venta" scope="col">Precio venta</th>
-                            <th data-field="talle" scope="col">Codigo talle</th>
-                            <th data-field="marca" scope="col">Codigo marca</th>
+                            <th data-field="talle" scope="col">Talle</th>
+                            <th data-field="marca" scope="col">Marca</th>
                             <th data-field="cantidad" scope="col">Cantidad</th>
-                            <th data-field="fecha" scope="col">Fecha Modificacion</th>
+                            <th data-field="fecha" scope="col">Modificacion</th>
                             <th data-field="estado" scope="col">Estado articulo</th>
                             <th data-field="Flag" scope="col">Estado</th>
                             <th>Acciones</th>
@@ -153,223 +153,263 @@
                 </div>
             </div>
 
-            <!-- Cargar Cliente -->
-            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-                <div class="container" style="padding: 3%;">
-                  <form class="needs-validation" novalidate id="carga">
-                    <div class="form-row">
-                      <div class="col-md-6 mb-3">
-                        <label for="fecha">Fecha de Remito</label>
-                        <input type="date" class="form-control" id="fecha" required>
-                        <div class="invalid-feedback">
-                          Ingrese una fecha de compra
+<!-- Cargar Articulo -->
+            <div class="modal fade" id="profile" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                     <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">ALTA ARTICULO</h5>
+                     </div>
+                     <div class="modal-body">
+                        <div class="container d-flex justify-content-center mt-5">
+                            <form>
+                                <div class="form-row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Articulo </label>
+                                            <input type="text" class="form-control" id="txtArticulo"
+                                                placeholder="Ingrese articulo">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Descripcion </label>
+                                            <input type="text" class="form-control" id="txtDescripcion"
+                                                placeholder="Ingrese descripcion">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Tipo Articulo </label>
+                                           <!--<input type="text" class="form-control" id="txtTipoArticulo"
+                                                placeholder="Ingrese tipo articulo">-->
+                                                <select  name="tipoArticulos" class="form-control mb-3" id="cboTipoArticulo">
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Precio Venta </label>
+                                            <input type="number" class="form-control" id="txtPrecio"
+                                                placeholder="Ingrese precio">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Talle </label>
+                                          <!--  <input type="number" class="form-control" id="txtTalle"
+                                                placeholder="Ingrese talle">-->
+                                                <select  name="talles" class="form-control mb-3" id="cboTalle">
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Marca </label>
+                                          <!--  <input type="number" class="form-control" id="txtMarca"
+                                                placeholder="Ingrese marca">-->
+                                                <select  name="marcas" class="form-control mb-3" id="cboMarca">
+                                                </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Cantidad </label>
+                                            <input type="number" class="form-control" id="txtCantidad"
+                                                placeholder="Ingrese cantidad">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Fecha </label>
+                                            <input type="date" class="form-control" id="txtFecha">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Estado Articulo </label>
+                                           <!-- <input type="number" class="form-control" id="txtEstadoArticulo"
+                                                placeholder="Ingrese estado articulo">-->
+                                                <select  name="estadoArticulos" class="form-control mb-3" id="cboEstadoArticulo">
+                                                </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <label> Estado </label>
+                                            <input type="number" class="form-control" id="txtFlag"
+                                                placeholder="Ingrese Estado">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+    
+                                <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
+                                <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                            </div>
                         </div>
-                      </div>
-
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-8 mb-3">
-                        <label for="cliente">Cliente</label>
-                        <select class="custom-select" id="cliente" required>
-                          <option selected disabled value="">Seleccionar...</option>
-                        </select>
-                        <div class="invalid-feedback">
-                          Seleccione un cliente
-                        </div>
-                      </div>
-                    </div>
-                    <div class="form-row">
-                      <div class="col-md-6 mb-6">
-                        <label for="producto">Detalle</label> <br>
-                        <button type="button" class="btn" data-toggle="modal" data-target="#staticBackdrop">
-                          Ingresar artículos con su cantidad...
-                        </button>
-                        <div class="invalid-feedback">
-                          Ingrese detalle
-                        </div>
-                      </div>
-                    </div><br>
-                    <button class="btn" type="button" onclick="go()" id="btnI">Ingresar</button>
-                  </form>
+                    </form>    
                 </div>
             </div>
-          </div>
+         </div>
         </section>
-
 
     <!-- Modificar -->
 
-   <div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-   aria-hidden="true">
-   <div class="modal-dialog" role="document">
-       <div class="modal-content">
-           <div class="modal-header">
-               <h5 class="modal-title" id="exampleModalLabel">Modificar Articulo</h5>
-               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                   <span aria-hidden="true">&times;</span>
-               </button>
-           </div>
-           <div class="modal-body">
-               <div class="container d-flex justify-content-center mt-5">
-                   <form>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Nombre </label>
-                                   <input type="text" class="form-control" id="txtNombre"
-                                       placeholder="Ingrese nombre completo">
-                               </div>
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Descripcion </label>
-                                   <input type="number" class="form-control" id="txtDescripcion"
-                                       placeholder="Ingrese descripcion">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Tipo Articulo </label>
-                                   <input type="text" class="form-control" id="txtTipo" placeholder="Ingrese tipo">
-                               </div>
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Precio </label>
-                                   <input type="number" class="form-control" id="txtPrecio"
-                                       placeholder="Ingrese Precio">
-                               </div>
-                           </div>
-                       </div>
-                       <div class="row">
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                               <div class="form-group">
-                                   <label> Talle </label>
-                                   <input type="number" class="form-control" id="txtTalle" placeholder="Ingrese talle">
-                               </div>                              
-                           </div>
-                           <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label> Marca</label>
-                                <input type="number" class="form-control" id="txtMarca" placeholder="Ingrese marca">
-                            </div>                              
-                        </div>
-                       </div>
-                       <div class="row">
-                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label> Cantidad </label>
-                                <input type="number" class="form-control" id="txtCantidad" placeholder="Ingrese cantidad">
-                            </div>                              
-                        </div>
-                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                         <div class="form-group">
-                             <label> Fecha </label>
-                             <input type="number" class="form-control" id="txtFecha" placeholder="Ingrese fecha">
-                         </div>                              
-                     </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                            <div class="form-group">
-                                <label> Estado Articulo </label>
-                                <input type="number" class="form-control" id="txtEstadoArticulo" placeholder="Ingrese estado articulo">
-                            </div>                              
-                        </div>
-                        <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                         <div class="form-group">
-                             <label> Estado</label>
-                             <input type="number" class="form-control" id="txtFlag" placeholder="Ingrese estado">
-                         </div>                              
-                     </div>
-                    </div>
-               </div>
-               <div class="modal-footer">
-                   <!-- <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar"
-                       class="btn btn-success">ACEPTAR</button> -->
-                   <button type="button" id="btnUpdateAceptar" name="btnUpdateAceptar" class="btn btn-success">Aceptar</button>
-                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-               </div>
-           </div>
-       </div>
-   </div>
+    <div class="modal fade" id="update" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">MODIFICAR ARTICULO</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container d-flex justify-content-center mt-5">
+                    <section>
+                        <form>
+                            <div class="form-row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="txtId">
+
+                                        <label> Articulo </label>
+                                        <input type="text" class="form-control" id="txtArticuloM"
+                                            placeholder="Ingrese articulo">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Descripcion </label>
+                                        <input type="text" class="form-control" id="txtDescripcionM"
+                                            placeholder="Ingrese descripcion">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Tipo Articulo </label>
+                                       <!--<input type="text" class="form-control" id="txtTipoArticulo"
+                                            placeholder="Ingrese tipo articulo">-->
+                                            <select  name="tipoArticulos" class="form-control mb-3" id="cboTipoArticuloM">
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Precio Venta </label>
+                                        <input type="number" class="form-control" id="txtPrecioM"
+                                            placeholder="Ingrese precio">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Talle </label>
+                                      <!--  <input type="number" class="form-control" id="txtTalle"
+                                            placeholder="Ingrese talle">-->
+                                            <select  name="talles" class="form-control mb-3" id="cboTalleM">
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Marca </label>
+                                      <!--  <input type="number" class="form-control" id="txtMarca"
+                                            placeholder="Ingrese marca">-->
+                                            <select  name="marcas" class="form-control mb-3" id="cboMarcaM">
+                                            </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Cantidad </label>
+                                        <input type="number" class="form-control" id="txtCantidadM"
+                                            placeholder="Ingrese cantidad">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Fecha </label>
+                                        <input type="date" class="form-control" id="txtFechaM">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Estado Articulo </label>
+                                       <!-- <input type="number" class="form-control" id="txtEstadoArticulo"
+                                            placeholder="Ingrese estado articulo">-->
+                                            <select  name="estadoArticulos" class="form-control mb-3" id="cboEstadoArticuloM">
+                                            </select>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label> Estado </label>
+                                        <input type="number" class="form-control" id="txtFlagM"
+                                            placeholder="Ingrese Estado">
+                                    </div>
+                                </div>
+                            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" type="button" id="btnModificar">Aceptar</button>
+                    <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<!-- arreglar modal alta-->
-<div class="modal fade" id="update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-      <div class="modal-content">
-          <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Alta Articulo</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-              </button>
-          </div>
-          <div class="modal-body">
-              <div class="container d-flex justify-content-center mt-5">
-                  <form>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Nombre </label>
-                                  <input type="text" class="form-control" id="txtNombre" name="txtNombre"
-                                      placeholder="Ingrese nombre">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Documento </label>
-                                  <input type="text" class="form-control" id="txtDocumento"
-                                      placeholder="Ingrese Documento">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Direccion </label>
-                                  <input type="text" class="form-control" id="txtDireccion" placeholder="Ingrese Direccion">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
-                              <div class="form-group">
-                                  <label> Barrio </label>
-                                  <input type="number" class="form-control" id="txtBarrio"
-                                      placeholder="Ingrese Barrio">
-                              </div>
-                          </div>
-                      </div>
-                      <div class="row">
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                              <div class="form-group">
-                                  <label> Telefono </label>
-                                  <input type="number" class="form-control" id="txtTelefono"
-                                      placeholder="Ingrese telefono">
-                              </div>
-                          </div>
-                          <div class="col-12 col-sm-12 sol-md-6 col-lg-6 mt-5">
-                              <div class="form-group">
-                                  <label> Estado </label>
-                                  <input type="number" class="form-control" id="txtFlag"
-                                      placeholder="Ingrese Estado">
-                              </div>
-                          </div>
-                      </div>
-              </div>
-              <div class="modal-footer">
-                  <button type="button" id="btnAgregar" name="btnAgregar"
-                      class="btn btn-success">Agregar</button>
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
-
-
-
+    <!--BAJA CLIENTE-->
+    <div class="modal fade" id="baja" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+        aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">BAJA ARTICULO</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="container">                          
+                                    <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                        <div class="form-group">
+                                            <input type="hidden" class="form-control" id="txtIdD"
+                                            placeholder="Ingrese Id">
+                                            <label> Estado </label>
+                                            <input type="number" class="form-control" id="txtFlagD"
+                                                placeholder="Ingrese Estado">
+                                        </div>
+                                    </div>                         
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" type="button" id="btnDelete">Aceptar</button>
+                        <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -383,6 +423,8 @@
 
   </body>
   <script type="text/javascript">
+
+    let Articulos = [];
 
     $(document).ready(function () {
         $.ajax({
@@ -408,86 +450,212 @@
            // html += "<td>" + datos[i].IdCliente + "</td>";
             html += "<td>" + datos[i].nombreArticulo + "</td>";
             html += "<td>" + datos[i].descripcion + "</td>";
-            html += "<td>" + datos[i].idTipoArticulo + "</td>";
+            html += "<td>" + datos[i].idTipoArticuloNavigation.nombreTipoArticulo + "</td>";
             html += "<td>" + datos[i].precioVenta + "</td>";
-            html += "<td>" + datos[i].idTalle + "</td>";
-            html += "<td>" + datos[i].idMarca + "</td>";
+            html += "<td>" + datos[i].idTalleNavigation.nombreTalle + "</td>";
+            html += "<td>" + datos[i].idMarcaNavigation.nombreMarca + "</td>";
             html += "<td>" + datos[i].cantidad + "</td>";
-            html += "<td>" + datos[i].fechaModificicacion+ "</td>";
-            html += "<td>" + datos[i].idEstadoArticulo + "</td>";
-            html += "<td>" + datos[i].flag + "</td>";
-            html += "<td>"+ 
-                "<button type='button' data-toggle='modal' id='btnUpdate' name='btnUpdate' data-target='#update'  class='btn btn-primary pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
-                "<i class='bi bi-pencil-fill'></i></button> &nbsp;"+
-                "<button type='button' data-toggle='modal' id='btnBaja' name='btnBaja' data-target='#delete' class='btn btn-success pl-4 pr-4' value=` ("+ datos[i].id +") `>"+
-                "<i class='bi bi-file-text'></i></button> " + "</td>";
+            html += "<td>" + roundDate(datos[i].fechaModificicacion) + "</td>";
+            html += "<td>" + datos[i].idEstadoArticuloNavigation.descripcion + "</td>";
+            //html += "<td>" + datos[i].flag + "</td>";
+            if (datos[i].flag == 0) {
+                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+            }
+            else if (datos[i].flag == 1) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+            Articulos.push(datos[i]);
+            
+            html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idArticulo + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
+                "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idArticulo + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
+                "<i class='bi bi-trash-fill'></i></button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
     }
 
-  /* $("#btnUpdateAceptar").click(function () {
-        console.log("holis");
-        //let id = $("#update").val();
-       // console.log(id);
+
+    //get tipo articulo
+    $(document).ready(function () {
         $.ajax({
-            url: "https://localhost:5001/Cliente/ObtenerCliente/",
+            url: "https://localhost:5001/Articulo/ObtenerTipoArticulo",
             type: "GET",
-            dataType: 'JSON',
-            contentType: 'application/json',
-            //data: JSON.stringify(id),
             success: function (result) {
                 if (result.ok) {
-                    swal("Datos traidos con exito");
-                    $("#txtNombre").val(result.return.nombreCliente);
-                    $("#txtDocumento").val(result.return.documento);
-                    $("#txtDireccion").val(result.return.direccion);
-                    $("#txtBarrio").val(result.return.nombreBarrio);
-                    $("#txtTelefono").val(result.return.telefono);
-                    $("#txtFlag").val(result.return.flag);
-
-
+                    tipoArticulos = result.return;
+                    cargarCombo(tipoArticulos);
                 } else {
                     swal(result.error);
                 }
             },
             error: function (error) {
-                swal("Problemas en el servidor");
+                swal("Problemas al conseguir datos de tipo articulos");
             },
         })
-    });*/
 
-   //----------------------------------------------------------------------------------------------------------------
-   $("btnAgregar").click(function () {
-        let nombreCliente = $("#txtNombre").val();
-        let documento = $("#txtDocumento").val();
-        let direccion = $("#txtDireccion").val();
-        let nombreBarrio= $("#txtBarrio").val();
-        let telefono = $("#txtTelefono").val();
-        let flag = $("#txtFlag").val();
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboTipoArticulo").append(html);
+            select = document.getElementById("cboTipoArticulo");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTipoArticulo;
+                option.text = datos[i].nombreTipoArticulo;
+                select.add(option);
+            }
+        }
+
+    })
+
+    //get talle
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerTalle",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    talles = result.return;
+                    cargarCombo(talles);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de talles");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboTalle").append(html);
+            select = document.getElementById("cboTalle");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTalle;
+                option.text = datos[i].nombreTalle;
+                select.add(option);
+            }
+        }
+
+    })
 
 
-        if (nombreCliente === "" || documento === "" || direccion === "" || nombreBarrio === "" || telefono === "" || flag ==="") {
+    //get marca
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerMarca",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    marcas = result.return;
+                    cargarCombo(marcas);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de marcas");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboMarca").append(html);
+            select = document.getElementById("cboMarca");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idMarca;
+                option.text = datos[i].nombreMarca;
+                select.add(option);
+            }
+        }
+
+    })
+
+
+    //get estado articulo
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerEstadoArticulo",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    estadoArticulos = result.return;
+                    cargarCombo(estadoArticulos);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de estado articulos");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboEstadoArticulo").append(html);
+            select = document.getElementById("cboEstadoArticulo");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idEstadoArticulo;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    })
+
+
+    function roundDate(timeStamp) {
+        var yyyy = new Date(timeStamp).getFullYear().toString();
+        var mm = new Date(timeStamp).getMonth() + 1;
+        var dd = new Date(timeStamp).getDate().toString();
+        return dd + "/" + mm + "/" + yyyy;
+    }
+
+
+ //Alta   
+    $("#btnAgregar").click(function () {
+        let articulo = $("#txtArticulo").val();
+        let descripcion = $("#txtDescripcion").val();//documento
+        let tipo = $("#cboTipoArticulo").val();//direccion
+        let precio = $("#txtPrecio").val();//barrio
+        let talle = $("#cboTalle").val();//telefono
+        let marca = $("#cboMarca").val();//flag
+        let cantidad = $("#txtCantidad").val();//direccion
+        let fecha = $("#txtFecha").val();//barrio
+        let estadoArticulo = $("#cboEstadoArticulo").val();//telefono
+        let flag = $("#txtFlag").val();//flag
+
+
+        if (articulo === "" || descripcion === "" || tipo === "" || precio === "" || talle === "" || marca === "" || cantidad=== "" || fecha === "" || estadoArticulo === "" || flag === "" ){
             swal("Ingrese los datos requeridos");
         } else {
-            // console.log(result.error)
-            swal("salio muy mal");
-            altaCliente(nombreCliente, documento, direccion, nombreBarrio, telefono, flag);
+            altaArticulo(articulo, descripcion, tipo, precio, talle, marca, cantidad, fecha, estadoArticulo, flag);
         }
     });
 
-    function altaCliente(nombreCliente, documento, direccion, nombreBarrio, telefono, flag) {
+    function altaArticulo(articulo, descripcion, tipo, precio, talle, marca, cantidad, fecha, estadoArticulo, flag) {
         comando = {
-            "nombre_cliente": nombreCliente,
-            "documento": parseInt(documento),
-            "direccion": direccion,
-            "cod_barrio": parseInt(nombreBarrio),
-            "telefono": parseInt(telefono),
+            "nombreArticulo": articulo,
+            "descripcion": descripcion,
+            "idTipoArticulo": 1,
+            "precioVenta": parseFloat(precio),
+            "idTalle": 1,
+            "idMarca": 1,
+            "cantidad": parseInt(cantidad),
+            "fechaModificicacion": fecha,
+            "idEstadoArticulo": 1,
             "flag": parseInt(flag)
-
         };
         $.ajax({
-            url: "https://localhost:5001/Cliente/AltaCliente",
+            url: "https://localhost:5001/Articulo/AltaArticulo",
             type: "POST",
             dataType: 'JSON',
             contentType: 'application/json',
@@ -495,8 +663,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Alta exitosa!");
-                    //reload pagina
-                    setTimeout(function () { location.replace("http://127.0.0.1:5501/Front/clientes.html"); }, 3000);
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/articulo.html"); }, 3000);
                 } else {
                     swal(result.error);
                 }
@@ -507,59 +674,232 @@
         })
     }
 
-   /* function modificar(id) {
-        let idClien = id;
-        let nombreCliente = "";
-        // let fecha = "";
-        // let idE = 0;
+//modificar
+    //get tipo articulo
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerTipoArticulo",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    tipoArticulos = result.return;
+                    cargarCombo(tipoArticulos);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de tipo articulos");
+            },
+        })
 
-        for (let i = 0; i < Clientes.length; i++) {
-            if (Clientes[i].idCliente == id) {
-                nombreCliente = Clientes[i].nombreCliente;
-                // fecha = Alumnos[i].fechaCompra;
-                // idE = Alumnos[i].estado.idEstado;
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboTipoArticuloM").append(html);
+            select = document.getElementById("cboTipoArticuloM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTipoArticulo;
+                option.text = datos[i].nombreTipoArticulo;
+                select.add(option);
             }
         }
 
-        $("#nombre").val(nombreCliente);
-        // $("#fechaM").val(fecha);
-        // $("#estadoM").val(idE);
+    })
+
+    //get talle
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerTalle",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    talles = result.return;
+                    cargarCombo(talles);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de talles");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboTalleM").append(html);
+            select = document.getElementById("cboTalleM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTalle;
+                option.text = datos[i].nombreTalle;
+                select.add(option);
+            }
+        }
+
+    })
+
+
+    //get marca
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerMarca",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    marcas = result.return;
+                    cargarCombo(marcas);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de marcas");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboMarcaM").append(html);
+            select = document.getElementById("cboMarcaM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idMarca;
+                option.text = datos[i].nombreMarca;
+                select.add(option);
+            }
+        }
+
+    })
+
+
+    //get estado articulo
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ObtenerEstadoArticulo",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    estadoArticulos = result.return;
+                    cargarCombo(estadoArticulos);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de estado articulos");
+            },
+        })
+
+        // carga combo
+        function cargarCombo(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cboEstadoArticuloM").append(html);
+            select = document.getElementById("cboEstadoArticuloM");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idEstadoArticulo;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    })
+
+    //llenar modal y pasar campos para modificar
+    function modificar(id) {
+        let idArticulo = id;
+        let nom = "";
+        let desc = "";
+        let tipo = 0;
+        let pre = 0;
+        let talle = 0;
+        let marca = 0;
+        let cantidad = 0;
+        let fec = 0;
+        let estado = 0;
+        let flag = 0;
+
+        for (let i = 0; i < Articulos.length; i++) {
+            if (Articulos[i].idArticulo == id) {
+                nom = Articulos[i].nombreArticulo;
+                desc = Articulos[i].descripcion;
+                tipo = Articulos[i].idTipoArticulo;
+                pre = Articulos[i].precioVenta;
+                talle = Articulos[i].idTalle;
+                marca = Articulos[i].idMarca;
+                cantidad = Articulos[i].cantidad;
+                fec = Articulos[i].fechaModificicacion;
+                estado = Articulos[i].idEstadoArticulo;
+                flag = Articulos[i].flag;
+            }
+        }
+        $("#txtId").val(idArticulo);
+        $("#txtArticuloM").val(nom);
+        $("#txtDescripcionM").val(desc);
+        $("#cboTipoArticuloM").val(tipo);
+        $("#txtPrecioM").val(pre);
+        $("#cboTalleM").val(talle);
+        $("#cboMarcaM").val(marca);
+        $("#txtCantidadM").val(cantidad);
+       //$("#txtFechaM").val(fec);
+        document.getElementById('txtFechaM').valueAsDate = new Date();
+        $("#cboEstadoArticuloM").val(estado);
+        $("#txtFlagM").val(flag);
+
 
         $("#btnModificar").click(function () {
-            // let fecha = $("#fechaM").val();
-            // var hoy = new Date();
-            // let hora = hoy.getHours() + ':' + hoy.getMinutes();
-            var nombreCliente = document.getElementById('nombre_cliente');
-            // var idCliente = cliente.selectedIndex;
-            // var estado = document.getElementById('estadoM');
-            // var idEstado = estado.selectedIndex;
+            let idArticulo = $("#txtId").val();
+            let articulo = $("#txtArticuloM").val();
+            let descripcion = $("#txtDescripcionM").val();
+            let tipo = $("#cboTipoArticuloM").val();
+            let precio = $("#txtPrecioM").val();
+            let talle = $("#cboTalleM").val();
+            let marca = $("#cboMarcaM").val();
+            let cantidad = $("#txtCantidadM").val();
+            let fecha = $("#txtFechaM").val();
+            //var hoy = new Date();
+            //let hora = hoy.getHours() + ':' + hoy.getMinutes();
+            let estadoArticulo = $("#cboEstadoArticuloM").val();
+            let flag = $("#txtFlagM").val();
 
-            ModificarCliente(idClien, nombreCliente);
+            if (articulo === "" || descripcion === "" || tipo === "" || precio === "" || talle === "" || marca === "" || cantidad=== "" || fecha === "" || estadoArticulo === "" || flag === "" ) {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarCliente(idArticulo, articulo, descripcion, tipo, precio, talle, marca, cantidad, fecha, estadoArticulo, flag);
         })
-    }*/
-
-  /*  function ModificarCliente(id_cliente,nombreCliente, documento, direccion, nombreBarrio, telefono, flag) {
+    }
+    //modificar articulo
+    function modificarCliente(idArticulo, articulo, descripcion, tipo, precio, talle, marca, cantidad, fecha, estadoArticulo, flag) {
         comando = {
-            "id_cliente":id_cliente,
-            "nombre_cliente": nombreCliente,
-            "documento": documento,
-            "direccion": direccion,
-            "cod_barrio": nombreBarrio,
-            "telefono": telefono,
-            "flag": flag
-
+            "idArticulo": parseInt(idArticulo),
+            "nombreArticulo": articulo,
+            "descripcion": descripcion,
+            "idTipoArticulo": tipo,
+            "precioVenta": parseFloat(precio),
+            "idTalle": talle,
+            "idMarca": marca,
+            "cantidad": parseInt(cantidad),
+            "fechaModificicacion": fecha,
+            "idEstadoArticulo": estadoArticulo,
+            "flag": parseInt(flag)
         }
 
         $.ajax({
-            url: "https://localhost:5001/Cliente/UpdateCliente",
+            url: "https://localhost:5001/Articulo/UpdateArticulo",
             dataType: 'json',
             contentType: 'application/json',
             data: JSON.stringify(comando),
             type: "PUT",
             success: function (result) {
                 if (result.ok) {
-                    location.reload();
-                    swal("Alumno modificado exitosamente");
+                    swal("Articulo modificado exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/articulo.html"); }, 3000);
+
                 }
                 else swal(result.error);
             },
@@ -567,22 +907,60 @@
                 swal("Error" + error);
             }
         });
-    }*/
+    }
+
+// eliminar articulo
+    function eliminar(id) {
+        let idArticulo = id;
+        let bandera = 0;
+
+        for (let i = 0; i < Articulos.length; i++) {
+            if (Articulos[i].idArticulo == id) {
+                bandera = Articulos[i].flag;
+            }
+        }
+
+        $("#txtIdD").val(idArticulo);
+        $("#txtFlagD").val(bandera);
 
 
+    $("#btnDelete").click(function () {
+        let idArticulo = $("#txtIdD").val();
+        let bandera = $("#txtFlagD").val();
 
+        if (idArticulo ==="" || bandera === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            eliminarArticulo(idArticulo, bandera);
+        }
+    })
+}
 
+    function eliminarArticulo(idArticulo, bandera) {
+        comando = {
+            "idArticulo": parseInt(idArticulo),
+            "flag": parseInt(bandera),
+        }
 
+        $.ajax({
+            url: "https://localhost:5001/Articulo/ActualizarFlagArticulo/" + idArticulo,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    swal("Articulo dado de baja exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/articulo.html"); }, 3000);
 
-
-
-
-
-
-
-
-
-
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
 
   </script>
   

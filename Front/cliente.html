@@ -144,7 +144,7 @@
                         <table class="table table-responsive-md" id="TablaRemitos">
                             <thead class="thead-dark">
 
-                                <th data-field="id">IdCliente</th>
+                              <!--<th data-field="id">IdCliente</th>-->
                                 <th data-field="Cliente">Cliente</th>
                                 <th data-field="Documento">Documento</th>
                                 <th data-field="Direccion">Direccion</th>
@@ -158,7 +158,7 @@
                             <tbody id="cuerpoTabla">
                             </tbody>
                         </table>
-                        <h1 id="txtA">a</h1>
+                      <!--<h1 id="txtA">a</h1>-->  
                 </div>
             </div>
 <!-- Cargar Cliente -->
@@ -199,7 +199,7 @@
                                 <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                     <div class="form-group">
                                         <label> Barrio </label>
-                                        <select name="barrios" id="cboBarrios">
+                                        <select  name="barrios" class="form-control mb-3" id="cboBarrios">
                                         </select>
                                     </div>
                                 </div>
@@ -278,7 +278,7 @@
                                     <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                         <div class="form-group">
                                             <label> Barrio </label>
-                                            <select name="barrio" id="cboBarriosM">
+                                            <select name="barrio" class="form-control mb-3" id="cboBarriosM">
                                             </select>
                                            <!-- <input type="text" class="form-control" id="txtBarrio"
                                             placeholder="Ingrese Direccion">-->
@@ -326,10 +326,9 @@
                     <div class="container">                          
                                     <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                         <div class="form-group">
-                                            <label> Id</label>
-                                            <input type="number" class="form-control" id="txtIdD"
+                                            <input type="hidden" class="form-control" id="txtIdD"
                                             placeholder="Ingrese Id">
-                                            <label> Estado </label>
+                                            <label> Estado</label>
                                             <input type="number" class="form-control" id="txtFlagD"
                                                 placeholder="Ingrese Estado">
                                         </div>
@@ -385,7 +384,7 @@
 
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
-            html += "<td>" + datos[i].idCliente + "</td>";
+           // html += "<td>" + datos[i].idCliente + "</td>";
             html += "<td>" + datos[i].nombreCliente + "</td>";
             html += "<td>" + datos[i].documento + "</td>";
             html += "<td>" + datos[i].direccion + "</td>";
@@ -400,14 +399,15 @@
             }
 
             Clientes.push(datos[i]);
+            
             html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idCliente + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
                 "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idCliente + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
-                "<i class='bi bi-file-text'></i></button> " + "</td>";
+                "<i class='bi bi-trash-fill'></i></button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
-        $('#txtA').html(datos[0].nombreCliente);
+       // $('#txtA').html(datos[0].nombreCliente);
 
     }
 
@@ -481,7 +481,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Alta exitosa!");
-                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/cliente.html"); }, 3000);
                 } else {
                     swal(result.error);
                 }
@@ -516,7 +516,7 @@
             select = document.getElementById("cboBarriosM");
             for (let i = 0; i < datos.length; i++) {
                 var option = document.createElement('option');
-                option.value = datos[i];
+                option.value = datos[i].codBarrio;
                 option.text = datos[i].nombre;
                 select.add(option);
             }
@@ -576,7 +576,7 @@
             "nombreCliente": nombre,
             "documento": parseInt(dni),
             "direccion": dire,
-            "codBarrio": parseInt(barrio),
+            "codBarrio": barrio,
             "telefono": parseInt(telefo),
             "flag": parseInt(bandera),
         }
@@ -590,7 +590,7 @@
             success: function (result) {
                 if (result.ok) {
                     swal("Cliente modificado exitosamente");
-                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/cliente.html"); }, 3000);
 
                 }
                 else swal(result.error);
@@ -600,7 +600,8 @@
             }
         });
     }
-//NO FUNCA-----------------------------------------------------------------------------------------------------------------------------------------
+    
+//eliminar cliente    
 function eliminar(id) {
         let idCliente = id;
         let bandera = 0;
@@ -642,8 +643,8 @@ function eliminar(id) {
             type: "PUT",
             success: function (result) {
                 if (result.ok) {
-                    swal("Cliente modificado exitosamente");
-                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/clientes.html"); }, 3000);
+                    swal("Cliente dado de baja exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/cliente.html"); }, 3000);
 
                 }
                 else swal(result.error);
