@@ -92,22 +92,10 @@ namespace ApiProyect.Controllers
             try
             {
 
-                /*var cli = db.Clientes.Where(c => c.IdCliente == id).FirstOrDefault();
+                var cli = db.Clientes.Include(c => c.CodBarrioNavigation)
+                                      .Where(c => c.IdCliente == id).FirstOrDefault();
                 resultado.Ok = true;
-                resultado.Return = cli;*/
-                                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where (c.IdCliente == id && c.Flag==1)
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono,
-                    Flag = c.Flag
-                }).FirstOrDefault();
+
                 resultado.Return = cli;
 
                 return resultado;
@@ -122,26 +110,6 @@ namespace ApiProyect.Controllers
             }
         }
 
-       /* [HttpGet] aca iria si a realizado o no devoluciones, ver si por cantidad o por si
-        [Route("[controller]/ObtenerDevoluciones")]
-        public ActionResult<ResultAPI> getDevoluciones()
-        {
-            var resultado = new ResultAPI();
-            try
-            {
-                resultado.Ok = true;
-                resultado.Return = db.Devoluciones.ToList();
-
-                return resultado;
-            }
-            catch (Exception ex)
-            {
-                resultado.Ok = false;
-                resultado.Error = "Error al encontrar devoluciones";
-
-                return resultado;
-            }
-        }*/
 
         [HttpPost] 
         [Route("[controller]/AltaCliente")]
