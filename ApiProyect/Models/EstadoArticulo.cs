@@ -11,7 +11,7 @@ namespace ApiProyect.Models
         {
             Articulos = new HashSet<Articulo>();
            // Empleados = new HashSet<Empleado>();
-            Proveedors = new HashSet<Proveedor>();
+           // Proveedors = new HashSet<Proveedor>();
         }
 
         public int IdEstadoArticulo { get; set; }
@@ -20,6 +20,6 @@ namespace ApiProyect.Models
         public virtual ICollection<Articulo> Articulos { get; set; }
         
        // public virtual ICollection<Empleado> Empleados { get; set; }
-        public virtual ICollection<Proveedor> Proveedors { get; set; }
+       // public virtual ICollection<Proveedor> Proveedors { get; set; }
     }
 }

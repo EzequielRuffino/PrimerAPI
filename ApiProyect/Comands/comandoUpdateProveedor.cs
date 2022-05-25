@@ -12,7 +12,6 @@ namespace ApiProyect.Comands
         public string Direccion { get; set; }//esta mal es un string
         public int? CodBarrio { get; set; }
         public int Telefono { get; set; }
-        public int IdEstadoArticulo { get; set; }
         public int Flag { get; set; }
 
     }

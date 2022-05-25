@@ -535,8 +535,6 @@ namespace ApiProyect.Models
 
                 entity.Property(e => e.Documento).HasColumnName("documento");
 
-                entity.Property(e => e.IdEstadoArticulo).HasColumnName("id_estado_articulo");
-
                 entity.Property(e => e.Flag).HasColumnName("flag");   
 
                 entity.Property(e => e.RazonSocial)
@@ -551,11 +549,6 @@ namespace ApiProyect.Models
                     .HasForeignKey(d => d.CodBarrio)
                     .HasConstraintName("fk_cod_barrio");
 
-                entity.HasOne(d => d.IdEstadoArticuloNavigation)
-                    .WithMany(p => p.Proveedors)
-                    .HasForeignKey(d => d.IdEstadoArticulo)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fk_id_estado_articulo");
             });
 
             modelBuilder.Entity<TalleArticulo>(entity =>

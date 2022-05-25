@@ -5,6 +5,8 @@ using ApiProyect.Models;
 using ApiProyect.Results;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+
 
 namespace ApiProyect.Controllers
 {
@@ -26,7 +28,9 @@ namespace ApiProyect.Controllers
         {
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Proveedors.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Proveedors.Include(c => c.CodBarrioNavigation)
+                                            .OrderBy(c => c.IdProveedor)
+                                            .ToList(); 
             return resultado;
         }
 
@@ -38,7 +42,8 @@ namespace ApiProyect.Controllers
             try
             {
 
-                var pro = db.Proveedors.Where(c => c.IdProveedor == id && c.Flag == 1).FirstOrDefault();
+                var pro = db.Proveedors.Include(c => c.CodBarrioNavigation)
+                                            .Where(c => c.IdProveedor == id).FirstOrDefault();                                           
                 resultado.Ok = true;
                 resultado.Return = pro;
 
@@ -53,7 +58,6 @@ namespace ApiProyect.Controllers
                 return resultado;
             }
         }
-
 
         [HttpPost] 
         [Route("[controller]/AltaProveedor")]
@@ -90,12 +94,6 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese telefono";//esto esta mal, reemplazar con direccion string
                 return resultado;
             }
-            if (comando.IdEstadoArticulo.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese estado de articulo siendo 1 disponible, 2 no disponible y 3 proximamente";//esto esta mal, reemplazar con direccion string
-                return resultado;
-            }
             if (comando.Flag.Equals(""))
             {
                 resultado.Ok = false;
@@ -109,7 +107,6 @@ namespace ApiProyect.Controllers
             pro.Direccion = comando.Direccion;
             pro.CodBarrio = comando.CodBarrio;
             pro.Telefono = comando.Telefono;
-            pro.IdEstadoArticulo = comando.IdEstadoArticulo;
             pro.Flag=comando.Flag;
 
 
@@ -158,12 +155,6 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese telefono";//esto esta mal, reemplazar con direccion string
                 return resultado;
             }
-            if (comando.IdEstadoArticulo.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "ingrese estado de articulo siendo 1 disponible, 2 no disponible y 3 proximamente";//esto esta mal, reemplazar con direccion string
-                return resultado;
-            }
             if (comando.Flag.Equals(""))
             {
                 resultado.Ok = false;
@@ -179,7 +170,6 @@ namespace ApiProyect.Controllers
             pro.Direccion = comando.Direccion;
             pro.CodBarrio = comando.CodBarrio;
             pro.Telefono = comando.Telefono;
-            pro.IdEstadoArticulo = comando.IdEstadoArticulo;
             pro.Flag=comando.Flag;
             db.Proveedors.Update(pro);
             db.SaveChanges();
