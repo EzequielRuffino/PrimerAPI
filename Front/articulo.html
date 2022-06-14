@@ -151,6 +151,8 @@
                     <tbody id="cuerpoTablaID"></tbody>
                     </tbody>
                     </table>
+                    <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
+
                 </div>
             </div>
 
@@ -421,9 +423,16 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
+    <script src="JS/tableToExcel.js"></script>
+    <script src="JS/app.js"></script>
   </body>
   <script type="text/javascript">
+
+$('#btnDescargar').on('click', requestDescargar);
+
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
 
     let Articulos = [];
 

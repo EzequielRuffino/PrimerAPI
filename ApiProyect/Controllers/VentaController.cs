@@ -4,9 +4,12 @@ using System.Linq;
 using ApiProyect.Comands;
 using ApiProyect.Models;
 using ApiProyect.Results;
-using ApiProyect.Models.DTO;
+//using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+using System.Data;
 
 
 namespace ApiProyect.Controllers
@@ -28,63 +31,46 @@ namespace ApiProyect.Controllers
         [Route("[controller]/ObtenerVenta")]
         public ActionResult<ResultAPI> Get()
         {
-            /*var resultado = new ResultAPI();
 
-            
-                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).ToList();
-                resultado.Return = cli;
-
-                return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.Venta.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Venta.Include(c=> c.IdClienteNavigation)
+                                        .Include(c=> c.IdEmpleadoNavigation)
+                                        .Include(c=> c.IdFormaPagoNavigation)
+                                            .OrderBy(c=> c.IdVenta)
+                                             .ToList(); 
             return resultado;
+
             
 
 
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerVenta/{id}")] 
-        public ActionResult<ResultAPI> Get3(int id)
+        [Route("[controller]/FormaPago")]
+        public ActionResult<ResultAPI> getFormaPago()
         {
-            /*var resultado = new ResultAPI();
+            var resultado = new ResultAPI();
             try
             {
                 resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where c.IdCliente == id
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).FirstOrDefault();
-                resultado.Return = cli;
+                resultado.Return = db.FormaPagos.ToList();
 
                 return resultado;
             }
-
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Cliente no encontrado";
+                resultado.Error = "Error al encontrar forma de pagos";
 
                 return resultado;
-            }*/
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerVenta/{id}")] 
+        public ActionResult<ResultAPI> Get3(int id)
+        {
             var resultado = new ResultAPI();
             try
             {

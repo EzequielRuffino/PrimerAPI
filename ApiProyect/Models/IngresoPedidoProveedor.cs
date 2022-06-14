@@ -19,7 +19,7 @@ namespace ApiProyect.Models
         public string TipoFactura { get; set; }
         public DateTime Fecha { get; set; }
         public int NroOrdenCompra { get; set; }
-                public int Flag { get; set; }
+        public int Flag { get; set; }
 
 
         public virtual Usuario IdEmpleadoNavigation { get; set; }

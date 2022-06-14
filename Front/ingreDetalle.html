@@ -1,0 +1,750 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="shortcut icon" href="./Imagenes/M&E.ico">
+    <title>M&E</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+        body {
+            background-color: #b86262;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .btn{
+            background-color: #a30a0a;
+            color: white;
+            font-size: medium;
+        }
+
+        .btn:hover{
+            color: white;
+            border: 3px dashed #ffee32;
+        }
+
+        h1{
+            font-family: 'Luckiest Guy', cursive;
+        }
+
+        .presentation, .tab-content{
+            background-color: white;
+            border-radius: 5px 5px 0 0;
+        }
+
+        a{
+          color: black;
+        }
+
+        a:hover{
+          color: rgb(82, 79, 79);
+        }
+
+        @media screen {
+          #printSection {
+              display: none;
+          }
+        }
+
+        @media print {
+          body * {
+            visibility:hidden;
+          }
+          #printSection, #printSection * {
+            visibility:visible;
+          }
+          #modal * {
+            visibility:visible;
+          }
+          #printSection {
+            position:absolute;
+            left:0;
+            top:0;
+          }
+        }
+        .id{
+          float: right;
+          gap: 15px;
+        }
+    </style>
+  </head>
+  <body onload="OnLoad()" id="body">
+    <!-- Navbar -->
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="./Imagenes/Easy-Peasy-2.svg" alt="" style="height: 50px;">
+                <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button> 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto"></ul>
+              <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
+                <a class="btn btn-success my-2 my-sm-0" href="javascript: history.go(-1)">Volver</a>
+                <a class="btn btn-success my-2 my-sm-0" type="button" href="ingreCabecera.html">Cabecera</a>
+                <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">Salir<i class="bi bi-box-arrow-right"></i>
+                </a>
+              </form>
+            </div>
+          </nav>
+    </section>
+    <!-- HEAD -->
+    <section class="container" style="text-align: center; margin-top: 2%;">
+        <h1 class="display-3">INGRESO PEDIDOS DETALLE</h1>
+    </section>
+    <!-- BODY -->
+    <section class="container body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item presentation" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Ingreso - Detalle</a>
+            </li>
+
+            <li class="nav-item presentation" role="presentation">
+                <a class="nav-link" id="art-tab" data-toggle="tab" href="#art" role="tab" aria-controls="home" aria-selected="false">Registrar Ingreso - Detalle</a>
+            </li>
+            
+          </ul>
+          <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
+            <!-- Reportes -->
+            <!-- Remitos -->
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container" style="padding: 3%;">
+                    <table class="table table-responsive-sm">
+                      <table class="table table-responsive-md" id="TablaRemitos">
+                        <thead class="thead-dark">
+                            <th data-field="estado">Numero Ingreso</th>
+                            <th data-field="fechaCompra">Cantidad</th>
+                            <th data-field="cliente">Precio</th>
+                            <th data-field="cliente">Articulo</th>
+                            <th data-field="articulo">Estado</th>
+                            <th>Acciones</th>
+                        </thead>
+                        <tbody id="cuerpoTabla"></tbody>
+                        <tbody id="cuerpoTablaID"></tbody>
+                        <tbody id="cuerpoTablaEstado"></tbody>
+                        <tbody id="cuerpoTablaFecha"></tbody>
+                        <tbody id="cuerpoTablaFE"></tbody>
+                    </table>
+                </div>
+            </div>
+          
+           <!-- Articulos -->
+           <div class="tab-pane fade show" id="art" role="tabpanel" aria-labelledby="art-tab">
+            <div class="modal-body">
+              <section id="seccion2">
+                <div class="container">
+                    <form id="formulario" action="">
+                        <div class="row">
+                            <div class="col-lg-7">
+                                <label for="orden">Numero Ingreso</label>
+                                <select id="orden" class="form-control">
+                                  <option value="">Seleccionar...</option>
+                                </select>
+                            </div>
+                            <div class="col-lg-3">
+                              <label for="precio">Precio</label>
+                              <input id="precio" class="form-control" type="number" placeholder="Ingrese precio">
+                          </div>
+                            <div class="col-lg-7">
+                                <label for="producto">Artículo</label>
+                                <select id="producto" class="form-control">
+                                    <option value="">Seleccionar...</option>
+                                  </select>
+                            </div>
+                            <div class="col-lg-3">
+                                <label for="valor">Cant.</label>
+                                <input id="valor" class="form-control" type="number" placeholder="Ingrese cantidad">
+                            </div>
+                            <div class="col-lg-7">
+                                <label for="orden">Estado</label>
+                                <input id="estado" class="form-control" type="number" placeholder="Ingrese estado" >
+                            </div>
+                            <div class="col-lg-1">
+                              <br>
+                                <button type="button" id="boton" onclick="agregar()" class="btn"><i class="bi bi-check-circle text-light" style="font-size: 1.5rem;"></i></button>
+                            </div>
+                        </div>
+                    </form><br>
+                </div>
+            </section>
+            <section id="seccion3">
+                <div class="container">
+                    <div class="row">
+                        <div id="listaIngresos" class="col-lg-12">
+                            Detalle
+                            <hr>
+                            <div id="itemIngreso"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <br>
+            <button type="button" class="btn" data-dismiss="modal">Close</button>
+            <button type="button" class="btn" data-dismiss="modal" id="btnAceptar">Aceptar</button>
+          </div>
+  </div>          
+  </div>
+<!-- Modificar -->
+
+<div class="modal fade" id="update" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+aria-hidden="true">
+<div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">MODIFICAR DETALLE</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <div class="container d-flex justify-content-center mt-5">
+                <section>
+                    <form>
+                        <div class="form-row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <input type="hidden" class="form-control" id="txtId">
+                                    <label> Numero Ingreso </label>
+                                    <select  name="numero" class="form-control mb-3" id="cboA">
+                                   </select>                                     
+                               </div>
+                            </div>
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Articulo </label>
+                                    <select  name="articulo" class="form-control mb-3" id="cboB">
+                                   </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Cantidad </label>
+                                    <input type="number" class="form-control" id="txtC">
+                                </div>
+                            </div>
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Precio </label>
+                                    <input type="number" class="form-control" id="txtD">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                <div class="form-group">
+                                    <label> Estado </label>
+                                    <input type="number" class="form-control" id="txtE" disabled>
+                                </div>
+                            </div>
+                        </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" type="button" id="btnModificar">Aceptar</button>
+                <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<!--BAJA PROVEEDOR-->
+<div class="modal fade" id="baja" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">BAJA DETALLE</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">                          
+                                <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
+                                    <div class="form-group">
+                                        <input type="hidden" class="form-control" id="txtIdf"
+                                        placeholder="Ingrese Id">
+                                        <label> Estado </label>
+                                        <input type="number" class="form-control" id="txtF"
+                                            placeholder="Ingrese Estado">
+                                    </div>
+                                </div>                         
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" type="button" id="btnDelete">Aceptar</button>
+                    <button type="button" class="btn" data-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+      </section>
+     
+ 
+
+
+
+      <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+      crossorigin="anonymous"
+      ></script>
+  </body>
+  <script type="text/javascript">
+
+
+       
+   let Clientes = [];
+   let cont=[];
+
+   // Validar Form
+    function go() {
+        var forms = document.getElementsByClassName('needs-validation');
+
+        var validation = Array.prototype.filter.call(forms, function(form) {
+        form.addEventListener('submit', function(event) {
+            if (form.checkValidity() === false) {
+            event.preventDefault();
+            event.stopPropagation();
+            }
+            form.classList.add('was-validated');
+        }, false);
+        });
+    }
+
+    function OnLoad() {     
+        // Tooltip
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+
+//obtener articulos
+$(document).ready(function () {
+    $.ajax({
+        url: "https://localhost:5001/Articulo/ObtenerArticulo",
+        type: "GET",
+        success: function (result) {
+            if (result.ok) {
+                art = result.return;
+                cargarComboB(art);
+            } else {
+                swal(result.error);
+            }
+        },
+        error: function (error) {
+            swal("Problemas al conseguir articulos");
+        },
+    })
+
+    // carga combo
+        function cargarComboB(datos) {
+        select = document.getElementById("producto");
+        for (let i = 0; i < datos.length; i++) {
+            var option = document.createElement('option');
+            option.value = datos[i].idArticulo;
+            option.text = datos[i].nombreArticulo;
+            select.add(option);
+        }
+    }
+
+})
+
+//obtener id de ingreso
+
+$(document).ready(function () {
+    $.ajax({
+        url: "https://localhost:5001/IngresoPedido/ObtenerIngresoPedido",
+        type: "GET",
+        success: function (result) {
+            if (result.ok) {
+                art = result.return;
+                cargarComboB(art);
+            } else {
+                swal(result.error);
+            }
+        },
+        error: function (error) {
+            swal("Problemas al conseguir identificador");
+        },
+    })
+
+    // carga combo
+        function cargarComboB(datos) {
+        select = document.getElementById("orden");
+        for (let i = 0; i < datos.length; i++) {
+            var option = document.createElement('option');
+            option.value = datos[i].idIngresoPedido;
+            option.text = datos[i].idIngresoPedido;
+            select.add(option);
+        }
+    }
+
+})
+
+}
+//-----------------------------------------------------------------------------------------------------------------------------------------
+  // Cargar Articulos por Nota pedido
+  let Productos = [];
+ let ingresos = [];
+
+ function agregar() {
+     const formulario = document.getElementById('formulario');
+     let orden = formulario['orden'];
+     let nombreArticulo = formulario['producto'];
+     let valor = formulario['valor'];
+
+
+     
+
+     var prod = document.getElementById('producto');
+     var idArticulo = prod.selectedIndex;
+
+     var lista = {
+         nombreArticulo: nombreArticulo.value,
+         cantidad: Number(valor.value)
+     }
+
+     let elemento = ingresos.find(element => element.nombreArticulo == nombreArticulo.value);
+
+     let cant = 0;
+
+     try {
+         elemento = {
+            nombreArticulo: elemento.nombreArticulo,
+             cantidad: Number(elemento.cantidad += Number(lista.cantidad))
+         }
+         cant = elemento.cantidad;
+     } catch (error) {
+         ingresos.push(lista);
+         cant = Number(valor.value);
+     }
+
+
+     let detalle = "";
+
+     for (let i = 0; i < ingresos.length; i++) {
+         detalle += ingresos[i].nombreArticulo +"&nbsp &nbsp &nbsp &nbsp &nbsp Cant. "+ ingresos[i].cantidad+" <hr>";
+     }
+
+     document.getElementById('itemIngreso').innerHTML = detalle;
+
+     let cant2 = ingresos.find(element => element.nombreArticulo == nombreArticulo.value);
+
+     if (cant != 0)
+     cargarProducto(idArticulo,cant2.cantidad);
+     else swal("Ingrese Cantidad");
+ }
+
+ function cargarProducto(index,cant){
+    producto = {
+      indice : index,
+      cantidad : Number(cant)
+    };
+
+    Productos.push(producto);
+  }
+
+    // Cargar Articulos
+  $("#btnAceptar").click(function(){
+        let idIngresoPedido = $("#orden").val();
+        if (idIngresoPedido === ""){
+            swal("Ingrese los datos requeridos");
+        } else {
+            IngresarProd(idIngresoPedido, Productos);
+        }
+  });
+ 
+  function IngresarProd(idIngresoPedido, Productos){
+    var precio= $("#precio").val();
+    var estado = $("#estado").val();
+    for (let i = 0; i < Productos.length; i++) {
+      comando = {
+        "idIngresoPedido": idIngresoPedido,
+        "cantidad": Productos[i].cantidad,
+        "precio": precio,
+        "idArticulo": Productos[i].indice,
+        "flag": estado
+      }
+
+      $.ajax({
+          url: "https://localhost:5001/DetalleIngresoPedido/AltaDetalleIngreso",
+          dataType:'json',
+          contentType:'application/json',
+          data: JSON.stringify(comando),
+          type: "POST",
+          success: function(result) {
+              if (result.ok){
+                swal("Alta exitosa!");
+                setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/ingreDetalle.html"); }, 3000);
+              }
+              else swal(result.error);
+          },
+          error: function(error) {
+              swal(error);
+          }
+      });
+      
+    }
+  }
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+  //obtener notas pedidos cargar listado
+  $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/DetalleIngresoPedido/ObtenerDetalleIngreso",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    console.log(result)
+                    cargarTabla(result.return);
+                } else {
+                    alert(result.error)
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir detalle de ingreso de Pedido");
+            },
+        })
+    })
+
+
+    //cargar en tabla las nota de pedido
+    function cargarTabla(datos) {
+        for (let i = 0; i < datos.length; i++) {
+            let html = "<tr id='lista'>";
+            html += "<td>" + datos[i].idIngresoPedido + "</td>";
+            html += "<td>" + datos[i].cantidad + "</td>";
+            html += "<td>" + datos[i].precio + "</td>";
+            html += "<td>" + datos[i].idArticuloNavigation.nombreArticulo + "</td>";
+
+            if (datos[i].flag == 0) {
+                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+            }
+            else if (datos[i].flag == 1) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+            Clientes.push(datos[i]);
+            cont.push(0);
+
+            html += "</td>";  
+            html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idDetalleIngresoPedido + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+                "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
+                "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idDetalleIngresoPedido + ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
+                "<i class='bi bi-trash-fill'></i></button> " + "</td>";
+            html += "</tr>"
+            $("#cuerpoTabla").append(html);
+        }
+       // $('#txtA').html(datos[0].nombreCliente);
+
+    }
+ //------------------------------------------------------------------------------------------------------------------------------------
+ //modificar
+ //obtener articulos
+$(document).ready(function () {
+    $.ajax({
+        url: "https://localhost:5001/Articulo/ObtenerArticulo",
+        type: "GET",
+        success: function (result) {
+            if (result.ok) {
+                art = result.return;
+                cargarComboB(art);
+            } else {
+                swal(result.error);
+            }
+        },
+        error: function (error) {
+            swal("Problemas al conseguir articulos");
+        },
+    })
+
+    // carga combo
+        function cargarComboB(datos) {
+        select = document.getElementById("cboB");
+        for (let i = 0; i < datos.length; i++) {
+            var option = document.createElement('option');
+            option.value = datos[i].idArticulo;
+            option.text = datos[i].nombreArticulo;
+            select.add(option);
+        }
+    }
+
+})
+
+//obtener id de ingreso
+$(document).ready(function () {
+    $.ajax({
+        url: "https://localhost:5001/IngresoPedido/ObtenerIngresoPedido",
+        type: "GET",
+        success: function (result) {
+            if (result.ok) {
+                ing= result.return;
+                cargarComboA(ing);
+            } else {
+                swal(result.error);
+            }
+        },
+        error: function (error) {
+            swal("Problemas al conseguir identificador");
+        },
+    })
+
+    // carga combo
+        function cargarComboA(datos) {
+        select = document.getElementById("cboA");
+        for (let i = 0; i < datos.length; i++) {
+            var option = document.createElement('option');
+            option.value = datos[i].idIngresoPedido;
+            option.text = datos[i].idIngresoPedido;
+            select.add(option);
+        }
+    }
+
+})  
+//llenar modal y pasar campos para modificar
+function modificar(id) {
+        let idDetalleIngresoPedido= id;
+        let ord=0;
+        let cant = 0;
+        let pre =0;
+        let art = 0;
+        let flag = 0;
+
+        for (let i = 0; i < Clientes.length; i++) {
+            if (Clientes[i].idDetalleIngresoPedido== id) {
+                ord= Clientes[i].idIngresoPedido;
+                art= Clientes[i].idArticulo;
+                cant = Clientes[i].cantidad;
+                pre = Clientes[i].precio;
+                flag = Clientes[i].flag;
+
+
+            }
+        }
+        $("#txtId").val(idDetalleIngresoPedido);
+        $("#cboA").val(ord);
+        $("#cboB").val(art);
+        $("#txtC").val(cant);
+        $("#txtD").val(pre);
+        $("#txtE").val(flag);
+
+
+
+        $("#btnModificar").click(function () {
+            let idDetalleIngresoPedido= $("#txtId").val();
+            let idIngresoPedido = $("#cboA").val();
+            let art = $("#cboB").val();
+            let cant = $("#txtC").val();
+            let pre = $("#txtD").val();
+            let flag = $("#txtE").val();
+
+
+            if (idIngresoPedido === "" || art === "" || cant === "" || pre === "" || flag === "") {
+                swal("Ingrese los datos requeridos");
+            }
+            else
+                modificarProveedor(idDetalleIngresoPedido, idIngresoPedido, art, cant, pre,flag);
+        })
+    }
+    //modificar cabecera
+    function modificarProveedor(idDetalleIngresoPedido, idIngresoPedido, art, cant, pre,flag) {
+        comando = {
+            "idDetalleIngresoPedido": parseInt(idDetalleIngresoPedido),
+            "idIngresoPedido": parseInt(idIngresoPedido),
+            "idArticulo": art,
+            "cantidad": parseInt(cant),
+            "precio":parseFloat(pre),
+            "flag": parseInt(flag),
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/DetalleIngresoPedido/UpdateDetalleIngreso",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    swal("Detalle modificado exitosamente!");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/ingriDetalle.html"); }, 3000);
+
+                }
+                else swal(result.error);
+            },
+            error: function (objA) {
+                //swal("Error" + error);
+                alert(JSON.stringify(objA));//esto sirve para ver q seria el error object/object
+
+            }
+        });
+    }
+//eliminar cabecera
+    function eliminar(id) {
+        let idDetalleIngresoPedido = id;
+        let bandera = 0;
+
+        for (let i = 0; i <Clientes.length; i++) {
+            if (Clientes[i].idDetalleIngresoPedido == id) {
+                bandera = Clientes[i].flag;
+            }
+        }
+
+        $("#txtIdf").val(idDetalleIngresoPedido);
+        $("#txtF").val(bandera);
+
+
+    $("#btnDelete").click(function () {
+        let idDetalleIngresoPedido = $("#txtIdf").val();
+        let bandera = $("#txtF").val();
+
+        if (idDetalleIngresoPedido ==="" || bandera === "") {
+            swal("Ingrese los datos requeridos");
+        } else {
+            eliminarProveedor(idDetalleIngresoPedido, bandera);
+        }
+    })
+}
+
+    function eliminarProveedor(idDetalleIngresoPedido, bandera) {
+        comando = {
+            "idDetalleIngresoPedido": parseInt(idDetalleIngresoPedido),
+            "flag": parseInt(bandera),
+        }
+
+        $.ajax({
+            url: "https://localhost:5001/DetalleIngresoPedido/ActualizarFlagDetalleIngresoPedidon/" + idDetalleIngresoPedido,
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(comando),
+            type: "PUT",
+            success: function (result) {
+                if (result.ok) {
+                    swal("Detalle dado de baja exitosamente");
+                    setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/ingreDetalle.html"); }, 3000);
+
+                }
+                else swal(result.error);
+            },
+            error: function (error) {
+                swal("Error" + error);
+            }
+        });
+    }
+  </script>
+</html>

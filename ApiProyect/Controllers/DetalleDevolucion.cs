@@ -4,9 +4,12 @@ using System.Linq;
 using ApiProyect.Comands;
 using ApiProyect.Models;
 using ApiProyect.Results;
-using ApiProyect.Models.DTO;
+//using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+using System.Data;
 
 
 namespace ApiProyect.Controllers
@@ -28,26 +31,11 @@ namespace ApiProyect.Controllers
         [Route("[controller]/ObtenerDetalleDevolucion")]
         public ActionResult<ResultAPI> Get()
         {
-            /*var resultado = new ResultAPI();
-
-            
-                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).ToList();
-                resultado.Return = cli;
-
-                return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.DetalleDevolucion.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.DetalleDevolucion.Include(c=> c.IdArticuloNavigation)
+                                                    .Include(c=> c.IdMotivoNavigation)
+                                                    .ToList(); 
             return resultado;
             
 
@@ -55,41 +43,35 @@ namespace ApiProyect.Controllers
         }
 
         [HttpGet]
-        [Route("[controller]/ObtenerDetalleDevolucion/{id}")] 
-        public ActionResult<ResultAPI> Get3(int id)
+        [Route("[controller]/ObtenerMotivo")]
+        public ActionResult<ResultAPI> getTipoArticulo()
         {
-            /*var resultado = new ResultAPI();
+            var resultado = new ResultAPI();
             try
             {
                 resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where c.IdCliente == id
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).FirstOrDefault();
-                resultado.Return = cli;
+                resultado.Return = db.MotivoDevolucions.ToList();
 
                 return resultado;
             }
-
             catch (Exception ex)
             {
                 resultado.Ok = false;
-                resultado.Error = "Cliente no encontrado";
+                resultado.Error = "Error al encontrar motivos";
 
                 return resultado;
-            }*/
+            }
+        }
+
+        [HttpGet]
+        [Route("[controller]/ObtenerDetalleDevolucion/{id}")] 
+        public ActionResult<ResultAPI> Get3(int id)
+        {
             var resultado = new ResultAPI();
             try
             {
 
-                var v = db.DetalleDevolucion.Where(c => c.IdDetalleDevolucion == id && c.Flag == 1).FirstOrDefault();
+                var v = db.DetalleDevolucion.Where(c => c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = v;
 
@@ -154,7 +136,7 @@ namespace ApiProyect.Controllers
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.DetalleDevolucion.ToList();
+            //resultado.Return = db.DetalleDevolucion.ToList();
 
             return resultado;
         }
@@ -173,7 +155,7 @@ namespace ApiProyect.Controllers
             if (comando.IdArticulo.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "Ingrese articulo";
+                resultado.Error = "Ingrese identidicar articulo";
                 return resultado;
             }
             if (comando.IdMotivo.Equals(""))
@@ -188,12 +170,7 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese cantidad";
                 return resultado;
             }
-            if (comando.Flag.Equals(""))
-            {
-                resultado.Ok = false;
-                resultado.Error = "Ingrese estado";
-                return resultado;
-            }
+
 
             var d = db.DetalleDevolucion.Where(c => c.IdDetalleDevolucion== comando.IdDetalleDevolucion).FirstOrDefault();
             if (d != null)
@@ -202,13 +179,12 @@ namespace ApiProyect.Controllers
             d.IdArticulo = comando.IdArticulo;
             d.IdMotivo= comando.IdMotivo;
             d.Cantidad= comando.Cantidad;
-            d.Flag= comando.Flag;
             db.DetalleDevolucion.Update(d);
             db.SaveChanges();
             }
 
             resultado.Ok = true;
-            resultado.Return = db.DetalleDevolucion.ToList();
+            resultado.Return = d;
 
             return resultado;
         }
@@ -226,7 +202,7 @@ namespace ApiProyect.Controllers
                 return resultado;
             }
 
-            var cli= db.DetalleDevolucion.Where(c => c.IdDetalleDevolucion == id).FirstOrDefault();
+            var cli= db.DetalleDevolucion.Where(c => c.IdDetalleDevolucion== id).FirstOrDefault();
 
             if (cli != null)
             {

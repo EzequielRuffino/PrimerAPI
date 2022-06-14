@@ -29,6 +29,7 @@ namespace ApiProyect.Controllers
             var resultado = new ResultAPI();
             resultado.Ok = true;
             resultado.Return = db.Proveedors.Include(c => c.CodBarrioNavigation)
+                                            .Where(c => c.Flag == 1)
                                             .OrderBy(c => c.IdProveedor)
                                             .ToList(); 
             return resultado;

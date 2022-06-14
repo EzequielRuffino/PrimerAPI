@@ -4,7 +4,7 @@ using System.Linq;
 using ApiProyect.Comands;
 using ApiProyect.Models;
 using ApiProyect.Results;
-using ApiProyect.Models.DTO;
+//using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;

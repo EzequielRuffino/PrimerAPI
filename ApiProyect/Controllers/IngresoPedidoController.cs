@@ -4,9 +4,12 @@ using System.Linq;
 using ApiProyect.Comands;
 using ApiProyect.Models;
 using ApiProyect.Results;
-using ApiProyect.Models.DTO;
+//using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+using System.Data;
 
 
 namespace ApiProyect.Controllers
@@ -28,63 +31,19 @@ namespace ApiProyect.Controllers
         [Route("[controller]/ObtenerIngresoPedido")]
         public ActionResult<ResultAPI> Get()
         {
-            /*var resultado = new ResultAPI();
-
-            
-                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).ToList();
-                resultado.Return = cli;
-
-                return resultado;*/
             var resultado = new ResultAPI();
             resultado.Ok = true;
-            resultado.Return = db.IngresoPedidoProveedors.Where(c => c.Flag == 1).ToList(); 
-            return resultado;
-            
-
-
+            resultado.Return = db.IngresoPedidoProveedors.Include(c=> c.IdEmpleadoNavigation)
+                                            .Include(c=> c.IdProveedorNavigation )
+                                            .OrderBy(c=> c.IdIngresoPedido)
+                                             .ToList(); 
+                            return resultado;
         }
 
         [HttpGet]
         [Route("[controller]/ObtenerIngresoPedido/{id}")] 
         public ActionResult<ResultAPI> Get3(int id)
         {
-            /*var resultado = new ResultAPI();
-            try
-            {
-                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                where c.IdCliente == id
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).FirstOrDefault();
-                resultado.Return = cli;
-
-                return resultado;
-            }
-
-            catch (Exception ex)
-            {
-                resultado.Ok = false;
-                resultado.Error = "Cliente no encontrado";
-
-                return resultado;
-            }*/
                         var resultado = new ResultAPI();
             try
             {

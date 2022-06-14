@@ -51,31 +51,30 @@ namespace ApiProyect
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
-            app.UseCors("Prog3");
 
-            app.Use((context, next) =>
+
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseSwagger();
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1"));
+            }
+            app.UseHttpsRedirection();
+            app.UseRouting();
+            app.UseCors("Prog3");
+                        app.Use((context, next) =>
             {
                 context.Items["__CorsMiddlewareInvoked"] = true;
                 return next();
             });
 
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
 
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "v1");
-
-            });
 
 
            // app.UseHttpsRedirection();
 
-            app.UseRouting();
 
             app.UseAuthorization();
 

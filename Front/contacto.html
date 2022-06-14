@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="shortcut icon" href="./Imagenes/M&E.ico">
+    <title>M&E</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+        body {
+            background-color: #b86262;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .btn{
+            background-color: #a30a0a;
+            color: white;
+            font-size: medium;
+        }
+
+        .btn:hover{
+            color: white;
+            border: 3px dashed #ffee32;
+        }
+
+        h1{
+            font-family: 'Luckiest Guy', cursive;
+        }
+
+        .presentation, .tab-content{
+            background-color: white;
+            border-radius: 5px 5px 0 0;
+        }
+
+        a{
+          color: black;
+        }
+
+        a:hover{
+          color: rgb(82, 79, 79);
+        }
+
+        @media screen {
+          #printSection {
+              display: none;
+          }
+        }
+
+        @media print {
+          body * {
+            visibility:hidden;
+          }
+          #printSection, #printSection * {
+            visibility:visible;
+          }
+          #modal * {
+            visibility:visible;
+          }
+          #printSection {
+            position:absolute;
+            left:0;
+            top:0;
+          }
+        }
+        .id{
+          float: right;
+          gap: 15px;
+        }
+    </style>
+  </head>
+  <body onload="OnLoad()" id="body">
+
+    <div class="container " style="margin-bottom: 100px;">
+
+        <h2 style="margin-top: 30px;">PREGUNTAS FRECUENTES</h2>
+
+        <div class="c">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-1">¿Cómo creo mi clave?</label></h6>
+            <div class="p">
+                <p>Sí! Mientras seas miembro activo de VITAMOVE, podés tomar tus clases en cualquiera de nuestras
+                    sucursales</p>
+            </div>
+        </div>
+        <div class="c">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-2">¿Con qué medios puedo abonar mi plan?</label></h6>
+            <div class="p">
+                <p>Podés abonar online a través nuestra página web, mediante Mercado Pago tenés la posibilidad de abonar
+                    desde tu cuenta, usando tus tarjetas de crédito y débito. También, podés acercarte a tu sucursal de
+                    preferencia y
+                    abonar el efectivo.</p>
+            </div>
+        </div>
+        <div class="c">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-3">• ¿A qué dirección de mail me puedo contactar para hacer una sugerencia o reclamo?
+            </label></h6>
+            <div class="p">
+                <p>Para dar de baja tu perfil, podés contactarte por nuestros canales de comunicación pidiendo la baja
+                    de tu usuario.</p>
+            </div>
+        </div>
+        <div class="c">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-4">• ¿Tienes alguna duda o quieres comunicarte con nosotros?
+            </label></h6>
+            <div class="p">
+                <p>Así es, con todos los planes accedés a consultas con nuestro profesional en nutrición.</p>
+            </div>
+        </div>
+        <div class="c">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-5">¿Hay soporte técnico?
+            </label></h6>
+            <div class="p">
+                <p>¡Por supuesto! Somos un equipo de desarrolladores español, con más de diez años de experiencia en el sector. Podrás contactar con nuestro equipo de soporte de Lunes a Jueves de 9 a 18 horas y Viernes de 8 a 15 horas ininterrumpidamente. Envíanos un mail o llámanos por teléfono. Estaremos encantados de ayudarte</p>
+            </div>
+        </div>
+        <div class="c" style="margin-bottom: 18px;">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-6">¿Es difícil de utilizar?</label></h6>
+            <div class="p">
+                <p>No, nosotros te enseñaremos cómo crear tu catálogo, subir tus productos y enviar notificaciones con ofertas.</p>
+            </div>
+        </div>
+        <div class="c" style="margin-bottom: 18px;">
+            <i class="bi bi-question-square-fill"></i>
+            <h6><label for="faq-6">¿Y si mi negocio tiene necesidades específicas?</label></h6>
+            <div class="p">
+                <p>Nuestra plataforma digital, panel de control y app tiene la posibilidad de desarrollos a medida e integraciones con terceros. En estos momentos, podrás vincular la app a tu ERP, gestionar campañas de email marketing o importar y exportar fácilmente toda la información y datos subidos a la plataforma.</p>
+            </div>
+        </div>
+    </div>
+  </body>
+</html>

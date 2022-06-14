@@ -207,7 +207,7 @@ namespace ApiProyect.Models
             });
 //ACA TERMINA
 //TABLA AGREGADA
-            modelBuilder.Entity<DetalleDevolucion>(entity =>
+                       modelBuilder.Entity<DetalleDevolucion>(entity =>
             {
                 entity.HasKey(e => e.IdDetalleDevolucion)
                     .HasName("detalle_devolucion_pkey");

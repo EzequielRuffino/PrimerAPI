@@ -1,2 +1,0 @@
-# PrimerAPI
-prueba con jira

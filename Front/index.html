@@ -27,13 +27,13 @@
                 </div>
                 <div class="col-lg-9" class="textoHead">
                     <h1 class="display-2"><b> M&E </b></h1>
-                    <p class="lead">Con este software podrás gestionar de forma sencilla y amigable la administracion de tu empresa de indumentaria .
+                    <p class="lead">Con este software podrás gestionar de forma sencilla y amigable la administracion de tu empresa de indumentaria.</p>
+                    <a style="color:white;;" href="contacto.html">Preguntas Frecuentes</a>
                     </p>
                     <hr class="my-4">
                     <p>Para acceder a las utilidades del programa primero inicie sesión.</p>
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#exampleModal">Iniciar Sesion</button>
                     <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#profile">Registrarse</button>
-
                 </div>
             </div>
         </div>
@@ -82,7 +82,7 @@
                             </div>
                             <div>
                                 <label for="rol"><i class="bi bi-person-fill"></i> Rol</label>
-                                <select class="form-control" id="cboRol" required>
+                                <select class="form-control" id="cboRo" required>
                                 </select>
                             </div>
                             <br>
@@ -145,7 +145,7 @@
                             <div class="col-12 col-sm-12 sol-md-6 col-lg-6">
                                 <div class="form-group">
                                     <label> Rol </label>
-                                    <select  name="rol" class="form-control mb-3" id="cboRol">
+                                    <select  name="role" class="form-control mb-3" id="cbo">
                                     </select>
                                 </div>
                             </div>
@@ -169,12 +169,17 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-
-                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Agregar</button>
                         <button class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                        <button type="button" id="btnAgregar" name="btnAgregar" class="btn btn-success">Registrar</button>
+                        <input style="opacity:1;" type="checkbox" data-required="1" name="terminos"><p style="color:black;padding-left:20px;">Aceptar los <a style="color:blue;" href="terminos.html">Términos y Condiciones</a></p>
                     </div>
                 </div>
-            </form>    
+                <form>
+                    <div>
+                        <input type="checkbox" style="opacity:1" id="texto" data-required="1" name="terminos"/><label tyle="color:black;padding-left:20px;">Aceptar los <a style="color:blue;" href="#">Términos y Condiciones</a></label>
+                    </div>
+                </form> 
+            </form>   
         </div>
     </div>
  </div>
@@ -236,7 +241,7 @@
             success: function (result) {
                 if (result.ok) {
                     rol = result.return;
-                    cargarComboDos(rol);
+                    cargarCombo(rol);
                 } else {
                     swal(result.error);
                 }
@@ -247,10 +252,42 @@
         })
 
         // carga combo
-        function cargarComboDos(datos) {
+        function cargarCombo(datos) {
             var html = "<option value=''> SELECCIONE </option>";
-            $("#cboRol").append(html);
-            select = document.getElementById("cboRol");
+            $("#cboRo").append(html);
+            select = document.getElementById("cboRo");
+            for (let i = 0; i < datos.length; i++) {
+                var option = document.createElement('option');
+                option.value = datos[i].idTipoRol;
+                option.text = datos[i].descripcion;
+                select.add(option);
+            }
+        }
+
+    })
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Usuario/ObtenerRol",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    roll = result.return;
+                    cargarComboA(roll);
+                } else {
+                    swal(result.error);
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir roles");
+            },
+        })
+
+        // carga combo
+        function cargarComboA(datos) {
+            var html = "<option value=''> SELECCIONE </option>";
+            $("#cbo").append(html);
+            select = document.getElementById("cbo");
             for (let i = 0; i < datos.length; i++) {
                 var option = document.createElement('option');
                 option.value = datos[i].idTipoRol;
@@ -267,7 +304,7 @@
         let dni = $("#txtDocumento").val();//documento
         let barrio = $("#cboBarrio").val();//direccion
         let telefono = $("#txtTelefono").val();//barrio
-        let rol = $("#cboRol").val();//telefono
+        let rol = $("#cbo").val();//telefono
         let email = $("#txtEmail").val();//flag
         let pass = $("#txtPass").val();//flag
 
@@ -283,11 +320,12 @@
         comando = {
             "nombreCompleto": nombre,
             "documento": parseInt(dni),
-            "codBarrio": 1,
+            "codBarrio": barrio,
             "telefono": parseInt(telefono),
-            "idTipoRol": 1,
+            "idTipoRol": rol,
             "email": email,
             "contraseña": pass,
+            "flag":1
         };
         $.ajax({
             url: "https://localhost:5001/Usuario/AltaUsuario",

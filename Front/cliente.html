@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
         integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <link rel="shortcut icon" href="./Imagenes/M&E.ico">
@@ -159,6 +160,26 @@
                             <tbody id="cuerpoTablaID"></tbody>
                             </tbody>
                         </table>
+                        <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
+                        <button type="button" style="float: right;"class="btn btn--white" onclick="checkout2.open()">Mercado Pago</button>
+
+                        <!--  <div class="asagiSabit whatsappBlock">  SERIA SOLO EL ICONO
+                              <a href="https://api.whatsapp.com/send?phone=+5491170797070&amp;text=Hola" target="_blank" rel="noopener">
+                                  <img src="./Imagenes/wap.png" class="lazy" alt="Whataspp" width="24px" height="24px">
+                              </a>
+                               </div> -->
+                               <br>
+                               <br>
+                               <br>
+  
+                          <div>
+                              <h3 style="color: #6bb83e">Enviar mensaje Whataspp</h3>
+                              <h6>Colocar numero sin espacios 3511234567 no <strike>+ 351 1234567 </strike></h6>
+                              <input id="number" type="number" placeholder="Ingrese numero telefonico" >
+                              <input id="name" type="text" placeholder="Nombre" >
+                              <input id="msg" type="text" placeholder="Mensaje" >
+                              <button onclick="send_handle()">ENVIAR</button>
+                          </div> 
                       <!--<h1 id="txtA">a</h1>-->  
                 </div>
             </div>
@@ -344,7 +365,16 @@
         </div>
     </div>
 
-
+    <script>
+        const mp2 = new MercadoPago('TEST-b907030f-87c5-4002-b706-d523aa83297f', {
+            locale: 'es-AR'
+        });
+        const checkout2 = mp2.checkout({
+            preference: {
+                id: '130151352-57150d14-dbe9-4499-a5df-aa37566c2eee'
+            }
+        });
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
@@ -355,9 +385,17 @@
         crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="JS/tableToExcel.js"></script>
+    <script src="JS/app.js"></script>
 
 </body>
 <script>
+
+$('#btnDescargar').on('click', requestDescargar);
+
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
 
     let Clientes = [];
 
@@ -411,6 +449,51 @@
        // $('#txtA').html(datos[0].nombreCliente);
 
     }
+
+
+    function exportTableToExcel(TableID, nombreArchivo=''){
+        let linkDescarga;
+        let tipoDatos = 'application/vnd.ms-excel';
+        let tablaDatos = document.getElementById(TableID);
+        let tablaHTML = tablaDatos.outerHTML.replace(/ /g, '%20');
+
+        // Nombre del archivo
+        nombreArchivo = nombreArchivo ? nombreArchivo + '.xls':'Descarga.xls';
+
+        // Crear el link de descarga
+        linkDescarga = document.createElement("a");
+
+        document.body.appendChild(linkDescarga);
+
+        if (navigator.msSaveOrOpenBlob) {
+            let blob = new Blob(['\ufeff', tablaHTML], {
+            type: tipoDatos
+            });
+            navigator.msSaveOrOpenBlob(blob, nombreArchivo);
+        } else {
+            // Crear el link al archivo
+            linkDescarga.href = 'data:' + tipoDatos + ', ' + tablaHTML;
+
+            // Setear el nombre de archivo
+            linkDescarga.download = nombreArchivo;
+
+            //Ejecutar la función
+            linkDescarga.click();
+    }
+}
+
+//para comunicacion con cliente whattsapp
+function send_handle(){
+
+let num = document.getElementById("number").value;
+
+let msg = document.getElementById("msg").value;
+
+let name = document.getElementById("name").value;
+
+var win = window.open(`https://wa.me/${num}?text=Somos%20MYE%20Indumentaria%20%20%20${name}%20%20${msg}`, '_blank');
+// win.focus();
+}
 
 
     // GET bARRIO ALTA
@@ -750,10 +833,6 @@ function eliminar(id) {
                 },
             })
     }};
-
-
-
-
 </script>
 
 </html>

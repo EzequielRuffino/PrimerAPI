@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
     <link rel="shortcut icon" href="./Imagenes/M&E.ico">
-    <title>M&E</title>
+    <title>M&E Indumentaria</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
@@ -144,6 +144,8 @@
 
                     </tbody>
                     </table>
+                    <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
+
                     <!--<h1 id="txtA">a</h1>-->
 
                 </div>
@@ -281,8 +283,17 @@
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
+    <script src="JS/tableToExcel.js"></script>
+    <script src="JS/app.js"></script>
+
   </body>
   <script type="text/javascript">
+
+$('#btnDescargar').on('click', requestDescargar);
+
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
 
 let Usuarios = [];
 

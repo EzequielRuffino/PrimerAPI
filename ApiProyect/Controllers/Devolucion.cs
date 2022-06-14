@@ -4,9 +4,12 @@ using System.Linq;
 using ApiProyect.Comands;
 using ApiProyect.Models;
 using ApiProyect.Results;
-using ApiProyect.Models.DTO;
+//using ApiProyect.Models.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Cors;
+using System.Data;
 
 
 namespace ApiProyect.Controllers
@@ -28,30 +31,37 @@ namespace ApiProyect.Controllers
         [Route("[controller]/ObtenerDevolucion")]
         public ActionResult<ResultAPI> Get()
         {
-            /*var resultado = new ResultAPI();
-
-            
-                resultado.Ok = true;
-                var cli   = (from c in db.Clientes
-                join b in db.Barrios on c.CodBarrio equals b.CodBarrio
-                select new DTOListaClientes
-                {
-                    NombreCliente = c.NombreCliente,
-                    Documento = c.Documento,
-                    Direccion = c.Direccion,
-                    nombreBarrio = b.Nombre,
-                    Telefono = c.Telefono
-                }).ToList();
-                resultado.Return = cli;
-
-                return resultado;*/
             var resultado = new ResultAPI();
+
+
             resultado.Ok = true;
-            resultado.Return = db.Devolucion.Where(c => c.Flag == 1).ToList(); 
+            resultado.Return = db.Devolucion.Include(c=> c.IdEmpleadoNavigation)
+                                            .OrderBy(c=> c.IdDevolucion)
+                                            .ToList(); 
             return resultado;
-            
+
+        }
 
 
+        [HttpGet]
+        [Route("[controller]/ObtenerMotivo")]
+        public ActionResult<ResultAPI> GetMotivo()
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+                resultado.Ok = true;
+                resultado.Return = db.MotivoDevolucions.ToList();
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Error al encontrar motivos";
+
+                return resultado;
+            }           
         }
 
         [HttpGet]
@@ -157,7 +167,7 @@ namespace ApiProyect.Controllers
             db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
 
             resultado.Ok = true;
-            resultado.Return = db.Devolucion.ToList();
+            resultado.Return = d;
 
             return resultado;
         }

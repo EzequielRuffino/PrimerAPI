@@ -1,0 +1,214 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+
+    <link rel="shortcut icon" href="./Imagenes/M&E.ico">
+    <title>M&E</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+
+        body {
+            background-color: #b86262;
+            font-family: 'Fira Sans', sans-serif;
+        }
+
+        .btn{
+            background-color: #a30a0a;
+            color: white;
+            font-size: medium;
+        }
+
+        .btn:hover{
+            color: white;
+            border: 3px dashed #ffee32;
+        }
+
+        h1{
+            font-family: 'Luckiest Guy', cursive;
+        }
+
+        .presentation, .tab-content{
+            background-color: white;
+            border-radius: 5px 5px 0 0;
+        }
+
+        a{
+          color: black;
+        }
+
+        a:hover{
+          color: rgb(82, 79, 79);
+        }
+
+        @media screen {
+          #printSection {
+              display: none;
+          }
+        }
+
+        @media print {
+          body * {
+            visibility:hidden;
+          }
+          #printSection, #printSection * {
+            visibility:visible;
+          }
+          #modal * {
+            visibility:visible;
+          }
+          #printSection {
+            position:absolute;
+            left:0;
+            top:0;
+          }
+        }
+        .id{
+          float: right;
+          gap: 15px;
+        }
+    </style>
+  </head>
+  <body onload="OnLoad()" id="body">
+    <!-- Navbar -->
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="./Imagenes/M&E.ico" alt="" style="height: 50px;">
+                <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
+            </div>
+            
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button> 
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto"></ul>
+              <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
+
+                <a class="btn btn-success my-2 my-sm-0" href="menuReporte.html">Volver</a>
+                <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">
+                    Salir
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+              </form>
+            </div>
+          </nav>
+    </section>
+    <!-- HEAD -->
+    <section class="container" style="text-align: center; margin-top: 2%;">
+        <h1 class="display-3">Articulos</h1>
+    </section>
+    <!-- BODY -->
+    <section class="container body">
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item presentation" role="presentation">
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Articulos Faltantes</a>
+            </li>
+          </ul>
+          <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container" style="padding: 3%;">
+
+                    <table class="table table-responsive-sm">
+                      <table class="table table-responsive-md" id="TablaRemitos">
+                        <thead class="thead-dark">
+                          
+                            <!--<th data-field="id" scope="col">IdCliente</th>-->
+                            <th data-field="articulo"  scope="col">Ariculo</th>
+                            <th data-field="descripcion" scope="col">Descripcion</th>
+                            <th data-field="tipo articulo" scope="col">Tipo Articulo</th>
+                            <th data-field="precio venta" scope="col">Precio venta</th>
+                            <th data-field="talle" scope="col">Talle</th>
+                            <th data-field="marca" scope="col">Marca</th>
+                            <th data-field="cantidad" scope="col">Cantidad</th>
+                            <th data-field="Flag" scope="col">Estado</th>
+                        
+                    </thead>
+                    <tbody id="cuerpoTabla">
+                    <tbody id="cuerpoTablaID"></tbody>
+                    </tbody>
+                    </table>
+                </div>
+            </div>
+
+
+
+        </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
+        integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="JS/tableToExcel.js"></script>
+    <script src="JS/app.js"></script>
+  </body>
+  <script type="text/javascript">
+
+$('#btnDescargar').on('click', requestDescargar);
+
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
+
+    let Articulos = [];
+
+    $(document).ready(function () {
+        $.ajax({
+            url: "https://localhost:5001/Reporte/ObtenerArticulo",
+            type: "GET",
+            success: function (result) {
+                if (result.ok) {
+                    console.log(result)
+                    cargarTabla(result.return);                    
+                } else {
+                    alert(result.error)
+                }
+            },
+            error: function (error) {
+                swal("Problemas al conseguir datos de los articulos");
+            },
+        })
+    })
+
+    function cargarTabla(datos) {
+        for (let i = 0; i < datos.length; i++) {
+            let html = "<tr>";
+           // html += "<td>" + datos[i].IdCliente + "</td>";
+            html += "<td>" + datos[i].nombreArticulo + "</td>";
+            html += "<td>" + datos[i].descripcion + "</td>";
+            html += "<td>" + datos[i].idTipoArticuloNavigation.nombreTipoArticulo + "</td>";
+            html += "<td>" + datos[i].precioVenta + "</td>";
+            html += "<td>" + datos[i].idTalleNavigation.nombreTalle + "</td>";
+            html += "<td>" + datos[i].idMarcaNavigation.nombreMarca + "</td>";
+            html += "<td>" + datos[i].cantidad + "</td>";
+            //html += "<td>" + datos[i].flag + "</td>";
+            if (datos[i].flag == 0) {
+                html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
+            }
+            else if (datos[i].flag == 1) {
+                html += "<td style=color:#6bb83e;>activo</td>";//hacer que se muestre verde: ACTIVO
+            }
+
+            Articulos.push(datos[i]);
+
+            $("#cuerpoTabla").append(html);
+        }
+    }
+
+
+  </script>
+  
+</html>

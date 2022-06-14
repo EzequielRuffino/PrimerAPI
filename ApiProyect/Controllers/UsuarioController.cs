@@ -31,6 +31,7 @@ namespace ApiProyect.Controllers
            // resultado.Return = db.Usuarios.Where(c => c.Flag == 1).ToList(); 
             resultado.Return = db.Usuarios.Include(c => c.CodBarrioNavigation)
                                             .Include(c => c.IdTipoRolNavigation)
+                                            .Where(c => c.Flag == 1)
                                             .OrderBy(c => c.Legajo)
                                             .ToList(); 
             return resultado;
@@ -142,13 +143,13 @@ namespace ApiProyect.Controllers
             if (comando.Email.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese numero de telefono";
+                resultado.Error = "ingrese email";
                 return resultado;
             }
             if (comando.Contraseña.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese id estado articulo";
+                resultado.Error = "ingrese contraseña";
                 return resultado;
             }
             if (comando.Flag.Equals(""))
@@ -179,6 +180,54 @@ namespace ApiProyect.Controllers
 
             return resultado;
         }
+
+
+        [HttpPost] 
+        [Route("[controller]/IniciarSesion")]
+        public ActionResult<ResultAPI> IniciarSesion([FromBody] comandoCrearUsuario comando)
+        {
+            var resultado = new ResultAPI();
+
+
+            if (comando.IdTipoRol.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese tipo rol";
+                return resultado;
+            }
+            if (comando.Email.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese email";
+                return resultado;
+            }
+            if (comando.Contraseña.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese contraseña";
+                return resultado;
+            }
+
+
+            var emp = new Usuario();
+
+            emp.IdTipoRol = comando.IdTipoRol;
+            emp.Email = comando.Email;
+            emp.Contraseña = comando.Contraseña;
+
+
+
+
+
+            db.Usuarios.Add(emp);
+            db.SaveChanges(); //despues de un insert, update o delte hacer el SaveChanges()
+
+            resultado.Ok = true;
+            resultado.Return = db.Usuarios.ToList();
+
+            return resultado;
+        }
+
 
         [HttpPut]
         [Route("[controller]/UpdateUsuario")]
@@ -218,13 +267,13 @@ namespace ApiProyect.Controllers
             if (comando.Email.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese numero de telefono";
+                resultado.Error = "ingrese email";
                 return resultado;
             }
             if (comando.Contraseña.Equals(""))
             {
                 resultado.Ok = false;
-                resultado.Error = "ingrese id estado articulo";
+                resultado.Error = "ingrese contraseña";
                 return resultado;
             }
             if (comando.Flag.Equals(""))
