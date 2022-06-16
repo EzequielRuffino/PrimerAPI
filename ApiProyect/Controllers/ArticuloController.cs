@@ -36,6 +36,7 @@ namespace ApiProyect.Controllers
                                             .Include(c => c.IdTalleNavigation)
                                             .Include(c => c.IdMarcaNavigation)
                                             .Include(c => c.IdTipoArticuloNavigation)
+                                            .Where(c => c.Flag == 1)                                           
                                             .OrderBy(c => c.IdArticulo)
                                             .ToList(); 
             return resultado;

@@ -438,6 +438,10 @@ namespace ApiProyect.Models
                     .HasMaxLength(10)
                     .HasColumnName("tipo_factura");
 
+                entity.Property(e => e.Pago)
+                    .HasMaxLength(50)
+                    .HasColumnName("pago");
+
                 entity.HasOne(d => d.IdEmpleadoNavigation)
                     .WithMany(p => p.IngresoPedidoProveedors)
                     .HasForeignKey(d => d.IdEmpleado)

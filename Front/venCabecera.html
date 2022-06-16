@@ -93,7 +93,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto"></ul>
               <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
-                <a class="btn btn-success my-2 my-sm-0" href="javascript: history.go(-1)">Volver</a>
+                <a class="btn btn-success my-2 my-sm-0" href="menu.html">Volver</a>
                 <a class="btn btn-success my-2 my-sm-0" type="button" href="venDetalle.html">Detalle</a>
                 <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">Salir<i class="bi bi-box-arrow-right"></i>
                 </a>
@@ -142,6 +142,8 @@
                         <tbody id="cuerpoTablaFecha"></tbody>
                         <tbody id="cuerpoTablaFE"></tbody>
                     </table>
+                    <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
+
                 </div>
             </div>
           
@@ -320,6 +322,54 @@
       </section>
      
  
+    <!-- Etiqueta -->
+    <section >
+        <div class="modal fade" id="etiqueta" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-body">
+                <section id="etiqueta" 
+                  style=" background-color: white; text-transform: uppercase;"> 
+                  <div class="container" id="modal">
+                    <div class="row">
+                      <div class="col-lg-8">
+                        Nombre Cliente
+                        <div id="nombreE"></div>
+                      </div>
+                      <div class="col-lg-4">
+                        Fecha Venta
+                        <div id="fechaE"></div>
+                      </div>
+                    </div> <br>
+                    <div class="row">
+                        <div class="col-lg-8">
+                          Numero Factura
+                          <div id="direccionE"></div>
+                        </div>
+                        <div class="col-lg-4">
+                          Nombre Empleado
+                          <div id="numeroE"></div>
+                        </div>
+                      </div> <br>
+                    <div class="row">
+                        <div class="col-lg-8">
+                          <div>
+                             Forma Pago
+                            </div> 
+                            <div id="formaE"></div>
+                        </div><br>
+                        <div class="col-lg-4" style="text-align: center;">
+                            <img src="./Imagenes/etiqueta.jpg" alt="">
+                        </div>
+                    </div>
+                  </div>
+                </section>
+              <button type="button" class="btn d-print-block" data-dismiss="modal">Cerrar</button>
+              <a type="button" class="btn" id="btnImprimir" href="javascript:window.print()">imprimir</a>
+            </div>
+          </div>
+        </div>  
+      </section>
 
 
 
@@ -330,10 +380,16 @@
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
       ></script>
+      <script src="JS/tableToExcel.js"></script>
+      <script src="JS/app.js"></script>
   </body>
   <script type="text/javascript">
 
+$('#btnDescargar').on('click', requestDescargar);
 
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
        
    let Clientes = [];
    let cont=[];
@@ -557,7 +613,9 @@
             html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idVenta + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
                 "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idVenta+ ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
-                "<i class='bi bi-trash-fill'></i></button> " + "</td>";
+                "<i class='bi bi-trash-fill'></i></button> &nbsp;" +
+                "<button type='button' class='btn' id='etic' onclick='generarEtiqueta("+datos[i].idVenta+")' data-toggle='modal' data-target='#etiqueta' data-placement='bottom'>"+
+                "<i class='bi bi-printer'></i> </button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
         }
@@ -814,5 +872,32 @@ function modificar(id) {
             }
         });
     }
+
+
+
+
+      // Generar Etiqueta
+  function generarEtiqueta(idVenta){
+    $.ajax({
+        url: "https://localhost:5001/Venta/ObtenerVentaEtiqueta/" + idVenta,
+        type: "GET",
+        success: function(result) {
+            if (result.ok){
+                document.getElementById('nombreE').innerHTML = result.return.idClienteNavigation.nombreCliente;
+                document.getElementById('fechaE').innerHTML = roundDate(result.return.fechaVenta);
+                document.getElementById('direccionE').innerHTML = result.return.nroFactura
+                document.getElementById('numeroE').innerHTML = result.return.idEmpleadoNavigation.nombreCompleto;
+                document.getElementById('formaE').innerHTML = result.return.idFormaPagoNavigation.descripcion;
+
+            }
+            else swal(result.error);
+        },
+        error: function(error) {
+            swal("Error" + error);
+        }
+    });
+   
+    
+ }
   </script>
 </html>

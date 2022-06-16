@@ -1,96 +1,220 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<!-- a esta pagina entra solo admin y gerente -->
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
-
     <link rel="shortcut icon" href="./Imagenes/M&E.ico">
-    <title>M&E</title>
+
+    <script src="https://kit.fontawesome.com/546d00aeaa.js" crossorigin="anonymous"></script>
+    
+    <title>M&E Indumentaria</title>
 
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
-
         body {
             background-color: #b86262;
             font-family: 'Fira Sans', sans-serif;
         }
-
-        .btn{
+        
+        .box {
+            margin: 7% 13% 0 13%;
+            padding: 3%;
+            display: grid;
+            text-align: center;
+            background-color: white;
+            border-radius: 8px;
+            border: 3px dashed #a30a0a;
+        }
+        
+        .btn {
             background-color: #a30a0a;
             color: white;
-            font-size: medium;
+            margin: 1%;
+            padding: 3%;
+            font-size: large;
+            -webkit-box-shadow: 0px 1px 10px 1px rgb(194, 28, 81);
+            -moz-box-shadow: 0px 1px 10px 1px rgb(194, 28, 97);
+            box-shadow: 0px 1px 10px 1px rgb(194, 28, 67);
+            text-align: left;
+
         }
 
-        .btn:hover{
+
+        .btn:hover {
             color: white;
             border: 3px dashed #ffee32;
         }
-
-        h1{
-            font-family: 'Luckiest Guy', cursive;
-        }
-
-        .presentation, .tab-content{
-            background-color: white;
-            border-radius: 5px 5px 0 0;
-        }
-
-        a{
-          color: black;
-        }
-
-        a:hover{
-          color: rgb(82, 79, 79);
-        }
-
-        @media screen {
-          #printSection {
-              display: none;
-          }
-        }
-
-        @media print {
-          body * {
-            visibility:hidden;
-          }
-          #printSection, #printSection * {
-            visibility:visible;
-          }
-          #modal * {
-            visibility:visible;
-          }
-          #printSection {
-            position:absolute;
-            left:0;
-            top:0;
-          }
-        }
-        .id{
-          float: right;
-          gap: 15px;
+        
+        .logo {
+            height: 50px;
         }
     </style>
-  </head>
-  <body onload="OnLoad()" id="body">
+</head>
 
-<div>T&Eacute;RMINOS Y CONDICIONES DE USO APP 
-   <br> &nbsp &nbsp 1. Estos T&eacute;rminos y Condiciones de Uso regulan las reglas a que se sujeta la utilizaci&oacute;n de la APP M&amp;E (en adelante, la APP), que puede descargarse desde el dominio_______________________________ La descarga o utilizaci&oacute;n de la APP atribuye la condici&oacute;n deUsuario a quien lo haga e implica la aceptaci&oacute;n de todas las condiciones incluidas en este documentoy en la Pol&iacute;tica de Privacidad y el Aviso Legal de dicha p&aacute;gina Web. El Usuario deber&iacute;a leer estascondiciones cada vez que utilice la APP, ya que podr&iacute;an ser modificadas en lo sucesivo.<br> 
-   <br> &nbsp &nbsp 2. &Uacute;nicamente los Usuarios expresamente autorizados por M&E podr&aacute;n acceder a ladescarga y uso de la APP. Los Usuarios que no dispongan de autorizaci&oacute;n, no podr&aacute;n acceder a dichocontenido.<br> 
-   <br> &nbsp &nbsp 3. Cargos: eres responsable del pago de todos los costes o gastos en los que incurras como resultado dedescargar y usar la Aplicaci&oacute;n de M&E, incluido cualquier cargo de red de operador oitinerancia. Consulta con tu proveedor de servicios los detalles al respecto.<br> 
-   <br> &nbsp &nbsp 4. Estad&iacute;sticas an&oacute;nimas: M&E se reserva el derecho a realizar un seguimiento de tuactividad en la Aplicaci&oacute;n de y a informar de ello a nuestros proveedores de servicios estad&iacute;sticos deterceros. Todo ello de forma an&oacute;nima.<br> 
-   <br> &nbsp &nbsp 5. Protecci&oacute;n de tu informaci&oacute;n personal: queremos ayudarte a llevar a cabo todos los pasos necesariospara proteger tu privacidad e informaci&oacute;n. Consulta la Pol&iacute;tica de privacidad de M&E y losavisos sobre privacidad de la Aplicaci&oacute;n para conocer qu&eacute; tipo de informaci&oacute;n recopilamos y lasmedidas que tomamos para proteger tu informaci&oacute;n personal.<br> 
-   <br> &nbsp &nbsp 6. Queda prohibido alterar o modificar ninguna parte de la APP a de los contenidas de la misma, eludir,desactivar o manipular de cualquier otra forma (o tratar de eludir, desactivar o manipular) lasfunciones de seguridad u otras funciones del programa y utilizar la APP o sus contenidos para un fincomercial o publicitario. Queda prohibido el uso de la APP con la finalidad de lesionar bienes,derechos o intereses de M&E o de terceros. Queda igualmente prohibido realizarcualquier otro uso que altere, da&ntilde;e o inutilice las redes, servidores, equipos, productos y programasinform&aacute;ticos de M&E o de terceros.<br> 
-   <br> &nbsp &nbsp 7. La APP y sus contenidos (textos, fotograf&iacute;as, gr&aacute;ficos, im&aacute;genes, tecnolog&iacute;a, software, links,contenidos, dise&ntilde;o gr&aacute;fico, c&oacute;digo fuente, etc.), as&iacute; como las marcas y dem&aacute;s signos distintivos sonpropiedad de M&E o de terceros, no adquiriendo el Usuario ning&uacute;n derecho sobre ellospor el mero uso de la APP. El Usuario, deber&aacute; abstenerse de:a) Reproducir, copiar, distribuir, poner a disposici&oacute;n de terceros, comunicar p&uacute;blicamente,transformar o modificar la APP o sus contenidos, salvo en los casos contemplados en la ley oexpresamente autorizados por M&E o por el titular de dichos derechos.b) Reproducir o copiar para uso privado la APP o sus contenidos, as&iacute; como comunicarlosp&uacute;blicamente o ponerlos a disposici&oacute;n de terceros cuando ello conlleve su reproducci&oacute;n.c) Extraer o reutilizar todo o parte sustancial de los contenidos integrantes de la APP<br> 
-   <br> &nbsp &nbsp 8. Con sujeci&oacute;n a las condiciones establecidas en el apartado anterior, M&E concede alUsuario una licencia de uso de la APP, no exclusiva, gratuita, para uso personal, circunscrita alterritorio nacional y con car&aacute;cter indefinido. Dicha licencia se concede tambi&eacute;n en los mismost&eacute;rminos con respecto a las actualizaciones y mejoras que se realizasen en la aplicaci&oacute;n. Dichaslicencias de uso podr&aacute;n ser revocadas por M&E unilateralmente en cualquier momento,mediante la mera notificaci&oacute;n al Usuario.<br> 
-   <br> &nbsp &nbsp 9. Corresponde al Usuario, en todo caso, disponer de herramientas adecuadas para la detecci&oacute;n ydesinfecci&oacute;n de programas maliciosos o cualquier otro elemento inform&aacute;tico da&ntilde;ino.M&E no se responsabiliza de los da&ntilde;os producidos a equipos inform&aacute;ticos durante el usode la APP. Igualmente, M&E no ser&aacute; responsable de los da&ntilde;os producidos a los Usuarioscuando dichos da&ntilde;os tengan su origen en fallos o desconexiones en las redes de telecomunicacionesque interrumpan el servicio.<br> 
-   <br> &nbsp &nbsp 10. IMPORTANTE: Podemos, sin que esto suponga ninguna obligaci&oacute;n contigo, modificar estasCondiciones de uso sin avisar en cualquier momento. Si contin&uacute;as utilizando la aplicaci&oacute;n una vezrealizada cualquier modificaci&oacute;n en estas Condiciones de uso, esa utilizaci&oacute;n continuada constituir&aacute; laaceptaci&oacute;n por tu parte de tales modificaciones. Si no aceptas estas condiciones de uso ni aceptasquedar sujeto a ellas, no debes utilizar la aplicaci&oacute;n ni descargar o utilizar cualquier softwarerelacionado. El uso que hagas de la aplicaci&oacute;n queda bajo tu &uacute;nica responsabilidad. No tenemosresponsabilidad alguna por la eliminaci&oacute;n o la incapacidad de almacenar o trasmitir cualquiercontenido u otra informaci&oacute;n mantenida o trasmitida por la aplicaci&oacute;n. No somos responsables de laprecisi&oacute;n o la fiabilidad de cualquier informaci&oacute;n o consejo trasmitidos a trav&eacute;s de la aplicaci&oacute;n.Podemos, en cualquier momento, limitar o interrumpir tu uso a nuestra &uacute;nica discreci&oacute;n. Hasta elm&aacute;ximo que permite la ley, en ning&uacute;n caso seremos responsables por cualquier p&eacute;rdida o da&ntilde;orelacionados.<br> 
-   <br> &nbsp &nbsp 11. El Usuario se compromete a hacer un uso correcto de la APP, de conformidad con la Ley, con lospresentes T&eacute;rminos y Condiciones de Uso y con las dem&aacute;s reglamentos e instrucciones que, en sucaso, pudieran ser de aplicaci&oacute;n El Usuario responder&aacute; frente a M&E y frente a tercerosde cualesquiera da&ntilde;os o perjuicios que pudieran causarse por incumplimiento de estas obligaciones.<br> 
-   <br> &nbsp &nbsp 12. Estos T&eacute;rminos y Condiciones de Uso se rigen &iacute;ntegramente por la legislaci&oacute;n espa&ntilde;ola. Para laresoluci&oacute;n de cualquier conflicto relativo a su interpretaci&oacute;n o aplicaci&oacute;n, el Usuario se someteexpresamente a la jurisdicci&oacute;n de los tribunales de _____________________________ (Espa&ntilde;a).<br> </div>
+<body>
+    <!-- Navbar -->
+    <section>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div style="display: flex; align-items: center; justify-content: center;">
+                <img src="./Imagenes/m&elogo-modified.ico" alt="" style="height: 50px;">
+                <h4 style="color: white; margin-top: 5%;">&nbsp M&E Indumentaria</h4>
+            </div>
+
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto"></ul>
+                <form class="form-inline my-2 my-lg-0">
+                  <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html" style="margin: 0; padding: 7px 12px 7px 12px; box-shadow: none; font-size: medium;">
+                    Volver
+                    </a>
+                    <a class="btn btn-success my-2 my-sm-0" type="button" href="https://www.google.com/" style="margin: 0; padding: 7px 12px 7px 12px; box-shadow: none; font-size: medium;">
+                    Salir
+                    <i class="bi bi-box-arrow-right"></i>
+                </a>
+                </form>
+            </div>
+        </nav>
+    </section>
+  <body>
+
+    <section class="container">
+      <div class="box">
+        <div>
+        <p><br>T&Eacute;RMINOS Y CONDICIONES DE USO APP <br>
+           &nbsp &nbsp 1. Estos T&eacute;rminos y Condiciones de Uso regulan las reglas a que se sujeta la utilizaci&oacute;n de la APP M&amp;E (en adelante, la APP), que puede descargarse desde el dominio_______________________________ La descarga o utilizaci&oacute;n de la APP atribuye la condici&oacute;n deUsuario a quien lo haga e implica la aceptaci&oacute;n de todas las condiciones incluidas en este documentoy en la Pol&iacute;tica de Privacidad y el Aviso Legal de dicha p&aacute;gina Web. El Usuario deber&iacute;a leer estascondiciones cada vez que utilice la APP, ya que podr&iacute;an ser modificadas en lo sucesivo.<br> 
+          <br> &nbsp &nbsp 2. &Uacute;nicamente los Usuarios expresamente autorizados por M&E podr&aacute;n acceder a ladescarga y uso de la APP. Los Usuarios que no dispongan de autorizaci&oacute;n, no podr&aacute;n acceder a dichocontenido.<br> 
+          <br> &nbsp &nbsp 3. Cargos: eres responsable del pago de todos los costes o gastos en los que incurras como resultado dedescargar y usar la Aplicaci&oacute;n de M&E, incluido cualquier cargo de red de operador oitinerancia. Consulta con tu proveedor de servicios los detalles al respecto.<br> 
+          <br> &nbsp &nbsp 4. Estad&iacute;sticas an&oacute;nimas: M&E se reserva el derecho a realizar un seguimiento de tuactividad en la Aplicaci&oacute;n de y a informar de ello a nuestros proveedores de servicios estad&iacute;sticos deterceros. Todo ello de forma an&oacute;nima.<br> 
+          <br> &nbsp &nbsp 5. Protecci&oacute;n de tu informaci&oacute;n personal: queremos ayudarte a llevar a cabo todos los pasos necesariospara proteger tu privacidad e informaci&oacute;n. Consulta la Pol&iacute;tica de privacidad de M&E y losavisos sobre privacidad de la Aplicaci&oacute;n para conocer qu&eacute; tipo de informaci&oacute;n recopilamos y lasmedidas que tomamos para proteger tu informaci&oacute;n personal.<br> 
+          <br> &nbsp &nbsp 6. Queda prohibido alterar o modificar ninguna parte de la APP a de los contenidas de la misma, eludir,desactivar o manipular de cualquier otra forma (o tratar de eludir, desactivar o manipular) lasfunciones de seguridad u otras funciones del programa y utilizar la APP o sus contenidos para un fincomercial o publicitario. Queda prohibido el uso de la APP con la finalidad de lesionar bienes,derechos o intereses de M&E o de terceros. Queda igualmente prohibido realizarcualquier otro uso que altere, da&ntilde;e o inutilice las redes, servidores, equipos, productos y programasinform&aacute;ticos de M&E o de terceros.<br> 
+          <br> &nbsp &nbsp 7. La APP y sus contenidos (textos, fotograf&iacute;as, gr&aacute;ficos, im&aacute;genes, tecnolog&iacute;a, software, links,contenidos, dise&ntilde;o gr&aacute;fico, c&oacute;digo fuente, etc.), as&iacute; como las marcas y dem&aacute;s signos distintivos sonpropiedad de M&E o de terceros, no adquiriendo el Usuario ning&uacute;n derecho sobre ellospor el mero uso de la APP. El Usuario, deber&aacute; abstenerse de:a) Reproducir, copiar, distribuir, poner a disposici&oacute;n de terceros, comunicar p&uacute;blicamente,transformar o modificar la APP o sus contenidos, salvo en los casos contemplados en la ley oexpresamente autorizados por M&E o por el titular de dichos derechos.b) Reproducir o copiar para uso privado la APP o sus contenidos, as&iacute; como comunicarlosp&uacute;blicamente o ponerlos a disposici&oacute;n de terceros cuando ello conlleve su reproducci&oacute;n.c) Extraer o reutilizar todo o parte sustancial de los contenidos integrantes de la APP<br> 
+          <br> &nbsp &nbsp 8. Con sujeci&oacute;n a las condiciones establecidas en el apartado anterior, M&E concede alUsuario una licencia de uso de la APP, no exclusiva, gratuita, para uso personal, circunscrita alterritorio nacional y con car&aacute;cter indefinido. Dicha licencia se concede tambi&eacute;n en los mismost&eacute;rminos con respecto a las actualizaciones y mejoras que se realizasen en la aplicaci&oacute;n. Dichaslicencias de uso podr&aacute;n ser revocadas por M&E unilateralmente en cualquier momento,mediante la mera notificaci&oacute;n al Usuario.<br> 
+          <br> &nbsp &nbsp 9. Corresponde al Usuario, en todo caso, disponer de herramientas adecuadas para la detecci&oacute;n ydesinfecci&oacute;n de programas maliciosos o cualquier otro elemento inform&aacute;tico da&ntilde;ino.M&E no se responsabiliza de los da&ntilde;os producidos a equipos inform&aacute;ticos durante el usode la APP. Igualmente, M&E no ser&aacute; responsable de los da&ntilde;os producidos a los Usuarioscuando dichos da&ntilde;os tengan su origen en fallos o desconexiones en las redes de telecomunicacionesque interrumpan el servicio.<br> 
+          <br> &nbsp &nbsp 10. IMPORTANTE: Podemos, sin que esto suponga ninguna obligaci&oacute;n contigo, modificar estasCondiciones de uso sin avisar en cualquier momento. Si contin&uacute;as utilizando la aplicaci&oacute;n una vezrealizada cualquier modificaci&oacute;n en estas Condiciones de uso, esa utilizaci&oacute;n continuada constituir&aacute; laaceptaci&oacute;n por tu parte de tales modificaciones. Si no aceptas estas condiciones de uso ni aceptasquedar sujeto a ellas, no debes utilizar la aplicaci&oacute;n ni descargar o utilizar cualquier softwarerelacionado. El uso que hagas de la aplicaci&oacute;n queda bajo tu &uacute;nica responsabilidad. No tenemosresponsabilidad alguna por la eliminaci&oacute;n o la incapacidad de almacenar o trasmitir cualquiercontenido u otra informaci&oacute;n mantenida o trasmitida por la aplicaci&oacute;n. No somos responsables de laprecisi&oacute;n o la fiabilidad de cualquier informaci&oacute;n o consejo trasmitidos a trav&eacute;s de la aplicaci&oacute;n.Podemos, en cualquier momento, limitar o interrumpir tu uso a nuestra &uacute;nica discreci&oacute;n. Hasta elm&aacute;ximo que permite la ley, en ning&uacute;n caso seremos responsables por cualquier p&eacute;rdida o da&ntilde;orelacionados.<br> 
+          <br> &nbsp &nbsp 11. El Usuario se compromete a hacer un uso correcto de la APP, de conformidad con la Ley, con lospresentes T&eacute;rminos y Condiciones de Uso y con las dem&aacute;s reglamentos e instrucciones que, en sucaso, pudieran ser de aplicaci&oacute;n El Usuario responder&aacute; frente a M&E y frente a tercerosde cualesquiera da&ntilde;os o perjuicios que pudieran causarse por incumplimiento de estas obligaciones.<br> 
+          <br> &nbsp &nbsp 12. Estos T&eacute;rminos y Condiciones de Uso se rigen &iacute;ntegramente por la legislaci&oacute;n espa&ntilde;ola. Para laresoluci&oacute;n de cualquier conflicto relativo a su interpretaci&oacute;n o aplicaci&oacute;n, el Usuario se someteexpresamente a la jurisdicci&oacute;n de los tribunales de _____________________________ (Espa&ntilde;a).<br></p>   
+      
+      
+      </div>
+      </div>
+  </section>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </html>

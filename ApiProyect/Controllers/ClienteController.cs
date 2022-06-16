@@ -58,6 +58,7 @@ namespace ApiProyect.Controllers
 
             resultado.Ok = true;
             resultado.Return = db.Clientes.Include(c => c.CodBarrioNavigation)
+                                         .Where(c => c.Flag == 1)
                                          .OrderBy(c => c.IdCliente)
                                          .ToList(); 
             return resultado;

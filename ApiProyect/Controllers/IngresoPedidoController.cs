@@ -35,6 +35,7 @@ namespace ApiProyect.Controllers
             resultado.Ok = true;
             resultado.Return = db.IngresoPedidoProveedors.Include(c=> c.IdEmpleadoNavigation)
                                             .Include(c=> c.IdProveedorNavigation )
+                                            .Where(c => c.Flag == 1)
                                             .OrderBy(c=> c.IdIngresoPedido)
                                              .ToList(); 
                             return resultado;
@@ -93,6 +94,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Tipo de factura";
                 return resultado;
             }
+            if (comando.Pago.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese Pago";
+                return resultado;
+            }
             if (comando.Fecha.Equals(""))
             {
                 resultado.Ok = false;
@@ -117,6 +124,7 @@ namespace ApiProyect.Controllers
             ip.IdEmpleado = comando.IdEmpleado;
             ip.NroRemitoPedido = comando.NroRemitoPedido;
             ip.TipoFactura = comando.TipoFactura;
+            ip.Pago = comando.Pago;
             ip.Fecha = comando.Fecha;
             ip.NroOrdenCompra = comando.NroOrdenCompra;
             ip.Flag = comando.Flag;
@@ -162,6 +170,12 @@ namespace ApiProyect.Controllers
                 resultado.Error = "ingrese Tipo de factura";
                 return resultado;
             }
+            if (comando.Pago.Equals(""))
+            {
+                resultado.Ok = false;
+                resultado.Error = "ingrese Pago";
+                return resultado;
+            }
             if (comando.Fecha.Equals(""))
             {
                 resultado.Ok = false;
@@ -188,6 +202,7 @@ namespace ApiProyect.Controllers
             ip.IdEmpleado = comando.IdEmpleado;
             ip.NroRemitoPedido = comando.NroRemitoPedido;
             ip.TipoFactura = comando.TipoFactura;
+            ip.Pago = comando.Pago;
             ip.Fecha = comando.Fecha;
             ip.NroOrdenCompra = comando.NroOrdenCompra;
             ip.Flag = comando.Flag;

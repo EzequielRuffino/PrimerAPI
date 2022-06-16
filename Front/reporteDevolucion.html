@@ -105,13 +105,13 @@
     </section>
     <!-- HEAD -->
     <section class="container" style="text-align: center; margin-top: 2%;">
-        <h1 class="display-3">Articulos Faltantes</h1>
+        <h1 class="display-3">Listado Devoluciones</h1>
     </section>
     <!-- BODY -->
     <section class="container body">
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item presentation" role="presentation">
-              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado de Articulos Faltantes</a>
+              <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Listado Devoluciones</a>
             </li>
           </ul>
           <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
@@ -122,21 +122,23 @@
                       <table class="table table-responsive-md" id="TablaRemitos">
                         <thead class="thead-dark">
                           
-                            <!--<th data-field="id" scope="col">IdCliente</th>-->
-                            <th data-field="articulo"  scope="col">Ariculo</th>
-                            <th data-field="descripcion" scope="col">Descripcion</th>
-                            <th data-field="tipo articulo" scope="col">Tipo Articulo</th>
-                            <th data-field="precio venta" scope="col">Precio venta</th>
-                            <th data-field="talle" scope="col">Talle</th>
-                            <th data-field="marca" scope="col">Marca</th>
-                            <th data-field="cantidad" scope="col">Cantidad</th>
-                            <!--<th data-field="Flag" scope="col">Estado</th>-->
+                            <th data-field="id" scope="col">Nº Venta</th>
+                            <th data-field="tipo articulo" scope="col">Fecha Venta</th>
+                            <th data-field="descripcion" scope="col">Cliente</th>
+                            <th data-field="precio venta" scope="col">Empleado</th>
+                            <th data-field="tipo articulo" scope="col">Forma Pago</th>
+                            <th data-field="tipo articulo" scope="col">Articulo</th>
+                            <th data-field="tipo articulo" scope="col">Nº Devolucion</th>
+                            <th data-field="talle" scope="col">Fecha Devolucion</th>
+                            <th data-field="cantidad" scope="col">Motivo Devolucion</th>
+                            <th data-field="Flag" scope="col">Cantidad Devuelta</th>
                         
                     </thead>
                     <tbody id="cuerpoTabla">
                     <tbody id="cuerpoTablaID"></tbody>
                     </tbody>
                     </table>
+                    <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
                 </div>
             </div>
 
@@ -156,13 +158,18 @@
     <script src="JS/app.js"></script>
   </body>
   <script type="text/javascript">
+    
+$('#btnDescargar').on('click', requestDescargar);
 
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
 
     let Articulos = [];
 
     $(document).ready(function () {
         $.ajax({
-            url: "https://localhost:5001/Reporte/ObtenerArticulo",
+            url: "https://localhost:5001/Reporte/ObtenerDevoluciones",
             type: "GET",
             success: function (result) {
                 if (result.ok) {
@@ -173,7 +180,7 @@
                 }
             },
             error: function (error) {
-                swal("Problemas al conseguir datos de los articulos");
+                swal("Problemas al conseguir datos");
             },
         })
     })
@@ -182,15 +189,23 @@
         for (let i = 0; i < datos.length; i++) {
             let html = "<tr>";
            // html += "<td>" + datos[i].IdCliente + "</td>";
-            html += "<td>" + datos[i].nombreArticulo + "</td>";
+            //html += "<td>" + datos[i].idIngresoPedido+ "</td>";
+            html += "<td>" + datos[i].idVenta + "</td>";
+            html += "<td>" + roundDate(datos[i].fechaVenta) + "</td>";
+            html += "<td>" + datos[i].nombreCliente + "</td>";           
+            html += "<td>" + datos[i].nombreCompleto + "</td>";           
+
             html += "<td>" + datos[i].descripcion + "</td>";
-            html += "<td>" + datos[i].idTipoArticuloNavigation.nombreTipoArticulo + "</td>";
-            html += "<td>" + datos[i].precioVenta + "</td>";
-            html += "<td>" + datos[i].idTalleNavigation.nombreTalle + "</td>";
-            html += "<td>" + datos[i].idMarcaNavigation.nombreMarca + "</td>";
+            html += "<td>" + datos[i].nombreArticulo + "</td>";
+            html += "<td>" + datos[i].idDevolucion + "</td>";
+            html += "<td>" + roundDate(datos[i].fechaDevolucion) + "</td>";
+
+            html += "<td>" + datos[i].descripcion2 + "</td>";
             html += "<td>" + datos[i].cantidad + "</td>";
+
+
             //html += "<td>" + datos[i].flag + "</td>";
-            /*if (datos[i].flag == 0) {
+          /*  if (datos[i].flag == 0) {
                 html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
             }
             else if (datos[i].flag == 1) {
@@ -203,6 +218,13 @@
         }
     }
 
+        //para que la fecha no salga hora, etc
+        function roundDate(timeStamp) {
+        var yyyy = new Date(timeStamp).getFullYear().toString();
+        var mm = new Date(timeStamp).getMonth() + 1;
+        var dd = new Date(timeStamp).getDate().toString();
+        return dd + "/" + mm + "/" + yyyy;
+    }
 
   </script>
   

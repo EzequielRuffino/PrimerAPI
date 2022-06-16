@@ -35,6 +35,7 @@ namespace ApiProyect.Controllers
             var resultado = new ResultAPI();
             resultado.Ok = true;
             resultado.Return = db.DetalleIngresoPedidos.Include(c=> c.IdArticuloNavigation)
+                                            .Where(c => c.Flag == 1)
                                             .OrderBy(c=> c.IdIngresoPedido)
                                              .ToList(); 
                             return resultado;

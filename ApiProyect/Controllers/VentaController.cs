@@ -37,6 +37,7 @@ namespace ApiProyect.Controllers
             resultado.Return = db.Venta.Include(c=> c.IdClienteNavigation)
                                         .Include(c=> c.IdEmpleadoNavigation)
                                         .Include(c=> c.IdFormaPagoNavigation)
+                                           .Where(c => c.Flag == 1)
                                             .OrderBy(c=> c.IdVenta)
                                              .ToList(); 
             return resultado;
@@ -76,6 +77,34 @@ namespace ApiProyect.Controllers
             {
 
                 var v = db.Venta.Where(c => c.IdVenta == id && c.Flag == 1).FirstOrDefault();
+                resultado.Ok = true;
+                resultado.Return = v;
+
+                return resultado;
+            }
+
+            catch (Exception ex)
+            {
+                resultado.Ok = false;
+                resultado.Error = "Venta no encontrada";
+
+                return resultado;
+            }
+        }
+
+        //etiqueta
+        [HttpGet]
+        [Route("[controller]/ObtenerVentaEtiqueta/{id}")] 
+        public ActionResult<ResultAPI> Get34(int id)
+        {
+            var resultado = new ResultAPI();
+            try
+            {
+
+                var v = db.Venta.Include(c => c.IdClienteNavigation)
+                .Include(c => c.IdEmpleadoNavigation)
+                .Include(c=> c.IdFormaPagoNavigation)
+                .Where(c => c.IdVenta == id && c.Flag == 1).FirstOrDefault();
                 resultado.Ok = true;
                 resultado.Return = v;
 

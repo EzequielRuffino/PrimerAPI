@@ -392,7 +392,7 @@ function requestDescargar(){
         success: function(result) {
             if (result.ok){
                 swal("Alta exitosa! Cargue Detalle!");
-                setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/notaCabera.html"); }, 3000);
+                setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/notaCabecera.html"); }, 3000);
             }
             else swal(result.error);
         },
@@ -558,7 +558,7 @@ function modificar(id) {
             type: "PUT",
             success: function (result) {
                 if (result.ok) {
-                    swal("Cabecera modificado exitosamente! Modifique Detalle!");
+                    swal("Cabecera modificado exitosamente! Modifique Detalle de Requerirlo!");
                     setTimeout(function () { location.replace("http://127.0.0.1:5503/Front/notaCabecera.html"); }, 3000);
 
                 }

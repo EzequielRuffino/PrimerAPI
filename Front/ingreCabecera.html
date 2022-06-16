@@ -93,7 +93,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="navbar-nav mr-auto"></ul>
               <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
-                <a class="btn btn-success my-2 my-sm-0" href="javascript: history.go(-1)">Volver</a>
+                <a class="btn btn-success my-2 my-sm-0" href="menu.html">Volver</a>
                 <a class="btn btn-success my-2 my-sm-0" type="button" href="ingreDetalle.html">Detalle</a>
                 <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html">Salir<i class="bi bi-box-arrow-right"></i>
                 </a>
@@ -132,6 +132,7 @@
                             <th data-field="articulo">Tipo Factura</th>
                             <th data-field="cliente">Fecha</th>
                             <th data-field="articulo">Orden Compra</th>
+                            <th data-field="articulo">Estado Pago</th>
                             <th data-field="articulo">Estado</th>
 
                             <th>Acciones</th>
@@ -142,6 +143,8 @@
                         <tbody id="cuerpoTablaFecha"></tbody>
                         <tbody id="cuerpoTablaFE"></tbody>
                     </table>
+                    <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
+
                 </div>
             </div>
           
@@ -196,6 +199,11 @@
                     </div>
                     </div>
                     <div class="form-row">
+                        <div class="col-md-6 mb-3">
+                            <label for="flag"> Estado Pago </label>
+                            <input type="text" class="custom-select" id="pago"
+                                placeholder="Abonado / No Abonado">
+                        </div>
                     <div class="col-md-6 mb-3">
                         <label for="flag"> Estado </label>
                         <input type="number" class="custom-select" id="flag"
@@ -272,6 +280,11 @@
                               </div>
                               </div>
                               <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="flag"> Estado Pago </label>
+                                    <input type="text" class="custom-select" id="pagoM"
+                                        placeholder="Abonado / No Abonado">
+                                </div>
                               <div class="col-md-6 mb-3">
                                   <label for="flag"> Estado </label>
                                   <input type="number" class="custom-select" id="flagM"
@@ -332,10 +345,17 @@
       integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
       crossorigin="anonymous"
       ></script>
+      <script src="JS/tableToExcel.js"></script>
+      <script src="JS/app.js"></script>
   </body>
   <script type="text/javascript">
 
 
+$('#btnDescargar').on('click', requestDescargar);
+
+function requestDescargar(){
+  tableToExcel('TablaRemitos', 'Datos');
+}
        
    let Clientes = [];
    let cont=[];
@@ -472,17 +492,18 @@
         let tipo = $("#factura").val();
         let fecha = $("#fecha").val();//documento
         let orden = $("#numero").val();//direccion
+        let pago =$("#pago").val();//direccion
         let flag = $("#flag").val();//flag
 
 
-        if (pro=== "" || emple === "" || remito === "" || tipo=== "" || fecha === "" || orden === "" || flag === ""){
+        if (pro=== "" || emple === "" || remito === "" || tipo=== "" || fecha === "" || orden === "" || flag === "" || pago === ""){
             swal("Ingrese los datos requeridos");
         } else {
-            altaCabecera(pro,emple, remito, tipo, fecha, orden,flag);
+            altaCabecera(pro,emple, remito, tipo, fecha, orden,flag,pago);
         }
     });
 
- function altaCabecera(pro,emple, remito, tipo, fecha, orden, flag) {
+ function altaCabecera(pro,emple, remito, tipo, fecha, orden, flag,pago) {
     comando = {
         "idProveedor": pro,
         "idEmpleado": emple,
@@ -490,6 +511,7 @@
         "tipoFactura": tipo,
         "fecha": fecha,
         "nroOrdenCompra": orden,
+        "pago":pago,
         "flag":flag
     }
 
@@ -544,6 +566,7 @@
             html += "<td>" + datos[i].tipoFactura + "</td>";
             html += "<td>" + roundDate(datos[i].fecha) + "</td>";
             html += "<td>" + datos[i].nroOrdenCompra+ "</td>";
+            html += "<td>" + datos[i].pago + "</td>";
 
             if (datos[i].flag == 0) {
                 html += "<td style=color:red;>inactivo</td>";//hacer que se muestre rojo: INACTIVO
@@ -686,6 +709,7 @@ function modificar(id) {
         let tipo = "";
         let fecha = 0;
         let orden = 0;
+        let pago ="";
         let flag = 0;
 
         for (let i = 0; i < Clientes.length; i++) {
@@ -694,6 +718,7 @@ function modificar(id) {
                 emple = Clientes[i].idEmpleado;
                 remito = Clientes[i].nroRemitoPedido;
                 tipo = Clientes[i].tipoFactura;
+                pago = Clientes[i].pago;
                 fecha = Clientes[i].fecha;
                 orden = Clientes[i].nroOrdenCompra;
                 flag = Clientes[i].flag;
@@ -707,6 +732,7 @@ function modificar(id) {
         $("#remitoM").val(remito);
         $("#facturaM").val(tipo);
         document.getElementById('fechaM').valueAsDate = new Date();
+        $("#pagoM").val(pago);
         $("#numeroM").val(orden);
         $("#flagM").val(flag);
 
@@ -718,6 +744,7 @@ function modificar(id) {
         let emple = $("#empleadoM").val();
         let remito = $("#remitoM").val();
         let tipo = $("#facturaM").val();
+        let pago = $("#pagoM").val();
         let fecha = $("#fechaM").val();
         let orden = $("#numeroM").val();
         let flag = $("#flagM").val();
@@ -725,21 +752,22 @@ function modificar(id) {
 
 
 
-            if (pro=== "" || emple === "" || remito === "" || tipo=== "" || fecha === "" || orden === "" || flag === "") {
+            if (pro=== "" || emple === "" || remito === "" || tipo=== "" || fecha === "" || orden === "" || flag === ""|| pago === "") {
                 swal("Ingrese los datos requeridos");
             }
             else
-                modificarProveedor(idIngresoPedido, pro,emple, remito, tipo, fecha, orden,flag);
+                modificarProveedor(idIngresoPedido, pro,emple, remito, tipo, fecha, orden,flag,pago);
         })
     }
     //modificar cabecera
-    function modificarProveedor(idIngresoPedido, pro,emple, remito, tipo, fecha, orden,flag) {
+    function modificarProveedor(idIngresoPedido, pro,emple, remito, tipo, fecha, orden,flag,pago) {
         comando = {
             "idIngresoPedido": parseInt(idIngresoPedido),
             "idProveedor": pro,
             "idEmpleado": emple,
             "nroRemitoPedido": parseInt(remito),
             "tipoFactura": tipo,
+            "pago": pago,
             "fecha": fecha,
             "nroOrdenCompra": parseInt(orden),
             "flag":parseInt(flag)

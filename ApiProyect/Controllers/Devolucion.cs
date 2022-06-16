@@ -36,6 +36,7 @@ namespace ApiProyect.Controllers
 
             resultado.Ok = true;
             resultado.Return = db.Devolucion.Include(c=> c.IdEmpleadoNavigation)
+                                            .Where(c => c.Flag == 1)
                                             .OrderBy(c=> c.IdDevolucion)
                                             .ToList(); 
             return resultado;

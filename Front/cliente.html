@@ -135,12 +135,12 @@
         <div class="tab-content" id="myTabContent" style="margin-bottom: 3%;">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                 <div class="container" style="padding: 3%;">
-                    <div style="text-align:left">
+                   <!-- <div style="text-align:left">
                         <label for="">Buscar por ID°</label>
                         <select name="id" id="cboId" class="form-control">
                         </select>
                         <button class="btn" type="submit" onclick="buscar()">Buscar</button>
-                    </div>
+                    </div>-->
                     <table class="table table-responsive-sm">
                         <table class="table table-responsive-md" id="TablaRemitos">
                             <thead class="thead-dark">
@@ -160,6 +160,7 @@
                             <tbody id="cuerpoTablaID"></tbody>
                             </tbody>
                         </table>
+                        <br>
                         <button id="btnDescargar" class="btn btn-default"> Descargar Excel </button>
                         <button type="button" style="float: right;"class="btn btn--white" onclick="checkout2.open()">Mercado Pago</button>
 
@@ -174,7 +175,7 @@
   
                           <div>
                               <h3 style="color: #6bb83e">Enviar mensaje Whataspp</h3>
-                              <h6>Colocar numero sin espacios 3511234567 no <strike>+ 351 1234567 </strike></h6>
+                              <h6>Colocar numero sin el 15 ni espacios 3511234567 no <strike>+ 351 151234567 </strike></h6>
                               <input id="number" type="number" placeholder="Ingrese numero telefonico" >
                               <input id="name" type="text" placeholder="Nombre" >
                               <input id="msg" type="text" placeholder="Mensaje" >
@@ -450,37 +451,6 @@ function requestDescargar(){
 
     }
 
-
-    function exportTableToExcel(TableID, nombreArchivo=''){
-        let linkDescarga;
-        let tipoDatos = 'application/vnd.ms-excel';
-        let tablaDatos = document.getElementById(TableID);
-        let tablaHTML = tablaDatos.outerHTML.replace(/ /g, '%20');
-
-        // Nombre del archivo
-        nombreArchivo = nombreArchivo ? nombreArchivo + '.xls':'Descarga.xls';
-
-        // Crear el link de descarga
-        linkDescarga = document.createElement("a");
-
-        document.body.appendChild(linkDescarga);
-
-        if (navigator.msSaveOrOpenBlob) {
-            let blob = new Blob(['\ufeff', tablaHTML], {
-            type: tipoDatos
-            });
-            navigator.msSaveOrOpenBlob(blob, nombreArchivo);
-        } else {
-            // Crear el link al archivo
-            linkDescarga.href = 'data:' + tipoDatos + ', ' + tablaHTML;
-
-            // Setear el nombre de archivo
-            linkDescarga.download = nombreArchivo;
-
-            //Ejecutar la función
-            linkDescarga.click();
-    }
-}
 
 //para comunicacion con cliente whattsapp
 function send_handle(){
