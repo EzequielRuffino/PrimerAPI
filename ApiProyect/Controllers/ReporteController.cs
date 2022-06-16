@@ -274,7 +274,7 @@ namespace ApiProyect.Controllers
 
 
 //Consultar cliente mas compras
-      /*  [HttpGet]
+       [HttpGet]
         [Route("[controller]/ObtenerClienteMasCompras")]
         public ActionResult<ResultAPI> Get11()
         {
@@ -283,7 +283,7 @@ namespace ApiProyect.Controllers
                 var cli   = (from c in db.Venta
                 join b in db.DetalleVenta on c.IdVenta equals b.IdVenta
                 join a in db.Clientes on c.IdCliente equals a.IdCliente
-                select new 
+                select new DTOClienteMasCompra
                 {
 
                     IdVenta = c.IdVenta,
@@ -292,10 +292,11 @@ namespace ApiProyect.Controllers
                     Cantidad = b.Cantidad
                    //Flag = c.Flag
                 })
-                .count(c=> c.IdVenta );
+                .OrderBy(b => b.Cantidad)
+                .ToList ();
                 resultado.Return = cli;
             return resultado;
-        }*/
+        }
 
 
 /*select c.id_cliente, c.nombre_cliente, count(distinct v.id_venta)
@@ -309,7 +310,24 @@ from venta v
 
 group by c.id_cliente, c.nombre_cliente
 order by count(v.id_venta)
-limit 10*/
+limit 10
+
+
+            /*var resultado = new ResultAPI();
+                resultado.Ok = true;
+                var cli   = from c in db.Venta
+                join b in db.DetalleVenta on c.IdVenta equals b.IdVenta
+                join a in db.Clientes on c.IdCliente equals a.IdCliente
+                .GroupBy(x=> new{x.b.IdVenta })
+                .Select(g=> new{
+                    g.key.IdVenta,
+                    Count = g.Count()  
+                })
+                .ToList();
+                resultado.Return = cli;
+            return resultado;*/
+
+
 
 
 
