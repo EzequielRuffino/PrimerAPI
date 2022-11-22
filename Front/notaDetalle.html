@@ -83,7 +83,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="./Imagenes/Easy-Peasy-2.svg" alt="" style="height: 50px;">
+                <img src="./Imagenes/m&elogo-modified.ico" alt="" style="height: 50px;">
                 <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
             </div>
             
@@ -157,7 +157,8 @@
                                   </div>
                                   <div class="col-lg-3">
                                     <label for="orden">Estado</label>
-                                    <input id="estado" class="form-control" type="number">
+                                    <input id="estado" class="form-control" type="number"
+                                    placeholder="0: Inactivo - 1: Activo">>
                                 </div>
                                   <div class="col-lg-7">
                                       <label for="producto">Artículo</label>
@@ -167,7 +168,8 @@
                                   </div>
                                   <div class="col-lg-3">
                                       <label for="valor">Cant.</label>
-                                      <input id="valor" class="form-control" type="number">
+                                      <input id="valor" class="form-control" type="number"
+                                      placeholder="Ingrese cantidad">>
                                   </div>
                                   <div class="col-lg-1">
                                     <br>
@@ -189,7 +191,7 @@
                       </div>
                   </section>
                   <br>
-                  <button type="button" class="btn" data-dismiss="modal">Close</button>
+                  <a type="button" class="btn" href="notaDetalle.html">Cerrar</a>                
                   <button type="button" class="btn" data-dismiss="modal" id="btnAceptar">Aceptar</button>
                 </div>
         </div>          
@@ -301,7 +303,7 @@
 $('#btnDescargar').on('click', requestDescargar);
 
 function requestDescargar(){
-  tableToExcel('TablaRemitos', 'Datos');
+  tableToExcel('TablaRemitos', 'Datos', 'PedidoDetalle');
 }
 
        
@@ -643,6 +645,7 @@ $(document).ready(function () {
     }
 
 })
+
 
 //llenar modal y pasar campos para modificar
 function modificar(id) {

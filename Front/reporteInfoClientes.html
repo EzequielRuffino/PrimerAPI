@@ -83,7 +83,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="./Imagenes/M&E.ico" alt="" style="height: 50px;">
+                <img src="./Imagenes/m&elogo-modified.ico" alt="" style="height: 50px;">
                 <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
             </div>
             
@@ -122,8 +122,8 @@
                     <label for="">Consultar Informacion de Clientes</label>
                             <select name="id" id="cboId" class="form-control">
                             </select>
-                    <button class="btn" type="submit" onclick="buscar()">Buscar </button>
-                  </div>
+                            <button class="btn" type="submit" onclick="buscar()"><i class='bi bi-search'></i></button>
+                        </div>
                     <table class="table table-responsive-sm">
                       <table class="table table-responsive-md" id="TablaRemitos">
                         <thead class="thead-dark">
@@ -226,13 +226,13 @@ $(document).ready(function () {
 
         // carga combo
         function cargarComboId(datos) {
-            var html = "<option value=''> SELECCIONE NUMERO </option>";
+            var html = "<option value=''> SELECCIONE DOCUMENTO </option>";
             $("#cboId").append(html);
             select = document.getElementById("cboId");
             for (let i = 0; i < datos.length; i++) {
                 var option = document.createElement('option');
                 option.value = datos[i].idCliente;
-                option.text = datos[i].idCliente;
+                option.text = datos[i].documento;
                 select.add(option);
             }
         }

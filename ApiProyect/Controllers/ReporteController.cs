@@ -76,7 +76,7 @@ namespace ApiProyect.Controllers
                                             .Include(c => c.IdTalleNavigation)
                                             .Include(c => c.IdMarcaNavigation)
                                             .Include(c => c.IdTipoArticuloNavigation)
-                                            .Where(c => c.Cantidad <= 1)
+                                            .Where(c => c.Cantidad <= 5)
                                             .OrderBy(c => c.IdArticulo)
                                             .ToList(); 
             return resultado;
@@ -292,6 +292,7 @@ namespace ApiProyect.Controllers
                     Cantidad = b.Cantidad
                    //Flag = c.Flag
                 })
+                .Where(c => c.Cantidad <= 5)
                 .OrderBy(b => b.Cantidad)
                 .ToList ();
                 resultado.Return = cli;

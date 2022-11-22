@@ -83,7 +83,7 @@
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div style="display: flex; align-items: center; justify-content: center;">
-                <img src="./Imagenes/M&E.ico" alt="" style="height: 50px;">
+                <img src="./Imagenes/m&elogo-modified.ico" alt="" style="height: 50px;">
                 <h4 style="color: white; margin-top: 5%;">&nbsp M&E</h4>
             </div>
             
@@ -163,7 +163,7 @@
 $('#btnDescargar').on('click', requestDescargar);
 
 function requestDescargar(){
-  tableToExcel('TablaRemitos', 'Datos');
+  tableToExcel('TablaRemitos', 'Datos', 'ReporteInsumosRecibidos');
 }
 
     let Articulos = [];
