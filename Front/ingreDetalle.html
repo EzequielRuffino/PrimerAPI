@@ -418,6 +418,8 @@ $(document).ready(function () {
      let orden = formulario['orden'];
      let nombreArticulo = formulario['producto'];
      let valor = formulario['valor'];
+     let precioUnitario = formulario['precio'];
+
 
 
      
@@ -427,44 +429,57 @@ $(document).ready(function () {
 
      var lista = {
          nombreArticulo: nombreArticulo.value,
-         cantidad: Number(valor.value)
+         cantidad: Number(valor.value),
+         cantidad2: Number(precio.value)
+
      }
 
      let elemento = ingresos.find(element => element.nombreArticulo == nombreArticulo.value);
 
      let cant = 0;
+     let canti2 = 0;
+
 
      try {
          elemento = {
             nombreArticulo: elemento.nombreArticulo,
-             cantidad: Number(elemento.cantidad += Number(lista.cantidad))
+             cantidad: Number(elemento.cantidad += Number(lista.cantidad)),
+             cantidad2: Number(elemento.cantidad2 += Number(lista.cantidad2)),
+
          }
          cant = elemento.cantidad;
+         canti2 = elemento.cantidad2;
+
      } catch (error) {
          ingresos.push(lista);
          cant = Number(valor.value);
+         canti2 = Number(precio.value);
      }
 
 
      let detalle = "";
 
      for (let i = 0; i < ingresos.length; i++) {
-         detalle += ingresos[i].nombreArticulo +"&nbsp &nbsp &nbsp &nbsp &nbsp Cant. "+ ingresos[i].cantidad+" <hr>";
+         detalle += ingresos[i].nombreArticulo +"&nbsp &nbsp &nbsp &nbsp &nbsp Cant. "+ ingresos[i].cantidad+"&nbsp &nbsp &nbsp &nbsp &nbsp Prec. "+ ingresos[i].cantidad2+" <hr>";
      }
 
      document.getElementById('itemIngreso').innerHTML = detalle;
 
      let cant2 = ingresos.find(element => element.nombreArticulo == nombreArticulo.value);
+     let cant3 = ingresos.find(element => element.nombreArticulo == nombreArticulo.value);
+
 
      if (cant != 0)
-     cargarProducto(idArticulo,cant2.cantidad);
+     cargarProducto(idArticulo,cant2.cantidad,cant3.cantidad2);
      else swal("Ingrese Cantidad");
  }
 
- function cargarProducto(index,cant){
+ function cargarProducto(index,cant,canti2){
     producto = {
       indice : index,
-      cantidad : Number(cant)
+      cantidad : Number(cant),
+      cantidad2 : Number(canti2)
+
     };
 
     Productos.push(producto);
@@ -481,13 +496,13 @@ $(document).ready(function () {
   });
  
   function IngresarProd(idIngresoPedido, Productos){
-    var precio= $("#precio").val();
+    //var precio= $("#precio").val();
     var estado = $("#estado").val();
     for (let i = 0; i < Productos.length; i++) {
       comando = {
         "idIngresoPedido": idIngresoPedido,
         "cantidad": Productos[i].cantidad,
-        "precio": precio,
+        "precio": Productos[i].cantidad2,
         "idArticulo": Productos[i].indice,
         "flag": estado
       }

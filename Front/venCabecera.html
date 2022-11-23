@@ -336,28 +336,28 @@
                   <div class="container" id="modal">
                     <div class="row">
                       <div class="col-lg-8">
-                        Nombre Cliente
+                        Cliente:
                         <div id="nombreE"></div>
                       </div>
                       <div class="col-lg-4">
-                        Fecha Venta
+                        Fecha Venta:
                         <div id="fechaE"></div>
                       </div>
-                    </div> <br>
+                    </div>
                     <div class="row">
                         <div class="col-lg-8">
-                          Numero Factura
+                          Factura Nro:
                           <div id="direccionE"></div>
                         </div>
                         <div class="col-lg-4">
-                          Nombre Empleado
+                          Empleado:
                           <div id="numeroE"></div>
                         </div>
-                      </div> <br>
+                      </div>
                     <div class="row">
                         <div class="col-lg-8">
                           <div>
-                             Forma Pago
+                             Forma Pago:
                             </div> 
                             <div id="formaE"></div>
                         </div><br>
@@ -628,7 +628,7 @@ function requestDescargar(){
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
                 "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idVenta+ ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
                 "<i class='bi bi-trash-fill'></i></button> &nbsp;" +
-                "<button type='button' class='btn' id='etic' onclick='generarEtiqueta("+datos[i].idVenta+")' data-toggle='modal' data-target='#etiqueta' data-placement='bottom'>"+
+                "<button type='button' class='btn btn-secondary pl-4 pr-4' id='etic' onclick='generarEtiqueta("+datos[i].idVenta+")' data-toggle='modal' data-target='#etiqueta' data-placement='bottom'>"+
                 "<i class='bi bi-printer'></i> </button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);

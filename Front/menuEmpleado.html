@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<!-- a esta pagina entra solo admin y gerente -->
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -9,10 +11,13 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
     <link rel="shortcut icon" href="./Imagenes/M&E.ico">
+
+    <script src="https://kit.fontawesome.com/546d00aeaa.js" crossorigin="anonymous"></script>
+    
     <title>M&E Indumentaria</title>
 
     <style>
-             @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fira+Sans:ital@1&display=swap');
         body {
             background-color: #b86262;
             font-family: 'Fira Sans', sans-serif;
@@ -37,8 +42,14 @@
             -webkit-box-shadow: 0px 1px 10px 1px rgb(194, 28, 81);
             -moz-box-shadow: 0px 1px 10px 1px rgb(194, 28, 97);
             box-shadow: 0px 1px 10px 1px rgb(194, 28, 67);
+            text-align: left;
+
         }
-        
+
+        .btn i {
+            margin-left:260px ;
+        }
+
         .btn:hover {
             color: white;
             border: 3px dashed #ffee32;
@@ -48,8 +59,9 @@
             height: 50px;
         }
     </style>
-  </head>
-  <body>
+</head>
+
+<body>
     <!-- Navbar -->
     <section>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -63,10 +75,7 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto"></ul>
-                <form class="form-inline my-2 my-lg-0" style="gap: 15px;">
-                    <a class="btn btn-success my-2 my-sm-0" type="button" href="menu.html" style="margin: 0; padding: 7px 12px 7px 12px; box-shadow: none; font-size: medium;">
-                    Volver
-                    </a>
+                <form class="form-inline my-2 my-lg-0">
                     <a class="btn btn-success my-2 my-sm-0" type="button" href="index.html" style="margin: 0; padding: 7px 12px 7px 12px; box-shadow: none; font-size: medium;">
                     Salir
                     <i class="bi bi-box-arrow-right"></i>
@@ -78,66 +87,36 @@
     <!-- Botones -->
     <section class="container">
         <div class="box">
-            <div class="row">
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteDatosUsuario.html">
-                        Consultar Datos de Usuarios <br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteConsFalt.html">
-                        Consultar Articulos Faltantes <br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteStockDisp.html">
-                        Consultar Stock Disponible<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteListCompras.html">
-                        Consultar Listado de Compras<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteInsuRecibi.html">
-                        Consultar Insumos Recibidos<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteInfoClientes.html">
-                        Consultar Informacion Clientes<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reportePagoPro.html">
-                        Consultar Pago Proveedores<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-                <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteDevolucion.html">
-                        Consultar Listado Devoluciones<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div>
-               <div class="col-lg-6">
-                    <a type="button" style="width: 80%" class="btn" href="reporteMasCompra.html">
-                        Consultar Cliente Mas Compras<br>
-                        <i class="bi bi-file-check"></i>
-                    </a>
-                </div> 
-            </div>
+            <a type="button" class="btn" href="articulo.html">
+                <!--cambiar ruta -->
+                <i class="fa-solid fa-shirt"></i>
+                Articulos
+            </a>
+            <a type="button" class="btn" href="cliente.html">
+                <!--cambiar ruta -->
+                <i class="fa-solid fa-user-large"></i>
+                Clientes
+            </a>
+            <a type="button" class="btn" href="ingreCabecera.html">
+                <!--cambiar ruta -->
+                <i class="fa-solid fa-truck"></i>
+                Recepcion Meraderia
+            </a>
+            <a type="button" class="btn" href="venCabecera.html">
+                <!--cambiar ruta -->
+                <i class="fa-solid fa-cash-register"></i>
+                Ventas
+            </a> 
+            <a type="button" class="btn" href="devoCabecera.html">
+                <!--cambiar ruta -->
+                <i class="fa-solid fa-reply"></i> 
+                Devoluciones         
+            </a>          
         </div>
     </section>
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
-  </body>
+</body>
+
 </html>

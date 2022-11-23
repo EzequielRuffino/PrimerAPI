@@ -27,7 +27,7 @@
       } else if ($("#contraseña").val() == 'Gerente123456' && $("#email").val() == 'gerente@gmail.com' && $("#cboRo").val() == 2) {
           window.location.replace("./menuReporte.html");
       } else if ($("#contraseña").val() == 'Emple123456' && $("#email").val() == 'empleado@gmail.com' && $("#cboRo").val() == 3) {
-          window.location.replace("./venCabecera.html");
+          window.location.replace("./menuEmpleado.html");
       } else {
           swal("Error de Validacion", "Porfavor ingrese email, rol y contraseña correctos", "error");
       }
