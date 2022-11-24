@@ -1,5 +1,5 @@
   function mostrarMensaje() {
-      swal("Información del Sistema", "Bienvenido a M&E proporcionado por EOR. Nos complace ofrecerle acceso al Servicio,sujeto a términos y condiciones provistos al momento de registrarse y a la Políticade Privacidadcorrespondiente de Argentina. Al acceder y utilizar el Servicio, usted expresa su consentimiento, acuerdo y entendimiento de los Términos de Servicio y la Política de Privacidad. Si no está deacuerdo con los Términos de Servicio o la Política de Privacidad, no utilice el Servicio.Si utiliza el servicio está aceptando las modalidades operativas en vigencia descriptas más adelante, las declara conocer y aceptar.");
+      swal("Información del Sistema", "Bienvenido a M&E proporcionado por EOR. Nos complace ofrecerle acceso al Servicio, sujeto a términos y condiciones provistos al momento de registrarse y a la Política de Privacidad correspondiente de Argentina. Al acceder y utilizar el Servicio, usted expresa su consentimiento, acuerdo y entendimiento de los Términos de Servicio y la Política de Privacidad. Si no está de acuerdo con los Términos de Servicio o la Política de Privacidad, no utilice el Servicio. Si utiliza el servicio está aceptando las modalidades operativas en vigencia descriptas más adelante, las declara conocer y aceptar.");
   }
 
   function go() {

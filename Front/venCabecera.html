@@ -624,11 +624,11 @@ function requestDescargar(){
             cont.push(0);
 
             html += "</td>";  
-            html += "<td><button type='button' class='btn btn-primary pl-4 pr-4'' id='modificar' onclick='modificar (" + datos[i].idVenta + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
+            html += "<td><button type='button' class='btn btn-primary pl-3 pr-3'' id='modificar' onclick='modificar (" + datos[i].idVenta + ")' data-toggle='modal' data-target='#update' data-placement='bottom'>" +
                 "<i class='bi bi-pencil-fill'></i></button> &nbsp;" +
-                "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-4 pr-4' onclick='eliminar (" + datos[i].idVenta+ ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
+                "<button type='button' id='btnBaja' name='btnBaja' class='btn btn-success pl-3 pr-3' onclick='eliminar (" + datos[i].idVenta+ ") ' data-toggle='modal' data-target='#baja' data-placement='bottom'>" +
                 "<i class='bi bi-trash-fill'></i></button> &nbsp;" +
-                "<button type='button' class='btn btn-secondary pl-4 pr-4' id='etic' onclick='generarEtiqueta("+datos[i].idVenta+")' data-toggle='modal' data-target='#etiqueta' data-placement='bottom'>"+
+                "<button type='button' class='btn btn-secondary pl-3 pr-3' id='etic' onclick='generarEtiqueta("+datos[i].idVenta+")' data-toggle='modal' data-target='#etiqueta' data-placement='bottom'>"+
                 "<i class='bi bi-printer'></i> </button> " + "</td>";
             html += "</tr>"
             $("#cuerpoTabla").append(html);
